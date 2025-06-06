@@ -1,5 +1,6 @@
 package com.medical.schoolMedical.entities;
 
+import com.medical.schoolMedical.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,9 @@ public class Student {
     @Column(name = "fullname", length = 50,nullable = false)
     private String fullName;
 
-    @Column(name = "gender", length = 11,nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date", nullable = false)

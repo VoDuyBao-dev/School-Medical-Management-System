@@ -19,9 +19,9 @@ public class SchoolNurse {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "fullname", length = 50,nullable = false)
+    @Column(name = "fullname", length = 50)
     private String fullName;
 
-    @Column(name = "years_of_experience",nullable = false)
+    @Column(name = "years_of_experience")
     private int experience;
 }
