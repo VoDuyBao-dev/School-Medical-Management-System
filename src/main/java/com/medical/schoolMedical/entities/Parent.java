@@ -21,13 +21,13 @@ public class Parent {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "fullname", length = 50,nullable = false)
+    @Column(name = "fullname", length = 50)
     private String fullName;
 
-    @Column(name = "phone_number", length = 11,nullable = false)
+    @Column(name = "phone_number", length = 11)
     private String phoneNumber;
 
-    @Column(name = "address", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "address", columnDefinition = "TEXT")
     private String address;
 
 

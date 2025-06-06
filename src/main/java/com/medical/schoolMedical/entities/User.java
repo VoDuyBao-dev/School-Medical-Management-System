@@ -1,5 +1,6 @@
 package com.medical.schoolMedical.entities;
 
+import com.medical.schoolMedical.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
     @Column(name = "isDeleted", columnDefinition = "TINYINT DEFAULT 0")
     private boolean isDeleted = false;

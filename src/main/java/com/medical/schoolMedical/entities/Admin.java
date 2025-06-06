@@ -19,7 +19,7 @@ public class Admin {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "fullname", length = 50,nullable = false)
+    @Column(name = "fullname")
     private String fullName;
 
 
