@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
@@ -25,6 +27,11 @@ public class UserService {
     SchoolNurseRepository schoolNurseRepository;
     ManagerRepository managerRepository;
     UserMapper userMapper;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     public UserDTO signUp(UserDTO userDTO) {
         if(userRepository.existsByUsername(userDTO.getUsername())){
             throw new BusinessException(ErrorCode.USERNAME_EXISTS,"Người dùng đã tồn tại");
@@ -78,11 +85,22 @@ public class UserService {
                     parent.setUser(user);
                     parentRepositoty.save(parent);
                     break;
-
             }
             return user;
-
     }
+
+
+    //Kiểm tra coi đã đăng nhập chưa
+    public boolean checkLogin(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 }

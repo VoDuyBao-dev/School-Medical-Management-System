@@ -12,5 +12,4 @@ public class Home {
         return "user/index";
     }
 
-
 }

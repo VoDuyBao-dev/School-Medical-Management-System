@@ -45,7 +45,7 @@ public class SignupController {
         try {
             userService.signUp(user);
             redirectAttributes.addFlashAttribute ("signup_user","Đăng kí thành công");
-            return "redirect:/home";
+            return "redirect:/login";
         }catch(BusinessException ex){
             bindingResult.rejectValue("password", null, ex.getMessage());
             return "admin/signup";
