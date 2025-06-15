@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Đăng nhập</h2>
-<form th:action="@{/login}" method="post" th:object="${user}">
+<form th:action="@{/doLogin}" method="post" th:object="${user}">
     <div>
         <label for="username">Số điện thoại:</label>
         <input type="text" id="username" th:field="*{username}" required />

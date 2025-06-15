@@ -34,7 +34,7 @@ public class UserService {
 
     public UserDTO signUp(UserDTO userDTO) {
         if(userRepository.existsByUsername(userDTO.getUsername())){
-            throw new BusinessException(ErrorCode.USERNAME_EXISTS,"Người dùng đã tồn tại");
+            throw new BusinessException(ErrorCode.USERNAME_EXISTS);
         }
 
         User user = userMapper.toUser(userDTO);
@@ -46,7 +46,7 @@ public class UserService {
             return userMapper.toUserDTO(createUser(user));
         }catch (Exception ex){
             //            Bắt các lỗi ngoài ý muốn
-            throw new BusinessException(ErrorCode.INTERNAL_ERROR, "Đăng ký thất bại, vui lòng thử lại");
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR);
         }
 
 
@@ -55,7 +55,7 @@ public class UserService {
     public void validateUserInput(UserDTO userDTO) {
         String password = userDTO.getPassword().trim();
         if (password.contains("<script>") || password.matches(".*[<>\"'].+")) {
-            throw new BusinessException(ErrorCode.INVALID_PASSWORD, "Định dạng password không hợp lệ");
+            throw new BusinessException(ErrorCode.INVALID_PASSWORD);
         }
 
         // gán lại username đã clean
@@ -99,6 +99,19 @@ public class UserService {
             return false;
         }
     }
+
+    /*public User checkLogin(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        } else {
+            throw new BusinessException(ErrorCode.INVALID_CREDENTIALS);
+
+        }
+    }*/
+
+
+
 
 
 

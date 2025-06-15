@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Admin Dashboard</title></head>
+<body>
+    <h1>Welcome Admin: <span th:text="${username}">Admin</span></h1>
+    <p>This is the admin dashboard.</p>
+    <a th:href="@{/admin/manage-users}">Manage Users</a>
+</body>
+</html>

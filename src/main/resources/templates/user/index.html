@@ -2,11 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>inbdex</title>
+    <title>Home - School Medical System<</title>
 </head>
 <body>
-<h1 th:text="${signup_user}"></h1>
-<h1 th:text="${signin_user}"></h1>
-<h2>alooo</h2>
+    <h1 th:text="${signup_user}"></h1>
+    <p>This is the public homepage for all visitors.</p>
+    <h1 th:text="${signin_user}"></h1>
+    <div th:if="${#httpServletRequest.userPrincipal != null}">
+        <p>Welcome back, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
 </body>
 </html>

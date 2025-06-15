@@ -11,5 +11,4 @@ public class Home {
         model.addAttribute("user", "hello day la bao");
         return "user/index";
     }
-
 }
