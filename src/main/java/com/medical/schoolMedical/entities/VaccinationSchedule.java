@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Table(name = "vaccination_schedule")
 public class VaccinationSchedule {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "schedule_id")
-    private int id;
+    private long id;
 
     @Column(name = "vaccine_type", nullable = false)
     private String vaccine_type;

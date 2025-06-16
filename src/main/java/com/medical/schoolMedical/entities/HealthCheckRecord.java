@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Table(name = "Health_check_record")
 public class HealthCheckRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "health_check_id")
-    private int id;
+    private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "health_check_consent_id", referencedColumnName = "health_check_consent_id", nullable = false)

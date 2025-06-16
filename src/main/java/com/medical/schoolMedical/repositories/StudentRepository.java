@@ -1,9 +1,9 @@
 package com.medical.schoolMedical.repositories;
 
-import com.medical.schoolMedical.entities.Manager;
+import com.medical.schoolMedical.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Manager,Long> {
+public interface StudentRepository extends JpaRepository<Student,Long> {
 }

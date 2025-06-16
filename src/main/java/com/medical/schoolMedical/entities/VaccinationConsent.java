@@ -1,5 +1,6 @@
 package com.medical.schoolMedical.entities;
 
+import com.medical.schoolMedical.enums.ConsentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "vaccination_consent")
 public class VaccinationConsent {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vaccination_consent_id")
-    private int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = false)
@@ -27,8 +28,9 @@ public class VaccinationConsent {
     @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id", nullable = false)
     private VaccinationSchedule schedule;
 
-    @Column(name = "confirmed", columnDefinition = "TINYINT DEFAULT 0", nullable = false)
-    private boolean confirmed = false;
+    @Column(name = "consent_status", nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'UNCONFIRMED'")
+    @Enumerated(EnumType.STRING)
+    private ConsentStatus status;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;

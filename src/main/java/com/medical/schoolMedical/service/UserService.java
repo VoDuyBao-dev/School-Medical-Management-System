@@ -84,5 +84,29 @@ public class UserService {
 
     }
 
+//    Hàm đăng nhâp tạm thời
+    public UserDTO login(UserDTO userDTO) {
+
+        User user = userRepository.findByUsername(userDTO.getUsername());
+        if(user == null){
+            throw new BusinessException(ErrorCode.USERNAME_NOT_EXISTS, "user doesn't exists");
+        }
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if(!(passwordEncoder.matches(userDTO.getPassword(), user.getPassword()))){
+            throw new BusinessException(ErrorCode.INVALID_PASSWORD, "incorrect username or password");
+        }
+        return userMapper.toUserDTO(user);
+    }
+
+    public String getRole(UserDTO userDTO){
+        try{
+            return userDTO.getRole().name();
+        }catch (NullPointerException ex){
+            throw new NullPointerException("Role is null");
+        }
+
+    }
+
 
 }

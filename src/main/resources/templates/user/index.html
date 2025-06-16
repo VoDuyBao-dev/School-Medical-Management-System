@@ -2,11 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>inbdex</title>
+    <title>Trang chủ User</title>
+    <style>
+        /* Style popup thông báo */
+        #healthCheckNotification {
+
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        #overlay {
+            display: none; /* ẩn mặc định */
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${signup_user}"></h1>
-<h1 th:text="${signin_user}"></h1>
-<h2>alooo</h2>
+
+<h2>Trang chủ user</h2>
+<p>showNotification: <span th:text="${showNotification}"></span></p>
+<!-- Popup thông báo -->
+<div id="overlay" th:if="${showNotification}" ></div>
+<div id="healthCheckNotification" th:if="${showNotification}" >
+    <p>Bạn có phiếu khám sức khỏe định kỳ mới!</p>
+    <a th:href="@{/user/healthCheckConsent/list}" onclick="dismissNotification()">Xem phiếu khảo sát</a>
+    <br><br>
+    <button onclick="dismissNotification()">Bỏ qua</button>
+</div>
+
+<script>
+    function dismissNotification() {
+        fetch('/yte/user/notification/dismiss', { method: 'POST' })
+
+            .then(() => {
+                document.getElementById('healthCheckNotification').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            });
+    }
+</script>
+
 </body>
 </html>

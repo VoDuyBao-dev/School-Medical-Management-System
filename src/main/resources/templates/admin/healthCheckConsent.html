@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>abc</title>
+</head>
+<body>
+<h2>health check consent</h2>
+<div th:if="${error}" class="error">
+    <p th:text="${error}"></p>
+</div>
+<form th:action="@{/admin/healthCheckConsent/send}" method="post" th:object="${healthCheckConsent}">
+
+    <div>
+        <label for="checkDate">Ngày kiểm tra:</label>
+        <input type="date" id="checkDate" th:field="*{checkDate}" required />
+
+    </div>
+    <div th:if="${#fields.hasErrors('checkDate')}" th:errors="*{checkDate}" style="color: red"></div>
+
+    <div>
+        <label for="content">Nội dung:</label>
+        <textarea id="content" th:field="*{content}" rows="4" cols="50"></textarea>
+    </div>
+
+    <div>
+        <label for="notes">Ghi chú:</label>
+        <textarea id="notes" th:field="*{notes}" rows="4" cols="50"></textarea>
+    </div>
+
+    <button type="submit">Gửi phiếu</button>
+</form>
+
+</body>
+</html>

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 
 @Entity
 @Data
@@ -13,9 +15,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "parents")
 public class Parent {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "parent_id")
-    private int id;
+    private long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -30,6 +32,8 @@ public class Parent {
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
 
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Student> students;
 
 }
 

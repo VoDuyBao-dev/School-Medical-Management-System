@@ -14,9 +14,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/admin")
 public class SignupController {
     @Autowired
     UserService userService;
@@ -45,7 +47,7 @@ public class SignupController {
         try {
             userService.signUp(user);
             redirectAttributes.addFlashAttribute ("signup_user","Đăng kí thành công");
-            return "redirect:/home";
+            return "redirect:/admin/index";
         }catch(BusinessException ex){
             bindingResult.rejectValue("password", null, ex.getMessage());
             return "admin/signup";

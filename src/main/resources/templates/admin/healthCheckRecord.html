@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Check Record Form</title>
+</head>
+<body>
+<h2>Ghi nhận kết quả khám sức khỏe của </span> </h2>
+<!--<span th:text="${studen}">-->
+<h3>Ngày abc </h3>
+
+
+
+  <form th:action="@{/admin/healthCheckRecord/save-update-Form}" th:object="${healthCheckRecordDTO}" method="post">
+    <input type="hidden" th:field="*{healthCheckConsentId}" />
+    <input type="hidden" th:field="*{id}" />
+    <div>
+    <label for="visionResult">Vision Result:</label>
+    <input type="number" id="visionResult" th:field="*{visionResult}" required />
+    <div th:if="${#fields.hasErrors('visionResult')}" th:errors="*{visionResult}" style="color: red"></div>
+  </div>
+
+  <div>
+    <label for="hearingResult">Hearing Result:</label>
+    <input type="text" id="hearingResult" th:field="*{hearingResult}" required />
+    <div th:if="${#fields.hasErrors('hearingResult')}" th:errors="*{hearingResult}" style="color: red"></div>
+  </div>
+
+  <div>
+    <label for="otherResult">Other Result:</label>
+    <textarea id="otherResult" th:field="*{otherResult}"></textarea>
+  </div>
+
+  <div>
+    <label for="assessment">Assessment:</label>
+    <textarea id="assessment" th:field="*{assessment}"></textarea>
+  </div>
+
+  <div>
+    <label for="needs_consultation">Needs Consultation:</label>
+    <input type="checkbox" id="needs_consultation" th:field="*{needs_consultation}" />
+  </div>
+
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+
+</body>
+</html>

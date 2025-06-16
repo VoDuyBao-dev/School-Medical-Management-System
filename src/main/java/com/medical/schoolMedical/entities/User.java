@@ -10,13 +10,12 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
-
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private int id;
+    private long id;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
