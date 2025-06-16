@@ -24,14 +24,14 @@ public class SignupController {
     @GetMapping("/register")
     public String signup(Model model) {
         model.addAttribute("user", new User());
-        return "admin/signup";
+        return "user/signup";
     }
     @PostMapping("/register")
     public String signup(@ModelAttribute ("user") @Valid UserDTO user,
                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
        if(bindingResult.hasErrors()){
-            return "admin/signup";
+            return "user/signup";
        }
 //       kiem tra dữ liệu đầu vào
        try{
@@ -39,7 +39,7 @@ public class SignupController {
        }catch(BusinessException ex){
            bindingResult.rejectValue("password", null, ex.getMessage());
 
-           return "admin/signup";
+           return "user/signup";
        }
 //       Lưu user
         try {
@@ -48,7 +48,7 @@ public class SignupController {
             return "redirect:/login";
         }catch(BusinessException ex){
             bindingResult.rejectValue("password", null, ex.getMessage());
-            return "admin/signup";
+            return "user/signup";
         }
 
     }

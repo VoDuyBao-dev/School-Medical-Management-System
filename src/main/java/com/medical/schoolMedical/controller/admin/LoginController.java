@@ -19,7 +19,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("user", new UserDTO());
-        return "admin/login";
+        return "user/login";
     }
 
     @PostMapping("/login")
@@ -32,11 +32,16 @@ public class LoginController {
                 return "redirect:/home";
             } else {
                 model.addAttribute("error", "Tài khoản hoặc mật khẩu không đúng.");
-                return "admin/login";
+                return "user/login";
             }
         } catch (BusinessException e) {
             model.addAttribute("error", e.getMessage());
-            return "admin/login";
+            return "user/login";
         }
+    }
+
+    @GetMapping("/admin/login")
+    public String adminLoginPage(Model model) {
+        return "admin/login";  // View ở: templates/admin/login.html
     }
 }

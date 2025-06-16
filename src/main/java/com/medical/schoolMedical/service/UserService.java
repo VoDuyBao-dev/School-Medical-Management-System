@@ -2,10 +2,12 @@ package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.dto.UserDTO;
 import com.medical.schoolMedical.entities.*;
+import com.medical.schoolMedical.enums.Role;
 import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.mapper.UserMapper;
 import com.medical.schoolMedical.repositories.*;
+import jakarta.annotation.PostConstruct;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -100,15 +103,43 @@ public class UserService {
         }
     }
 
-    /*public User checkLogin(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user;
-        } else {
-            throw new BusinessException(ErrorCode.INVALID_CREDENTIALS);
 
+    @PostConstruct
+    public void initAdmin() {
+        if (userRepository.findByUsername("admin") == null) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setPassword(passwordEncoder.encode("admin")); // mã hoá password
+            admin.setRole(Role.ADMIN); // sử dụng enum
+            userRepository.save(admin);
+            System.out.println("Admin mặc định đã được tạo: admin/admin");
         }
-    }*/
+    }
+
+    // Lấy tất cả user chưa bị xóa
+    public List<User> findAllUsers() {
+        return userRepository.findByIsDeletedFalse();
+    }
+
+    // Lưu hoặc cập nhật user
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    // Tìm theo ID
+    public User findById(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    // Xóa mềm
+    public void softDeleteUser(int id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            user.setDeleted(true);
+            userRepository.save(user);
+        }
+    }
+
 
 
 

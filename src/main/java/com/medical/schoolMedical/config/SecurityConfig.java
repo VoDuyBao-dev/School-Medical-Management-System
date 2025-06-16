@@ -5,6 +5,7 @@ import com.medical.schoolMedical.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,8 +34,34 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Order(1)
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/admin/**")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/login").permitAll()
+                        .anyRequest().hasRole("ADMIN")
+                )
+                .formLogin(form -> form
+                        .loginPage("/admin/login")
+                        .loginProcessingUrl("/admin/doLogin")
+                        .successHandler(customSuccessHandler)
+                        .failureUrl("/admin/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/admin/logout")
+                        .logoutSuccessUrl("/admin/login?logout=true")
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain userFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
@@ -43,7 +70,6 @@ public class SecurityConfig {
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
                         .requestMatchers("/schoolNurse/**").hasRole("SCHOOL_NURSE")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll() // mặc định: cho phép
                 )
                 .formLogin(form -> form
