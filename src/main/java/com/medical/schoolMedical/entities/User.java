@@ -35,5 +35,18 @@ public class User {
     @CreationTimestamp
     private LocalDate creationDate;
 
+    // Optional: ánh xạ ngược 1-1 (chỉ nếu cần)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // Thêm orphanRemoval cho 1-1 (xoa cha se xoa con)
+    private Parent parent;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Admin admin;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Manager manager;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private SchoolNurse nurse;
+
 }
 

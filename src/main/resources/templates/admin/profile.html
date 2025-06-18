@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ sơ quản trị viên</title>
+    <style>
+        button {
+            margin-top: 16px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h2>Thông tin hồ sơ quản trị viên</h2>
+
+    <p><strong>Tên đăng nhập:</strong> <span th:text="${user.username}"></span></p>
+    <p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>
+    <p><strong>Ngày tạo tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
+
+    <!-- Nếu Admin có thêm các trường riêng -->
+    <p><strong>Họ tên:</strong>
+        <span th:text="${admin != null and admin.fullName != null ? admin.fullName : 'Chưa cập nhật'}"></span>
+    </p>
+
+    <br>
+    <a th:href="@{/admin/edit-profile}"><button type="button">Chỉnh sửa thông tin</button></a>
+    <a th:href="@{/admin/dashboard}"><button type="button">Quay về trang chủ</button></a>
+
+</body>
+</html>
