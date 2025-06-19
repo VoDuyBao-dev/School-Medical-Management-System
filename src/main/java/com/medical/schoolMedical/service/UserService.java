@@ -71,11 +71,6 @@ public class UserService {
     public User createUser(User user){
             userRepository.save(user);
             switch (user.getRole()){
-                case ADMIN:
-                    Admin admin = new Admin();
-                    admin.setUser(user);
-                    adminRepository.save(admin);
-                    break;
                 case MANAGER:
                     Manager manager = new Manager();
                     manager.setUser(user);
@@ -110,6 +105,7 @@ public class UserService {
     @PostConstruct
     public void initAdmin() {
         if (userRepository.findByUsername("admin") == null) {
+//
             User adminUser = new User();
             adminUser.setUsername("admin");
             adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
@@ -122,7 +118,6 @@ public class UserService {
             admin.setFullName("Admin");
             adminRepository.save(admin);
 
-            System.out.println("Admin mặc định đã được tạo: admin/admin");
         }
     }
 
@@ -138,12 +133,12 @@ public class UserService {
     }
 
     // Tìm theo ID
-    public User findById(int id) {
+    public User findById(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     // Xóa mềm
-    public void softDeleteUser(int id) {
+    public void softDeleteUser(long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             user.setDeleted(true);

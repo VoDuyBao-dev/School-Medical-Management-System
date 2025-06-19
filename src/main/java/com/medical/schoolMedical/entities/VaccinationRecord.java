@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "vaccination_record")
 public class VaccinationRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "vaccination_record_id")
-    private int id;
+    private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vaccination_consent_id", referencedColumnName = "vaccination_consent_id", nullable = false)

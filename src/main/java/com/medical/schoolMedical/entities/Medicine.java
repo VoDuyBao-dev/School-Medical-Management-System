@@ -17,9 +17,9 @@ import java.util.List;
 @Table(name = "medicine")
 public class Medicine {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "medicine_id")
-    private int id;
+    private long id;
 
     // Quan hệ với bảng trung gian
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)

@@ -3,14 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Home - School Medical System<</title>
+    <title>Trang chủ User</title>
+    <style>
+        /* Style popup thông báo */
+        #healthCheckNotification {
+
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 300px;
+            text-align: center;
+        }
+        #overlay {
+            display: none; /* ẩn mặc định */
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
-    <h1 th:text="${signup_user}"></h1>
-    <p>This is the public homepage for all visitors.</p>
-    <h1 th:text="${signin_user}"></h1>
-    <div th:if="${#httpServletRequest.userPrincipal != null}">
-        <p>Welcome back, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>
-        <a th:href="@{/logout}">Logout</a>
-    </div>
+<!--    <h1 th:text="${signup_user}"></h1>-->
+<!--    <p>This is the public homepage for all visitors.</p>-->
+<!--    <h1 th:text="${signin_user}"></h1>-->
+<!--    <div th:if="${#httpServletRequest.userPrincipal != null}">-->
+<!--        <p>Welcome back, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>-->
+<!--        <a th:href="@{/logout}">Logout</a>-->
+<!--    </div>-->
+
+<h2>Trang chủ user</h2>
+
+
 </body>
 </html>

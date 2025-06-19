@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Phiếu Khảo Sát Sức Khỏe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .no-data {
+            text-align: center;
+            font-style: italic;
+            color: gray;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Danh sách Phiếu Khảo Sát Khám Sức Khỏe</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Tiêu đề</th>
+        <th>Ngày gửi</th>
+        <th>Trạng thái</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="survey : ${surveys}">
+        <td th:text="${survey.title}">Tên phiếu khảo sát</td>
+        <td th:text="${#dates.format(survey.createdDate, 'dd/MM/yyyy HH:mm')}">01/01/2025</td>
+        <td th:text="${survey.status}">Chưa phản hồi</td>
+        <td>
+            <a th:href="@{/user/healthCheckConsent/view/{id}(id=${survey.id})}" class="btn">Xem chi tiết</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(surveys)}">
+        <td colspan="4" class="no-data">Không có phiếu khảo sát nào.</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

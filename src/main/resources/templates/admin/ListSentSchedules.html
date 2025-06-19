@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách lịch khám đã gửi</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #17a2b8;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Danh sách các lịch khám đã gửi</h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Ngày khám</th>
+    <th>Ngày gửi</th>
+    <th>Nội dung</th>
+    <th>Ghi chú</th>
+    <th>Thao tác</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="schedule, iterStat : ${sentSchedules}">
+    <td th:text="${iterStat.index + 1}">1</td>
+    <td th:text="${#temporals.format(schedule.checkDate, 'dd/MM/yyyy')}">05/01/2026</td>
+    <td th:text="${#temporals.format(schedule.sentDate, 'dd/MM/yyyy')}">01/01/2026</td>
+    <td th:text="${schedule.content}">Nội dung khám sức khỏe...</td>
+    <td th:text="${schedule.notes}">Nội dung khám sức khỏe...</td>
+    <td>
+      <a th:href="@{/schoolNurse/healthCheckConsent/list-student-health-check(date=${#temporals.format(schedule.checkDate, 'yyyy-MM-dd')}, id=${schedule.id})}"
+      style="color: #007bff; text-decoration: underline;">Xem học sinh</a>
+
+    </td>
+  </tr>
+
+  <tr th:if="${#lists.isEmpty(sentSchedules)}">
+    <td colspan="4" style="text-align:center; font-style:italic;">Chưa có lịch khám nào được gửi.</td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
