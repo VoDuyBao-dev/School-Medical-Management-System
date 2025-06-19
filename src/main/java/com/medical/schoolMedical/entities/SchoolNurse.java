@@ -3,6 +3,7 @@ package com.medical.schoolMedical.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -17,6 +18,7 @@ public class SchoolNurse {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @Column(name = "fullname", length = 50)

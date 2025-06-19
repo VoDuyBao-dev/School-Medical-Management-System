@@ -95,10 +95,6 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
         }
         log.info("healthCheckConsentDTO của record: "+ healthCheckConsentDTO);
 
-//        Gán obj healthCheckConsentDTO vừa lấy vô healthCheckRecordDTO
-//        healthCheckRecordDTO.setHealthCheckConsentDTO(healthCheckConsentDTO);
-//        log.info("healthCheckRecordDTO của record: "+ healthCheckRecordDTO);
-
 //        Lấy date để có gì còn quay lại đg dẫn trc đó nếu có lỗi
         LocalDate date = healthCheckConsentDTO.getCheckDate();
         log.info("date bên trong record controller: "+date);
@@ -135,7 +131,7 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
             try{
                 healthCheckRecordDTO = healthCheckRecordService.toHealthCheckRecordDTO(healthCheckConsentDTO);
                 healthCheckRecordDTO.setHealthCheckConsentId(healthCheckRecordDTO.getHealthCheckConsentDTO().getId());
-                log.info("healthCheckRecordDTO của updateForm ==> "+healthCheckRecordDTO.toString());
+//                log.info("healthCheckRecordDTO của updateForm ==> "+healthCheckRecordDTO.toString());
             }catch (BusinessException e){
                redirectAttributes.addFlashAttribute("notification",e.getMessage());
                 return "redirect:/admin/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
