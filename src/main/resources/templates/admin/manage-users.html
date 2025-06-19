@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý người dùng</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .actions a {
+            margin-right: 8px;
+        }
+        .message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Quản lý người dùng</h2>
+
+<!-- Thông báo thành công -->
+<div th:if="${success}" class="message" th:text="${success}"></div>
+
+<a th:href="@{/admin/add-user}">
+    <button type="button">➕ Thêm người dùng</button>
+</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên đăng nhập</th>
+        <th>Vai trò</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.username}">example</td>
+        <td th:text="${user.role}">ROLE_PARENT</td>
+        <td class="actions">
+            <a th:href="@{'/admin/edit-user/' + ${user.id}}">Sửa</a>
+            <a th:href="@{'/admin/delete-user/' + ${user.id}}"
+               onclick="return confirm('Bạn có chắc chắn muốn xoá người dùng này không?');">Xoá</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+

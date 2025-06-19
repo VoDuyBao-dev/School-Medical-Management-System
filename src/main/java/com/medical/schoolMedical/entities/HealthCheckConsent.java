@@ -45,5 +45,8 @@ public class HealthCheckConsent {
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
+
+    @Column(name = "is_checked_health",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean is_checked_health = false;
 }
 

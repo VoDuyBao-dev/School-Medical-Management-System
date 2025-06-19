@@ -33,7 +33,7 @@ public class ConfirmHealthCheck {
             ,Model model) {
         try{
             healthCheckConsentService.updateHealthCheckConsent(id, response);
-            return "redirect:/home";
+            return "redirect:/parent/parent-home";
         }catch(BusinessException e){
             model.addAttribute("error",e.getMessage());
             return "user/confirmHealthCheckConsent";

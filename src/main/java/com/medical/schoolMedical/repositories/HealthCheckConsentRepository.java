@@ -25,18 +25,21 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
     JOIN h.student s 
     WHERE h.checkDate = :date 
     AND h.status = :status 
-    ORDER BY s.fullName ASC, s.className ASC
+    AND h.is_checked_health = :is_checked_health 
+    ORDER BY s.fullName ASC, s.className ASC 
     """,
             countQuery = """
     SELECT COUNT(DISTINCT s) FROM HealthCheckConsent h 
     JOIN h.student s 
     WHERE h.checkDate = :date 
     AND h.status = :status
+    AND h.is_checked_health = :is_checked_health 
     """
     )
     Page<Student> findByCheckDateAndStatusSorted(
             @Param("date") LocalDate date,
             @Param("status") ConsentStatus status,
+            @Param("is_checked_health") boolean is_checked_health,
             Pageable pageable
     );
 
@@ -53,5 +56,4 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
 
     Optional<HealthCheckConsent> findByStudentIdAndCheckDateAndStatus(Long studentId, LocalDate checkDate, ConsentStatus status);
 
-//    HealthCheckConsent findById(long id);
 }

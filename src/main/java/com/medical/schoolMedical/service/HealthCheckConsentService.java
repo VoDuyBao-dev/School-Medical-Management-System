@@ -45,7 +45,7 @@ public class HealthCheckConsentService {
                  try {
                      healthCheckConsentRepository.save(consent);
                  }catch (Exception e){
-                     throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_CONSENT_FAILED, "Tạo phiếu kiểm tra sức khỏe thất bại");
+                     throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_CONSENT_FAILED);
                  }
             }
             return true;
@@ -66,7 +66,7 @@ public class HealthCheckConsentService {
 //    phiếu chi tiết của từng student
     public HealthCheckConsentDTO getHealthCheckConsentById(Long healthCheckID) {
         HealthCheckConsent healthCheck =  healthCheckConsentRepository.findById(healthCheckID)
-                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND, "ID của phiếu đồng ý kiểm tra sức khỏe không hợp lệ"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND));
 
         return  healthCheckConsentMapper.toDTO(healthCheck);
     }
@@ -74,10 +74,10 @@ public class HealthCheckConsentService {
 //    Xử lí trạng thái phiếu khám khi người dùng đồng ý hoặc không
     public void updateHealthCheckConsent(Long id, String response) {
         HealthCheckConsent healthCheckConsent = healthCheckConsentRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND, "ID của phiếu kiểm tra sức khỏe không hợp lệ"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND));
 
         if(healthCheckConsent.getCheckDate().isBefore(LocalDate.now()) || "OVERDUE".equals(healthCheckConsent.getStatus().name())){
-            throw new BusinessException(ErrorCode.SURVEY_EXPIRED, "Phiếu kiểm tra sức khỏe đã hết hạn");
+            throw new BusinessException(ErrorCode.SURVEY_EXPIRED);
         }
         if("agree".equals(response)){
             healthCheckConsent.setStatus(ConsentStatus.ACCEPTED);
@@ -87,7 +87,7 @@ public class HealthCheckConsentService {
         try{
             healthCheckConsentRepository.save(healthCheckConsent);
         }catch (Exception e){
-            throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_CONSENT_FAILED, "update phiếu kiểm tra sức khỏe thất bại");
+            throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_CONSENT_FAILED);
         }
 
     }
@@ -123,17 +123,25 @@ public class HealthCheckConsentService {
 
     }
 
-
-//    Lấy toàn bộ học sinh đã được accepted theo ngày kiểm tra sức khỏe
-    public Page<StudentDTO> getStudentsHealthCheck(LocalDate checkDate, int page) {
-//        số lượng học sinh trên 1 trang danh sách
-        int pageSize = 20;
+//    Phân trang:
+    private Pageable pagination(int page, int size) {
+        //        số lượng học sinh trên 1 trang danh sách
+        int pageSize = size;
 //        Định nghĩa Pageable
 //        cần tham số là: trang a cần lấy và số lg hs trên 1 trang
-        Pageable pageable = PageRequest.of(page, pageSize);
+         return PageRequest.of(page, pageSize);
+    }
+
+
+//    Lấy toàn bộ học sinh đã được accepted theo ngày kiểm tra sức khỏe đã khám và chưa khám
+    public Page<StudentDTO> getStudentsHealthCheck(LocalDate checkDate, int page, boolean is_checked_health) {
+
+        Pageable pageable = pagination(page, 20);
+
 //        Lấy danh sách các student health check trong ngày ... đã được phụ huynh đồng ý
+
         Page<Student> studentPage = healthCheckConsentRepository
-                .findByCheckDateAndStatusSorted(checkDate, ConsentStatus.ACCEPTED, pageable);
+                .findByCheckDateAndStatusSorted(checkDate, ConsentStatus.ACCEPTED,is_checked_health, pageable);
 
 //        Chuyển các student đó sang studentDTO
         List<StudentDTO> dtoList = studentPage.getContent().stream()
@@ -153,10 +161,17 @@ public class HealthCheckConsentService {
 //    Lấy health check consent phù hợp với cái người dùng chọn
     public HealthCheckConsentDTO getHealthCheckConsent(Long studentId, LocalDate checkDate) {
         HealthCheckConsent consent = healthCheckConsentRepository.findByStudentIdAndCheckDateAndStatus(studentId,checkDate,ConsentStatus.ACCEPTED)
-                .orElseThrow(() -> new  BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND, "không tìm thấy lịch khám sức khỏe theo yêu cầu"));
+                .orElseThrow(() -> new  BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND));
 
         return healthCheckConsentMapper.toDTO(consent);
 
+    }
+
+     public HealthCheckConsent getHealthCheckConsentEntity_ById(Long healthCheckID) {
+        HealthCheckConsent healthCheck =  healthCheckConsentRepository.findById(healthCheckID)
+                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND));
+
+        return  healthCheck;
     }
 
 //    Lấy health check consent theo id

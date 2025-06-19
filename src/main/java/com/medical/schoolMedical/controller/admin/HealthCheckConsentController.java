@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/healthCheckConsent")
+@RequestMapping("/schoolNurse/healthCheckConsent")
 public class HealthCheckConsentController {
     @Autowired
     private HealthCheckConsentService healthCheckConsentService;
@@ -44,7 +44,7 @@ public class HealthCheckConsentController {
         try{
             boolean create_consent = healthCheckConsentService.create_checkConsent(healthCheckConsentDTO);
             redirectAttributes.addFlashAttribute("create_consent", "Tạo health check consent thành công");
-            return "redirect:/admin/index";
+            return "redirect:/nurse/nurse-home";
         }catch (BusinessException e){
             model.addAttribute("error",e.getMessage());
             return "admin/healthCheckConsent";
@@ -60,12 +60,29 @@ public class HealthCheckConsentController {
     }
 
 
-//    Lấy danh sách các học sinh đc phụ huynh đồng ý cho khám sức khỏe
+//    Lấy danh sách các học sinh đc phụ huynh đồng ý cho khám sức khỏe và đã được khám
+    @GetMapping("/list-student-health-check/checked-health")
+    public String listStudent_checkedHealth(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkDate,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          Model model){
+        boolean is_checked_health = true;
+        Page<StudentDTO> consentPage  = healthCheckConsentService.getStudentsHealthCheck(checkDate, page,is_checked_health);
+
+        model.addAttribute("consentPage", consentPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", consentPage.getTotalPages());
+        model.addAttribute("checkDate", checkDate);
+
+        return  "admin/danhSachStuden_daKhamSucKhoe";
+    }
+
+    //    Lấy danh sách các học sinh đc phụ huynh đồng ý cho khám sức khỏe nhưng chưa khám
     @GetMapping("/list-student-health-check")
     public String listStudent_healthCheck(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate checkDate,
                                           @RequestParam(defaultValue = "0") int page,
                                           Model model){
-        Page<StudentDTO> consentPage  = healthCheckConsentService.getStudentsHealthCheck(checkDate, page);
+        boolean is_checked_health = false;
+        Page<StudentDTO> consentPage  = healthCheckConsentService.getStudentsHealthCheck(checkDate, page,is_checked_health);
 
         model.addAttribute("consentPage", consentPage);
         model.addAttribute("currentPage", page);

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang quản trị Admin</title>
+</head>
+<body>
+    <h1>Chào mừng, <span th:text="${username}">Admin</span>!</h1>
+    <p>Chọn thao tác:</p>
+    <ul>
+        <li><a th:href="@{/admin/manage-users}">Quản lý người dùng</a></li>
+    </ul>
+</body>
+</html>

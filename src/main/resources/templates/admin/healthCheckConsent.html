@@ -9,7 +9,7 @@
 <div th:if="${error}" class="error">
     <p th:text="${error}"></p>
 </div>
-<form th:action="@{/admin/healthCheckConsent/send}" method="post" th:object="${healthCheckConsent}">
+<form th:action="@{/schoolNurse/healthCheckConsent/send}" method="post" th:object="${healthCheckConsent}">
 
     <div>
         <label for="checkDate">Ngày kiểm tra:</label>

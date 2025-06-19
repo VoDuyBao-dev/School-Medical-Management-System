@@ -16,7 +16,7 @@ public class HealthCheckRecord {
     @Column(name = "health_check_id")
     private long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "health_check_consent_id", referencedColumnName = "health_check_consent_id", nullable = false)
     private HealthCheckConsent healthCheckConsent;
 
@@ -38,5 +38,8 @@ public class HealthCheckRecord {
 
     @Column(name = "needs_consultation",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
     private boolean needs_consultation = false;
+
+    @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean is_sent_to_parentv = false;
 }
 

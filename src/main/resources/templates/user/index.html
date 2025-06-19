@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <title>Home - School Medical System<</title>
     <title>Trang chủ User</title>
     <style>
         /* Style popup thông báo */
@@ -29,28 +30,16 @@
     </style>
 </head>
 <body>
+<!--    <h1 th:text="${signup_user}"></h1>-->
+<!--    <p>This is the public homepage for all visitors.</p>-->
+<!--    <h1 th:text="${signin_user}"></h1>-->
+<!--    <div th:if="${#httpServletRequest.userPrincipal != null}">-->
+<!--        <p>Welcome back, <span th:text="${#httpServletRequest.remoteUser}">User</span>!</p>-->
+<!--        <a th:href="@{/logout}">Logout</a>-->
+<!--    </div>-->
 
 <h2>Trang chủ user</h2>
-<p>showNotification: <span th:text="${showNotification}"></span></p>
-<!-- Popup thông báo -->
-<div id="overlay" th:if="${showNotification}" ></div>
-<div id="healthCheckNotification" th:if="${showNotification}" >
-    <p>Bạn có phiếu khám sức khỏe định kỳ mới!</p>
-    <a th:href="@{/user/healthCheckConsent/list}" onclick="dismissNotification()">Xem phiếu khảo sát</a>
-    <br><br>
-    <button onclick="dismissNotification()">Bỏ qua</button>
-</div>
 
-<script>
-    function dismissNotification() {
-        fetch('/yte/user/notification/dismiss', { method: 'POST' })
-
-            .then(() => {
-                document.getElementById('healthCheckNotification').style.display = 'none';
-                document.getElementById('overlay').style.display = 'none';
-            });
-    }
-</script>
 
 </body>
 </html>

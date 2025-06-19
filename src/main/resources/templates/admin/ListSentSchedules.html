@@ -44,7 +44,7 @@
     <td th:text="${schedule.content}">Nội dung khám sức khỏe...</td>
     <td th:text="${schedule.notes}">Nội dung khám sức khỏe...</td>
     <td>
-      <a th:href="@{/admin/healthCheckConsent/list-student-health-check(date=${#temporals.format(schedule.checkDate, 'yyyy-MM-dd')})}"
+      <a th:href="@{/schoolNurse/healthCheckConsent/list-student-health-check(date=${#temporals.format(schedule.checkDate, 'yyyy-MM-dd')}, id=${schedule.id})}"
       style="color: #007bff; text-decoration: underline;">Xem học sinh</a>
 
     </td>

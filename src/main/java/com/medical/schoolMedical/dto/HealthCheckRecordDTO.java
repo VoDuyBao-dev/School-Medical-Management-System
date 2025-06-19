@@ -22,4 +22,5 @@ public class HealthCheckRecordDTO {
     private String otherResult;
     private String assessment;
     private boolean needs_consultation = false;
+    private boolean is_sent_to_parentv = false;
 }
