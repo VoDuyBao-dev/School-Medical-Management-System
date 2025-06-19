@@ -4,6 +4,7 @@ import com.medical.schoolMedical.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 
@@ -36,15 +37,19 @@ public class User {
 
     // Optional: ánh xạ ngược 1-1 (chỉ nếu cần)
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) // Thêm orphanRemoval cho 1-1 (xoa cha se xoa con)
+    @ToString.Exclude
     private Parent parent;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Admin admin;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Manager manager;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private SchoolNurse nurse;
 
 }
