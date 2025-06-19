@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,6 +49,7 @@ public class UserService {
         try{
             return userMapper.toUserDTO(createUser(user));
         }catch (Exception ex){
+            ex.printStackTrace(); //kiểm tra ếu lôỗi là user_id null
             //            Bắt các lỗi ngoài ý muốn
             throw new BusinessException(ErrorCode.INTERNAL_ERROR);
         }
@@ -65,6 +67,7 @@ public class UserService {
         userDTO.setPassword(password);
     }
 
+    @Transactional
     public User createUser(User user){
             userRepository.save(user);
             switch (user.getRole()){
@@ -88,16 +91,6 @@ public class UserService {
     }
 
 
-//    public String getRole(UserDTO userDTO){
-//        try{
-//            return userDTO.getRole().name();
-//        }catch (NullPointerException ex){
-//            throw new NullPointerException("Role is null");
-//        }
-//
-//    }
-
-
     //Kiểm tra coi đã đăng nhập chưa
     public boolean checkLogin(String username, String password) {
         User user = userRepository.findByUsername(username);
@@ -112,19 +105,22 @@ public class UserService {
     @PostConstruct
     public void initAdmin() {
         if (userRepository.findByUsername("admin") == null) {
-//            Taọ User admin
-            User user = new User();
-            user.setUsername("admin");
-            user.setPassword(passwordEncoder.encode("admin")); // mã hoá password
-            user.setRole(Role.ADMIN); // sử dụng enum
-            userRepository.save(user);
-//            Lưu admin vào bảng admin
+//
+            User adminUser = new User();
+            adminUser.setUsername("admin");
+            adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
+            adminUser.setRole(Role.ADMIN);
+            userRepository.save(adminUser);
+
+            // Tạo và lưu admin vào bảng admins
             Admin admin = new Admin();
-            admin.setUser(user);
+            admin.setUser(adminUser);
+            admin.setFullName("Admin");
             adminRepository.save(admin);
-            System.out.println("Admin mặc định đã được tạo: admin/admin");
+
         }
     }
+
 
     // Lấy tất cả user chưa bị xóa
     public List<User> findAllUsers() {
@@ -149,5 +145,21 @@ public class UserService {
             userRepository.save(user);
         }
     }
+
+    // Tìm theo username
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    //Tìm kiếm admin
+    public Admin findAdminByUsername(String username) {
+        return adminRepository.findByUser_Username(username)
+                .orElse(null);
+    }
+
+    public void saveAdmin(Admin admin) {
+        adminRepository.save(admin);
+    }
+
 
 }
