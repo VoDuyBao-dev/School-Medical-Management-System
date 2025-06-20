@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDTO {
-    private int id;
+    private long id;
     @NotBlank(message = "số điện thoại không được bỏ trống")
     @Pattern(regexp = "^0\\d{9,10}$", message = "số điện thoại bắt đầu từ 0 và chỉ chứa số và độ dài từ 10-11")
     private String username;

@@ -4,7 +4,31 @@
 <body>
     <h1>Welcome, <span th:text="${username}">Parent</span>!</h1>
     <p>This is your dashboard.</p>
-    <a href="#">View Reports</a>
+    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
+    <br>
+    <p>showNotification: <span th:text="${showNotification}"></span></p>
+    <!-- Popup thông báo -->
+    <div id="overlay" th:if="${showNotification}" ></div>
+    <div id="healthCheckNotification" th:if="${showNotification}" >
+        <p>Bạn có phiếu khám sức khỏe định kỳ mới!</p>
+
+        <br>
+        <a th:href="@{/user/healthCheckConsent/list}" onclick="dismissNotification()">Xem phiếu khảo sát</a>
+        <br><br>
+        <button onclick="dismissNotification()">Bỏ qua</button>
+    </div>
+
+    <script>
+        function dismissNotification() {
+            fetch('/yte/parent/notification/dismiss', { method: 'POST' })
+
+                .then(() => {
+                    document.getElementById('healthCheckNotification').style.display = 'none';
+                    document.getElementById('overlay').style.display = 'none';
+                });
+        }
+    </script>
 
 </body>
 </html>

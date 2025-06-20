@@ -3,6 +3,7 @@ package com.medical.schoolMedical.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -11,12 +12,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "school_nurses")
 public class SchoolNurse {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "school_nurse_id")
-    private int id;
+    private long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @Column(name = "fullname", length = 50)

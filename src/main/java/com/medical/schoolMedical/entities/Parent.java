@@ -16,9 +16,9 @@ import java.util.List;
 @Table(name = "parents")
 public class Parent {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "parent_id")
-    private int id;
+    private long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -36,6 +36,8 @@ public class Parent {
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
+
+
 
 }
 

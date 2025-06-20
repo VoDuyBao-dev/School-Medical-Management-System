@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Table(name = "sent_medicine_usage")
 public class SentMedicineUsage {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "usage_id")
-    private int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sent_medicine_id", referencedColumnName = "sent_medicine_id", nullable = false)

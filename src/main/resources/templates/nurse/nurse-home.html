@@ -4,7 +4,9 @@
 <body>
     <h1>Welcome Nurse: <span th:text="${username}">Nurse</span></h1>
     <p>This is your dashboard for managing student health.</p>
-    <a href="#">View Reports</a>
+    <a th:href="@{/schoolnurse/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
+
 
 </body>
 </html>

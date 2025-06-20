@@ -71,11 +71,6 @@ public class UserService {
     public User createUser(User user){
             userRepository.save(user);
             switch (user.getRole()){
-                case ADMIN:
-                    Admin admin = new Admin();
-                    admin.setUser(user);
-                    adminRepository.save(admin);
-                    break;
                 case MANAGER:
                     Manager manager = new Manager();
                     manager.setUser(user);
@@ -110,6 +105,7 @@ public class UserService {
     @PostConstruct
     public void initAdmin() {
         if (userRepository.findByUsername("admin") == null) {
+//
             User adminUser = new User();
             adminUser.setUsername("admin");
             adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
@@ -122,7 +118,6 @@ public class UserService {
             admin.setFullName("Admin");
             adminRepository.save(admin);
 
-            System.out.println("Admin mặc định đã được tạo: admin/admin");
         }
     }
 
@@ -138,12 +133,12 @@ public class UserService {
     }
 
     // Tìm theo ID
-    public User findById(int id) {
+    public User findById(long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     // Xóa mềm
-    public void softDeleteUser(int id) {
+    public void softDeleteUser(long id) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             user.setDeleted(true);
@@ -165,6 +160,31 @@ public class UserService {
     public void saveAdmin(Admin admin) {
         adminRepository.save(admin);
     }
+
+    public Parent findParentByUsername(String username) {
+        return parentRepositoty.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveParent(Parent parent) {
+        parentRepositoty.save(parent);
+    }
+
+    public Manager findManagerByUsername(String username) {
+        return managerRepository.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveManager(Manager manager) {
+        managerRepository.save(manager);
+    }
+
+    public SchoolNurse findNurseByUsername(String username) {
+        return schoolNurseRepository.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveNurse(SchoolNurse nurse) {
+        schoolNurseRepository.save(nurse);
+    }
+
 
 
 }

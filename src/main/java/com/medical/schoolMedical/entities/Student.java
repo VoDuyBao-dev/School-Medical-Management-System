@@ -16,13 +16,14 @@ import java.util.Date;
 @Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "student_id")
-    private int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
     private Parent parent;
+
 
     @Column(name = "fullname", length = 50,nullable = false)
     private String fullName;
