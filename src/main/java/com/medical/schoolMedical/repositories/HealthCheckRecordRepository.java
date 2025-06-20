@@ -22,4 +22,6 @@ public interface HealthCheckRecordRepository extends JpaRepository<HealthCheckRe
 """)
     List<Object[]> findRecordIdsAndStudentIdsByCheckDate(@Param("date") LocalDate date);
 
+    boolean existsByHealthCheckConsent_Parent_IdAndSentToParentTrueAndViewedByParentFalse(Long parentId);
+
 }

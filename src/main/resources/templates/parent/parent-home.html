@@ -4,26 +4,36 @@
 <body>
     <h1>Welcome, <span th:text="${username}">Parent</span>!</h1>
     <p>This is your dashboard.</p>
-    <a href="#">View Reports</a>
-    <p>showNotification: <span th:text="${showNotification}"></span></p>
-    <!-- Popup thông báo -->
-    <div id="overlay" th:if="${showNotification}" ></div>
-    <div id="healthCheckNotification" th:if="${showNotification}" >
-        <p>Bạn có phiếu khám sức khỏe định kỳ mới!</p>
-        <a th:href="@{/user/healthCheckConsent/list}" onclick="dismissNotification()">Xem phiếu khảo sát</a>
-        <br><br>
-        <button onclick="dismissNotification()">Bỏ qua</button>
+
+    <div style="position: relative;">
+        <button id="notificationBtn" style="background: none; border: none; font-size: 20px;">
+            🔔
+        </button>
+
+        <div id="notificationDropdown" style="display: none; position: absolute; right: 0; background: white; border: 1px solid #ccc; border-radius: 5px; width: 250px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <ul style="list-style: none; padding: 10px;">
+                <li th:if="${notifications.hasNewConsent}">
+                    <a th:href="@{/parent/health-check-consents}" style="text-decoration: none; color: #333;">
+                        ✔️ Bạn có phiếu khám sức khỏe mới cần xác nhận
+                    </a>
+                </li>
+                <li th:if="${notifications.hasNewRecord}">
+                    <a th:href="@{/parent/health-check-records}" style="text-decoration: none; color: #333;">
+                        📄 Trường đã gửi kết quả khám sức khỏe
+                    </a>
+                </li>
+                <li th:if="${!notifications.hasNewConsent and !notifications.hasNewRecord}">
+                    <span style="color: #888;">Không có thông báo mới</span>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <script>
-        function dismissNotification() {
-            fetch('/yte/parent/notification/dismiss', { method: 'POST' })
-
-                .then(() => {
-                    document.getElementById('healthCheckNotification').style.display = 'none';
-                    document.getElementById('overlay').style.display = 'none';
-                });
-        }
+        document.getElementById("notificationBtn").addEventListener("click", function () {
+            const dropdown = document.getElementById("notificationDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
     </script>
 
 </body>

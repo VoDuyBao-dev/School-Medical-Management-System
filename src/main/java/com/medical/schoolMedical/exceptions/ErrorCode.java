@@ -19,7 +19,8 @@ public enum ErrorCode {
     HEALTH_CHECK_RECORD_NOT_EXISTS("ERR054", "Health check record không tồn tại."),
     SAVE_HEALTH_CHECK_RECORD_FAILED("ERR055", "Lưu health check record thất bại."),
 
-
+//Lỗi tìm kiếm role:
+    PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
     // Lỗi hệ thống
     INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau.");
 

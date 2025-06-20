@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class HealthCheckRecordDTO {
     private long id;
     private HealthCheckConsentDTO healthCheckConsentDTO;

@@ -37,9 +37,12 @@ public class HealthCheckRecord {
     private String assessment;
 
     @Column(name = "needs_consultation",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
-    private boolean needs_consultation = false;
+    private boolean needsConsultation = false;
 
     @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
-    private boolean is_sent_to_parentv = false;
+    private boolean sentToParent = false;
+
+    @Column(name = "is_viewed_by_parent ",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean viewedByParent  = false;
 }
 

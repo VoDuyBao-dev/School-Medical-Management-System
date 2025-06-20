@@ -25,7 +25,7 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
     JOIN h.student s 
     WHERE h.checkDate = :date 
     AND h.status = :status 
-    AND h.is_checked_health = :is_checked_health 
+    AND h.checkedHealth = :is_checked_health 
     ORDER BY s.fullName ASC, s.className ASC 
     """,
             countQuery = """
@@ -33,7 +33,7 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
     JOIN h.student s 
     WHERE h.checkDate = :date 
     AND h.status = :status
-    AND h.is_checked_health = :is_checked_health 
+    AND h.checkedHealth = :is_checked_health 
     """
     )
     Page<Student> findByCheckDateAndStatusSorted(

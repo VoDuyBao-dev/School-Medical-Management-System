@@ -86,7 +86,7 @@ public class HealthCheckRecordService {
             healthCheckRecord = healthCheckRecord_fullInfor(healthCheckRecordDTO, nurseId);
             healthCheckRecord.setHealthCheckConsent(healthCheckConsent);
 //            Cập nhật bản health check consent tương ứng để biết học sinh đó đã có bản ghi kết quả
-            healthCheckRecord.getHealthCheckConsent().set_checked_health(true);
+            healthCheckRecord.getHealthCheckConsent().setCheckedHealth(true);
             log.info("Dữ liệu của đối tượng healthCheckRecord trong create: {}", healthCheckRecord);
             try{
                 HealthCheckRecord result = healthCheckRecordRepository.save(healthCheckRecord);
@@ -132,7 +132,7 @@ public class HealthCheckRecordService {
             throw new BusinessException(ErrorCode.SCHOOL_NURSE_NOT_EXISTS);
         }
         //    Giữ cho is_checked_health của bản ghi đó vẫn là true nếu không nó tự động chuyển false làm sai dữ liệu
-        healthCheckRecord.getHealthCheckConsent().set_checked_health(true);
+        healthCheckRecord.getHealthCheckConsent().setCheckedHealth(true);
 //        lấy bản ghi cần update:
         HealthCheckRecord healthCheckRecord_needUpdate = healthCheckRecordRepository.findById(healthCheckRecordDTO.getId())
                 .orElseThrow(()->new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS));
@@ -163,7 +163,7 @@ public class HealthCheckRecordService {
         List<HealthCheckRecord> recordsToUpdate = recordIds.stream()
                 .map(id -> healthCheckRecordRepository.findById(id)
                         .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS)))
-                .peek(record -> record.set_sent_to_parentv(true)) // Đảm bảo đúng tên setter
+                .peek(record -> record.setSentToParent(true))
                 .toList();
 
         healthCheckRecordRepository.saveAll(recordsToUpdate);
