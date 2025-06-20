@@ -24,7 +24,9 @@
 <body>
 
 <h2>Danh sách các lịch khám đã gửi</h2>
-
+<div th:if="${success}" class="alert-success" style="color: green;">
+  <p th:text="${success}"></p>
+</div>
 <table>
   <thead>
   <tr>

@@ -6,10 +6,10 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
-@ToString(exclude = {"student", "parent"}) // nếu cần
 @EqualsAndHashCode(exclude = {"student", "parent"})
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +23,17 @@ public class HealthCheckConsent {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = false)
+    @ToString.Exclude
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
+    @ToString.Exclude
     private Parent parent;
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "healthCheckConsent", fetch = FetchType.LAZY)
+    private HealthCheckRecord healthCheckRecord;
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;

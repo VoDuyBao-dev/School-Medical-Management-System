@@ -83,7 +83,7 @@
     <p th:text="${notification}"></p>
 </div>
 <h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
-
+<form th:action="@{/schoolNurse/healthCheckRecord/sendRecordsToParents}" method="post">
 <table>
     <thead>
     <tr>
@@ -109,7 +109,7 @@ date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
                class="btn">Sửa kết quả khám</a>
         </td>
         <td>
-            <input type="checkbox" name="selectedStudentIds" th:value="${student.id}" class="studentCheckbox"/>
+            <input type="checkbox" name="selectedRecordIds" th:value="${student.healthCheck_recordId}" class="studentCheckbox"/>
         </td>
     </tr>
 
@@ -118,6 +118,8 @@ date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
     </tr>
     </tbody>
 </table>
+<!--Gửi ngày để quay lại trang-->
+    <input type="hidden" name="checkDate" th:value="${checkDate}"/>
 
 <!-- Nút gửi -->
 <div style="margin-top: 20px; text-align: right;">
@@ -126,6 +128,7 @@ date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
         Gửi kết quả đến phụ huynh
     </button>
 </div>
+</form>
 
 <!-- Phân trang -->
 <div class="pagination" th:if="${totalPages > 1}">

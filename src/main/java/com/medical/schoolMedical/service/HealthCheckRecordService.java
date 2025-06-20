@@ -17,19 +17,41 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
-public class HealthCheckRecordService {
-    HealthCheckConsentService healthCheckConsentService;
-    HealthCheckRecordRepository healthCheckRecordRepository;
-    SchoolNurseRepository schoolNurseRepository;
-    HealthCheckRecordMapper healthCheckRecordMapper;
-    private final HealthCheckConsentMapper healthCheckConsentMapper;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import static org.apache.logging.log4j.ThreadContext.peek;
+
+@Service
+
+@Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class HealthCheckRecordService {
+
+    @Lazy
+    @Autowired
+    HealthCheckConsentService healthCheckConsentService;
+    final HealthCheckRecordRepository healthCheckRecordRepository;
+    final SchoolNurseRepository schoolNurseRepository;
+    final HealthCheckRecordMapper healthCheckRecordMapper;
+    final HealthCheckConsentMapper healthCheckConsentMapper;
+
+    // Constructor không chứa healthCheckConsentService để tránh vòng lặp
+    public HealthCheckRecordService(HealthCheckRecordRepository healthCheckRecordRepository,
+                                    SchoolNurseRepository schoolNurseRepository,
+                                    HealthCheckRecordMapper healthCheckRecordMapper,
+                                    HealthCheckConsentMapper healthCheckConsentMapper) {
+        this.healthCheckRecordRepository = healthCheckRecordRepository;
+        this.schoolNurseRepository = schoolNurseRepository;
+        this.healthCheckRecordMapper = healthCheckRecordMapper;
+        this.healthCheckConsentMapper = healthCheckConsentMapper;
+    }
 
     private HealthCheckRecord healthCheckRecord_fullInfor(HealthCheckRecordDTO healthCheckRecordDTO, Long nurseId){
         //Chuyển kiểu để lưu form:
@@ -123,6 +145,29 @@ public class HealthCheckRecordService {
         }catch (Exception e){
             throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_RECORD_FAILED);
         }
+    }
+
+//    Lấy danh sách và dùng map để lưu các cặp studenId và recordId để gửi cho phụ huynh
+    Map<Long, Long> getStudentId_toRecordId(LocalDate checkDate){
+        List<Object[]> rawIdPairs = healthCheckRecordRepository.findRecordIdsAndStudentIdsByCheckDate(checkDate);
+
+        Map<Long, Long> studentIDtoRecordID = rawIdPairs.stream().collect(Collectors.toMap(
+                row -> (Long) row[1],  // studentId
+                row -> (Long) row[0]   // recordId
+        ));
+        return studentIDtoRecordID;
+    }
+
+// Gửi cho phụ huynh:
+    public void sendRecordsToParents(List<Long> recordIds){
+        List<HealthCheckRecord> recordsToUpdate = recordIds.stream()
+                .map(id -> healthCheckRecordRepository.findById(id)
+                        .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS)))
+                .peek(record -> record.set_sent_to_parentv(true)) // Đảm bảo đúng tên setter
+                .toList();
+
+        healthCheckRecordRepository.saveAll(recordsToUpdate);
+
     }
 
 }

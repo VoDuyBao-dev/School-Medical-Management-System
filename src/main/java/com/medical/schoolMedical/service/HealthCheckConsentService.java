@@ -11,13 +11,16 @@ import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.mapper.HealthCheckConsentMapper;
 import com.medical.schoolMedical.mapper.StudentMapper;
 import com.medical.schoolMedical.repositories.HealthCheckConsentRepository;
+import com.medical.schoolMedical.repositories.HealthCheckRecordRepository;
 import com.medical.schoolMedical.repositories.StudentRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,20 +29,36 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class HealthCheckConsentService {
-    StudentRepository studentRepository;
-    HealthCheckConsentMapper healthCheckConsentMapper;
-    StudentMapper studentMapper;
-    HealthCheckConsentRepository healthCheckConsentRepository;
+    final StudentService studentService;
+    final HealthCheckConsentMapper healthCheckConsentMapper;
+    final StudentMapper studentMapper;
+    final HealthCheckConsentRepository healthCheckConsentRepository;
+    @Lazy
+    @Autowired
+    HealthCheckRecordService healthCheckRecordService;
+
+    public HealthCheckConsentService(
+            StudentService studentService,
+            HealthCheckConsentMapper healthCheckConsentMapper,
+            StudentMapper studentMapper,
+            HealthCheckConsentRepository healthCheckConsentRepository
+    ) {
+        this.studentService = studentService;
+        this.healthCheckConsentMapper = healthCheckConsentMapper;
+        this.studentMapper = studentMapper;
+        this.healthCheckConsentRepository = healthCheckConsentRepository;
+    }
+
 
     public boolean create_checkConsent(HealthCheckConsentDTO healthCheckConsentDTO) {
-            List<Student> students = studentRepository.findAll();
+            List<Student> students = studentService.getAllStudents();
             for(Student student : students){
                 HealthCheckConsent consent = createConsentFromDTO(healthCheckConsentDTO,student);
                  try {
@@ -138,15 +157,25 @@ public class HealthCheckConsentService {
 
         Pageable pageable = pagination(page, 20);
 
-//        Lấy danh sách các student health check trong ngày ... đã được phụ huynh đồng ý
-
+//        Lấy danh sách student theo consent
         Page<Student> studentPage = healthCheckConsentRepository
                 .findByCheckDateAndStatusSorted(checkDate, ConsentStatus.ACCEPTED,is_checked_health, pageable);
 
-//        Chuyển các student đó sang studentDTO
+//      lấy id của student và bản record tương ứng để hiện ra trang đã có bản khám thuận tiện cho gửi parent
+        Map<Long, Long> studentIDtoRecordID = healthCheckRecordService.getStudentId_toRecordId(checkDate);
+
+//        Chuyển các student đó sang studentDTO và map thêm id của record tương ứng với student đó
         List<StudentDTO> dtoList = studentPage.getContent().stream()
-                .map(studentMapper::toStudentDTO)
-                .collect(Collectors.toList());
+                .map(student -> {
+                    StudentDTO studentDTO = studentMapper.toStudentDTO(student);
+                    Long recordID = studentIDtoRecordID.get(student.getId());
+
+                    if(recordID != null){
+                        studentDTO.setHealthCheck_recordId(recordID);
+                    }
+                    return studentDTO;
+                })
+                .toList();
 
         return new PageImpl<>(dtoList, pageable, studentPage.getTotalElements());
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -148,43 +149,65 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
     }
 
 //    Chỉnh sửa thông tin record:
-public String updateHealthCheckRecord(@ModelAttribute("healthCheckRecordDTO") @Valid HealthCheckRecordDTO healthCheckRecordDTO_request,
-                                    BindingResult bindingResult,
-                                      @AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                    RedirectAttributes redirectAttributes,
-                                    Model model)
-{
-    log.info("data của healthCheckRecordDTO khi gửi lên để update: {}", healthCheckRecordDTO_request.toString());
-//        Lấy HealthCheckConsentDTO phù hợp với id được gửi tới để
-    HealthCheckConsentDTO healthCheckConsentDTO;
-    try {
-        healthCheckConsentDTO = healthCheckConsentService.getHealthCheckConsentById(healthCheckRecordDTO_request.getHealthCheckConsentId());
-    }catch (BusinessException e){
-        model.addAttribute("error",e.getMessage());
-        return "admin/healthCheckRecord";
+    public String updateHealthCheckRecord(@ModelAttribute("healthCheckRecordDTO") @Valid HealthCheckRecordDTO healthCheckRecordDTO_request,
+                                        BindingResult bindingResult,
+                                          @AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                        RedirectAttributes redirectAttributes,
+                                        Model model)
+    {
+        log.info("data của healthCheckRecordDTO khi gửi lên để update: {}", healthCheckRecordDTO_request.toString());
+    //        Lấy HealthCheckConsentDTO phù hợp với id được gửi tới để
+        HealthCheckConsentDTO healthCheckConsentDTO;
+        try {
+            healthCheckConsentDTO = healthCheckConsentService.getHealthCheckConsentById(healthCheckRecordDTO_request.getHealthCheckConsentId());
+        }catch (BusinessException e){
+            model.addAttribute("error",e.getMessage());
+            return "admin/healthCheckRecord";
+        }
+
+        //        Gán obj healthCheckConsentDTO vừa lấy vô healthCheckRecordDTO
+        healthCheckRecordDTO_request.setHealthCheckConsentDTO(healthCheckConsentDTO);
+
+        if(bindingResult.hasErrors()){
+            return "admin/healthCheckRecord";
+        }
+        LocalDate date = healthCheckConsentDTO.getCheckDate();
+        log.info("date trong health check record update controller = {}",date);
+        //        Lấy id của school nurse
+        Long nurseId = customUserDetails.getUser().getId();
+            log.info("nurseId ==> "+nurseId);
+        try{
+            healthCheckRecordService.update_HealthCheckRecord(healthCheckRecordDTO_request, nurseId);
+            redirectAttributes.addFlashAttribute("success","Cập nhật kết quả khám thành công!");
+            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
+
+        }catch (BusinessException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
+        }
+
+
     }
 
-    //        Gán obj healthCheckConsentDTO vừa lấy vô healthCheckRecordDTO
-    healthCheckRecordDTO_request.setHealthCheckConsentDTO(healthCheckConsentDTO);
+//    Gửi health check record đến phụ huynh
+    @PostMapping("/sendRecordsToParents")
+    public String sendRecordsToParents(@RequestParam(value = "selectedRecordIds", required = false) List<Long> selectedIds,
+                                       LocalDate checkDate,
+                                       RedirectAttributes redirectAttributes){
+        if(selectedIds == null || selectedIds.isEmpty()){
+            redirectAttributes.addFlashAttribute("error","Vui lòng chọn ít nhất một bản ghi để gửi!");
+            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date="+checkDate;
+        }
 
-    if(bindingResult.hasErrors()){
-        return "admin/healthCheckRecord";
+        try{
+             healthCheckRecordService.sendRecordsToParents(selectedIds);
+            redirectAttributes.addFlashAttribute("success", "Gửi kết quả khám sức khỏe đến phụ huynh thành công!");
+            return "redirect:/schoolNurse/healthCheckConsent/list-health-check";
+        }catch (BusinessException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date="+checkDate;
+        }
+
     }
-    LocalDate date = healthCheckConsentDTO.getCheckDate();
-    log.info("date trong health check record update controller = {}",date);
-    //        Lấy id của school nurse
-    Long nurseId = customUserDetails.getUser().getId();
-        log.info("nurseId ==> "+nurseId);
-    try{
-        healthCheckRecordService.update_HealthCheckRecord(healthCheckRecordDTO_request, nurseId);
-        redirectAttributes.addFlashAttribute("success","Cập nhật kết quả khám thành công!");
-        return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
-
-    }catch (BusinessException e){
-        redirectAttributes.addFlashAttribute("error",e.getMessage());
-        return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
-    }
-
-}
 
 }
