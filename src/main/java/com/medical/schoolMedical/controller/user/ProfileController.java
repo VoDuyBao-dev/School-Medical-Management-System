@@ -9,6 +9,7 @@ import com.medical.schoolMedical.repositories.ParentRepositoty;
 import com.medical.schoolMedical.repositories.SchoolNurseRepository;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -74,25 +75,13 @@ public class ProfileController {
     }
 
 
-    //trang thông tin admin
-    /*@GetMapping("/profile")
-    public String viewProfile(Model model, Authentication authentication) {
-        String username = authentication.getName();
-
-        User user = userService.findByUsername(username);
-        Admin admin = userService.findAdminByUsername(username);
-
-        model.addAttribute("user", user);
-        model.addAttribute("admin", admin);
-
-        return "admin/profile";
-    }*/
-
     @GetMapping({"/admin/edit-profile", "/parent/edit-profile", "/manager/edit-profile", "/nurse/edit-profile"})
     public String showEditProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   Model model) {
         User user = customUserDetails.getUser();
         model.addAttribute("user", user);
+        model.addAttribute("role", customUserDetails.getUser().getRole().name().toLowerCase());
+
 
         switch (user.getRole()) {
             case ADMIN -> model.addAttribute("info", userService.findAdminByUsername(user.getUsername()));
@@ -105,61 +94,66 @@ public class ProfileController {
     }
 
 
-    /*@GetMapping("/edit-profile")
-    public String showEditProfile(Model model, Authentication authentication) {
-        String username = authentication.getName();
-        User user = userService.findByUsername(username);
-        Admin admin = userService.findAdminByUsername(username);
-
-        model.addAttribute("user", user);
-        model.addAttribute("admin", admin);
-        return "admin/edit-profile";
-    }*/
-
-
-    /*@PostMapping("/admin/update-profile")
-    public String updateProfile(@ModelAttribute Admin admin,
-                                @RequestParam("userId") int userId,
-                                RedirectAttributes redirectAttributes) {
-        User user = userService.findById(userId); // hoặc findByUsername
-        admin.setUser(user); // Gán lại user cho admin
-
-        userService.saveAdmin(admin);
-
-        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
-        return "redirect:/admin/profile";
-    }*/
-
-    //Cập nhật thông tin vào database
     @PostMapping({"/admin/update-profile", "/parent/update-profile", "/manager/update-profile", "/nurse/update-profile"})
     public String updateProfile(@RequestParam long userId,
-                                @ModelAttribute("info") Object info,
                                 @AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                HttpServletRequest request,
                                 RedirectAttributes redirectAttributes) {
 
         Role role = customUserDetails.getUser().getRole();
-
-        User user = userService.findById(userId);
+        User user = userService.findById(userId); // đã đảm bảo tồn tại
 
         switch (role) {
             case ADMIN -> {
-                Admin admin = (Admin) info;
-                admin.setUser(user);
+                Admin admin = userService.findAdminByUsername(user.getUsername());
+                if (admin == null) {
+                    admin = new Admin();
+                    admin.setUser(user);
+                }
+                admin.setFullName(request.getParameter("fullName"));
                 userService.saveAdmin(admin);
             }
+
             case PARENT -> {
-                Parent parent = (Parent) info;
-                parent.setUser(user);
+                Parent parent = userService.findParentByUsername(user.getUsername());
+                if (parent == null) {
+                    parent = new Parent();
+                    parent.setUser(user);
+                }
+                parent.setFullName(request.getParameter("fullName"));
+                parent.setPhoneNumber(request.getParameter("phoneNumber"));
+                parent.setAddress(request.getParameter("address"));
                 userService.saveParent(parent);
             }
+
             case MANAGER -> {
-                Manager manager = (Manager) info;
-                manager.setUser(user);
+                Manager manager = userService.findManagerByUsername(user.getUsername());
+                if (manager == null) {
+                    manager = new Manager();
+                    manager.setUser(user);
+                }
+                manager.setFullName(request.getParameter("fullName"));
                 userService.saveManager(manager);
             }
+
             case SCHOOL_NURSE -> {
-                SchoolNurse nurse = (SchoolNurse) info;
-                nurse.setUser(user);
+                SchoolNurse nurse = userService.findNurseByUsername(user.getUsername());
+                if (nurse == null) {
+                    nurse = new SchoolNurse();
+                    nurse.setUser(user);
+                }
+                nurse.setFullName(request.getParameter("fullName"));
+
+                String experienceParam = request.getParameter("experience");
+                if (experienceParam != null && !experienceParam.isBlank()) {
+                    try {
+                        nurse.setExperience(Integer.parseInt(experienceParam));
+                    } catch (NumberFormatException e) {
+                        redirectAttributes.addFlashAttribute("error", "Kinh nghiệm phải là số nguyên!");
+                        return "redirect:/" + role.name().toLowerCase() + "/edit-profile";
+                    }
+                }
+
                 userService.saveNurse(nurse);
             }
         }
@@ -167,4 +161,6 @@ public class ProfileController {
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công!");
         return "redirect:/" + role.name().toLowerCase() + "/profile";
     }
+
+
 }

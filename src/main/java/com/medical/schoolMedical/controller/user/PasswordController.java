@@ -31,34 +31,10 @@ public class PasswordController {
                                      Model model) {
         User user = customUserDetails.getUser();
         model.addAttribute("username", customUserDetails.getUser().getUsername());
+        model.addAttribute("role", customUserDetails.getUser().getRole().name().toLowerCase());
         return "profile/change-password"; // Dùng chung file HTM
     }
 
-    /*@PostMapping("/profile/change-password")
-    public String changePassword(@RequestParam("currentPassword") String currentPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Authentication authentication,
-                                 RedirectAttributes redirectAttributes) {
-
-        String username = authentication.getName();
-        User user = userService.findByUsername(username);
-
-        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            redirectAttributes.addFlashAttribute("error", "Mật khẩu hiện tại không đúng!");
-            return "redirect:/admin/change-password";
-        }
-
-        if (!newPassword.equals(confirmPassword)) {
-            redirectAttributes.addFlashAttribute("error", "Mật khẩu xác nhận không khớp!");
-            return "redirect:/admin/change-password";
-        }
-
-        user.setPassword(passwordEncoder.encode(newPassword));
-        userService.saveUser(user);
-        redirectAttributes.addFlashAttribute("success", "Đổi mật khẩu thành công!");
-        return "redirect:/admin/profile";
-    }*/
 
     @PostMapping({"/admin/change-password", "/parent/change-password", "/manager/change-password", "/nurse/change-password"})
     public String changePassword(@RequestParam("currentPassword") String currentPassword,

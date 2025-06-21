@@ -63,7 +63,7 @@
 
     <br>
     <p>
-        <a th:href="@{/profile/change-password}" style="color: blue; font-weight: bold;">
+        <a th:href="@{'/' + ${role} + '/change-password'}" style="color: blue; font-weight: bold;">
             → Đổi mật khẩu
         </a>
     </p>

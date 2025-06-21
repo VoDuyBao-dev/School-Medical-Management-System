@@ -36,6 +36,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/login").permitAll()
