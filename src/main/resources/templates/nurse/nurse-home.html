@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>School Nurse Dashboard</title></head>
+<head>
+    <title>School Nurse Dashboard</title>
+    <style>
+        label { display: block; margin-top: 10px; }
+        input, textarea, select { width: 100%; padding: 8px; margin-top: 4px; }
+        button { margin-top: 16px; padding: 8px 16px; }
+    </style>
+</head>
 <body>
     <h1>Welcome Nurse: <span th:text="${username}">Nurse</span></h1>
     <p>This is your dashboard for managing student health.</p>
-    <a th:href="@{/schoolnurse/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/school_nurse/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
+    <br>
+    <a th:href="@{/school_nurse/medical-events}"><button>Danh sách sự kiện y tế</button></a>
+    <br>
     <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
 
 

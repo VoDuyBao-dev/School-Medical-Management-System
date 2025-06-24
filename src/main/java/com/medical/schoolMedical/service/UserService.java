@@ -31,6 +31,8 @@ public class UserService {
     SchoolNurseRepository schoolNurseRepository;
     ManagerRepository managerRepository;
     UserMapper userMapper;
+    StudentRepository studentRepository;
+    MedicalEventRepository medicalEventRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -185,6 +187,14 @@ public class UserService {
         schoolNurseRepository.save(nurse);
     }
 
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public Student findStudentById(long id) {
+        return studentRepository.findById(id).orElse(null);
+    }
 
 
 }

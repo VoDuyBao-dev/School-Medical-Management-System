@@ -25,6 +25,8 @@ public class Student {
     private Parent parent;
 
 
+
+
     @Column(name = "fullname", length = 50,nullable = false)
     private String fullName;
 

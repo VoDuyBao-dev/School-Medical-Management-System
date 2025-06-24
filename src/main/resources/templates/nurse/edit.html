@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Cập nhật sự kiện y tế</title>
+  <style>
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, textarea, select { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 16px; padding: 8px 16px; }
+  </style>
+</head>
+<body>
+<h2>Cập nhật sự kiện y tế</h2>
+
+<form th:action="@{/school_nurse/medical-events/update}" th:object="${event}" method="post">
+  <input type="hidden" th:field="*{id}" />
+
+  <label>Học sinh:</label>
+  <select th:field="*{studentId}" required>
+    <option th:each="student : ${students}"
+            th:value="${student.id}"
+            th:text="${student.fullName}">Chọn học sinh</option>
+  </select>
+
+  <label>Vị trí xảy ra:</label>
+  <input type="text" th:field="*{location}" required/>
+
+  <label>Mô tả sự kiện:</label>
+  <textarea th:field="*{description}" required></textarea>
+
+  <label>Xử lý ban đầu:</label>
+  <textarea th:field="*{initialTreatment}"></textarea>
+
+  <label>Điều trị cuối cùng:</label>
+  <textarea th:field="*{finalTreatment}"></textarea>
+
+  <label>Ghi chú thêm:</label>
+  <textarea th:field="*{notes}"></textarea>
+
+  <button type="submit">Cập nhật</button>
+  <a th:href="@{/school_nurse/medical-events}">
+    <button type="button">Quay lại</button>
+  </a>
+</form>
+</body>
+</html>

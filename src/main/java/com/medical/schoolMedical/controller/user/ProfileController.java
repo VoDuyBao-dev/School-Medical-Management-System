@@ -31,7 +31,7 @@ public class ProfileController {
 
 
     //Trang thông tin chung
-    @GetMapping({"/admin/profile", "/parent/profile", "/manager/profile", "/nurse/profile"})
+    @GetMapping({"/admin/profile", "/parent/profile", "/manager/profile", "/school_nurse/profile"})
     public String viewProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                               Model model) {
 
@@ -47,7 +47,7 @@ public class ProfileController {
             case ADMIN -> "/admin/dashboard";
             case PARENT -> "/parent/parent-home";
             case MANAGER -> "/manager/manager-home";
-            case SCHOOL_NURSE -> "/schoolnurse/nurse-home";
+            case SCHOOL_NURSE -> "/school_nurse/nurse-home";
         };
         model.addAttribute("homeUrl", homeUrl);
 
@@ -75,7 +75,7 @@ public class ProfileController {
     }
 
 
-    @GetMapping({"/admin/edit-profile", "/parent/edit-profile", "/manager/edit-profile", "/nurse/edit-profile"})
+    @GetMapping({"/admin/edit-profile", "/parent/edit-profile", "/manager/edit-profile", "/school_nurse/edit-profile"})
     public String showEditProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   Model model) {
         User user = customUserDetails.getUser();
@@ -94,7 +94,7 @@ public class ProfileController {
     }
 
 
-    @PostMapping({"/admin/update-profile", "/parent/update-profile", "/manager/update-profile", "/nurse/update-profile"})
+    @PostMapping({"/admin/update-profile", "/parent/update-profile", "/manager/update-profile", "/school_nurse/update-profile"})
     public String updateProfile(@RequestParam long userId,
                                 @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                 HttpServletRequest request,

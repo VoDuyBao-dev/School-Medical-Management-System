@@ -26,7 +26,7 @@ public class PasswordController {
     private PasswordEncoder passwordEncoder;
 
 
-    @GetMapping({"/admin/change-password", "/parent/change-password", "/manager/change-password", "/nurse/change-password"})
+    @GetMapping({"/admin/change-password", "/parent/change-password", "/manager/change-password", "/school_nurse/change-password"})
     public String changePasswordPage(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                      Model model) {
         User user = customUserDetails.getUser();
@@ -36,7 +36,7 @@ public class PasswordController {
     }
 
 
-    @PostMapping({"/admin/change-password", "/parent/change-password", "/manager/change-password", "/nurse/change-password"})
+    @PostMapping({"/admin/change-password", "/parent/change-password", "/manager/change-password", "/school_nurse/change-password"})
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("confirmPassword") String confirmPassword,

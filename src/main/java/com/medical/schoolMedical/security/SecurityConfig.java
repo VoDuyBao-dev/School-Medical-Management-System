@@ -67,7 +67,7 @@ public class SecurityConfig {
                         // trang cần đăng nhập
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
-                        .requestMatchers("/schoolNurse/**").hasRole("SCHOOL_NURSE")
+                        .requestMatchers("/school_nurse/**").hasRole("SCHOOL_NURSE")
                         .anyRequest().permitAll() // mặc định: cho phép
                 )
                 .formLogin(form -> form

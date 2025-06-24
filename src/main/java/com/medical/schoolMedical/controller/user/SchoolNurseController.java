@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/nurse")
+@RequestMapping("/school_nurse")
 public class SchoolNurseController {
     @GetMapping("/nurse-home")
     public String nurseHome(Model model, Authentication authentication) {
