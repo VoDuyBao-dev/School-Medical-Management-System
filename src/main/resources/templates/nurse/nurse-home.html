@@ -4,7 +4,15 @@
 <body>
     <h1>Welcome Nurse: <span th:text="${username}">Nurse</span></h1>
     <p>This is your dashboard for managing student health.</p>
-    <a href="#">View Reports</a>
+    <div th:if="${create_checkSchedule}" class="create_checkSchedule">
+        <p th:text="${create_checkSchedule}"></p>
+    </div>
+    <div th:if="${send_parent}" class="send_parent">
+        <p th:text="${send_parent}"></p>
+    </div>
+
+    <a th:href="@{/nurse/healthCheckSchedule}">trang tạo health check schedule</a>
+    <a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">trang các health check schedule đã gửi</a>
 
 </body>
 </html>

@@ -147,24 +147,15 @@ public class HealthCheckRecordService {
         }
     }
 
-//    Lấy danh sách và dùng map để lưu các cặp studenId và recordId để gửi cho phụ huynh
-    Map<Long, Long> getStudentId_toRecordId(LocalDate checkDate){
-        List<Object[]> rawIdPairs = healthCheckRecordRepository.findRecordIdsAndStudentIdsByCheckDate(checkDate);
-
-        Map<Long, Long> studentIDtoRecordID = rawIdPairs.stream().collect(Collectors.toMap(
-                row -> (Long) row[1],  // studentId
-                row -> (Long) row[0]   // recordId
-        ));
-        return studentIDtoRecordID;
-    }
-
 // Gửi cho phụ huynh:
-    public void sendRecordsToParents(List<Long> recordIds){
-        List<HealthCheckRecord> recordsToUpdate = recordIds.stream()
-                .map(id -> healthCheckRecordRepository.findById(id)
-                        .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS)))
-                .peek(record -> record.setSentToParent(true))
-                .toList();
+    public void sendRecordsToParents(List<Long> consentIds){
+        List<HealthCheckRecord> recordsToUpdate = healthCheckRecordRepository.findByConsentIds(consentIds);
+        if (recordsToUpdate.size() != consentIds.size()) {
+            throw new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS);
+        }
+        recordsToUpdate.forEach(record -> record.setSentToParent(true));
+        healthCheckRecordRepository.saveAll(recordsToUpdate);
+
 
         healthCheckRecordRepository.saveAll(recordsToUpdate);
 

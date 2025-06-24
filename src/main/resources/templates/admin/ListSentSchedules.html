@@ -19,6 +19,33 @@
       background-color: #17a2b8;
       color: white;
     }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    .pagination a {
+      text-decoration: none;
+      color: blue;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .pagination a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .pagination a.current {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      border-color: #4CAF50;
+    }
   </style>
 </head>
 <body>
@@ -27,11 +54,15 @@
 <div th:if="${success}" class="alert-success" style="color: green;">
   <p th:text="${success}"></p>
 </div>
+<div th:if="${error}" class="alert-success" style="color: green;">
+  <p th:text="${error}"></p>
+</div>
 <table>
   <thead>
   <tr>
     <th>STT</th>
     <th>Ngày khám</th>
+    <th>Giờ khám</th>
     <th>Ngày gửi</th>
     <th>Nội dung</th>
     <th>Ghi chú</th>
@@ -42,11 +73,12 @@
   <tr th:each="schedule, iterStat : ${sentSchedules}">
     <td th:text="${iterStat.index + 1}">1</td>
     <td th:text="${#temporals.format(schedule.checkDate, 'dd/MM/yyyy')}">05/01/2026</td>
+    <td th:text="${#temporals.format(schedule.checkDate, 'hh:mm a')}">09:30 AM</td>
     <td th:text="${#temporals.format(schedule.sentDate, 'dd/MM/yyyy')}">01/01/2026</td>
     <td th:text="${schedule.content}">Nội dung khám sức khỏe...</td>
     <td th:text="${schedule.notes}">Nội dung khám sức khỏe...</td>
     <td>
-      <a th:href="@{/schoolNurse/healthCheckConsent/list-student-health-check(date=${#temporals.format(schedule.checkDate, 'yyyy-MM-dd')}, id=${schedule.id})}"
+      <a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${schedule.id})}"
       style="color: #007bff; text-decoration: underline;">Xem học sinh</a>
 
     </td>
@@ -57,6 +89,13 @@
   </tr>
   </tbody>
 </table>
+<!-- Phân trang -->
+<div class="pagination" th:if="${totalPages > 0}">
+  <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+     th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule(page=${i})}"
+     th:text="${i + 1}"
+     th:classappend="${i == currentPage} ? ' current'">1</a>
+</div>
 
 </body>
 </html>

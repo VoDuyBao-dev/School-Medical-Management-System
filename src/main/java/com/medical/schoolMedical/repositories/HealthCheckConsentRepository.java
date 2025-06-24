@@ -1,6 +1,7 @@
 package com.medical.schoolMedical.repositories;
 
 import com.medical.schoolMedical.entities.HealthCheckConsent;
+import com.medical.schoolMedical.entities.HealthCheckSchedule;
 import com.medical.schoolMedical.entities.Student;
 import com.medical.schoolMedical.enums.ConsentStatus;
 import org.springframework.data.domain.Page;
@@ -20,40 +21,25 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
     boolean existsByParent_Id(Long parentId);
     boolean existsByParent_IdAndStatus(Long parentId, ConsentStatus status);
     List<HealthCheckConsent> findByStatus(ConsentStatus status);
+//    Lấy danh sách consent đồng ý khám và trạng thái khám hay chưa khám tùy ng dùng chọn
     @Query(value = """
-    SELECT DISTINCT s FROM HealthCheckConsent h 
-    JOIN h.student s 
-    WHERE h.checkDate = :date 
-    AND h.status = :status 
-    AND h.checkedHealth = :is_checked_health 
-    ORDER BY s.fullName ASC, s.className ASC 
-    """,
-            countQuery = """
-    SELECT COUNT(DISTINCT s) FROM HealthCheckConsent h 
-    JOIN h.student s 
-    WHERE h.checkDate = :date 
+    SELECT h FROM HealthCheckConsent h
+    WHERE h.schedule = :scheduleId
     AND h.status = :status
-    AND h.checkedHealth = :is_checked_health 
-    """
-    )
-    Page<Student> findByCheckDateAndStatusSorted(
-            @Param("date") LocalDate date,
+    AND h.checkedHealth = :is_checked_health
+    ORDER BY h.id ASC
+    """)
+    Page<HealthCheckConsent> listConsentsByScheduleAndStatusAndCheckState(
+            @Param("scheduleId") HealthCheckSchedule scheduleId,
             @Param("status") ConsentStatus status,
             @Param("is_checked_health") boolean is_checked_health,
             Pageable pageable
     );
 
-    @Query("""
-    SELECT c FROM HealthCheckConsent c 
-    WHERE c.sentDate IS NOT NULL AND c.id IN (
-        SELECT MIN(c2.id) FROM HealthCheckConsent c2 
-        WHERE c2.sentDate IS NOT NULL 
-        GROUP BY c2.checkDate
-    )
-    ORDER BY c.checkDate DESC
-""")
-    List<HealthCheckConsent> findOneConsentPerCheckDate();
+//    Lấy các consent của parent tươnhg ưnhgs
+    Page<HealthCheckConsent> findByParent_User_IdOrderByIdDesc(Long userId, Pageable pageable);
 
-    Optional<HealthCheckConsent> findByStudentIdAndCheckDateAndStatus(Long studentId, LocalDate checkDate, ConsentStatus status);
+    @Query("SELECT c FROM HealthCheckConsent c JOIN FETCH c.schedule WHERE c.status = :status")
+    List<HealthCheckConsent> findByStatusWithSchedule(@Param("status") ConsentStatus status);
 
 }

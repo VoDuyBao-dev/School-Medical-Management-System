@@ -15,12 +15,10 @@ import java.util.Optional;
 public interface HealthCheckRecordRepository extends JpaRepository<HealthCheckRecord,Long> {
     Optional<HealthCheckRecord> findByHealthCheckConsent(HealthCheckConsent healthCheckConsent);
     Optional<HealthCheckRecord> findById(long id);
-    @Query("""
-        SELECT r.id, r.healthCheckConsent.student.id
-        FROM  HealthCheckRecord r
-        WHERE r.healthCheckConsent.checkDate = :date
-""")
-    List<Object[]> findRecordIdsAndStudentIdsByCheckDate(@Param("date") LocalDate date);
+
+    @Query("SELECT r FROM HealthCheckRecord r WHERE r.healthCheckConsent.id IN :consentIds")
+    List<HealthCheckRecord> findByConsentIds(@Param("consentIds") List<Long> consentIds);
+
 
     boolean existsByHealthCheckConsent_Parent_IdAndSentToParentTrueAndViewedByParentFalse(Long parentId);
 

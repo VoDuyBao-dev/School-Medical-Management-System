@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "medicine_used")
 public class MedicineUsed {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medicine_used_id")
     private long id;
 

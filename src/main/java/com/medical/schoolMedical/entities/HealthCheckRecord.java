@@ -1,27 +1,32 @@
 package com.medical.schoolMedical.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Health_check_record")
 public class HealthCheckRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_check_id")
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "health_check_consent_id", referencedColumnName = "health_check_consent_id", nullable = false)
+    @ToString.Exclude
     private HealthCheckConsent healthCheckConsent;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performed_by_nurse_id", referencedColumnName = "school_nurse_id", nullable = false)
+    @ToString.Exclude
     private SchoolNurse schoolNurse;
 
     @Column(name = "vision_result", nullable = false)

@@ -4,6 +4,12 @@
 <body>
     <h1>Welcome, <span th:text="${username}">Parent</span>!</h1>
     <p>This is your dashboard.</p>
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+    <div>
+        <a th:href="@{/parent/healthCheckConsent/listHealthCheckConsent}">list các phiếu xác nhận khám sưcs khỏe</a>
+    </div>
 
     <div style="position: relative;">
         <button id="notificationBtn" style="background: none; border: none; font-size: 20px;">

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "health_check_consent")
 public class HealthCheckConsent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_check_consent_id")
     private long id;
 
@@ -31,28 +31,20 @@ public class HealthCheckConsent {
     @ToString.Exclude
     private Parent parent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "health_check_schedule_id", referencedColumnName = "health_check_schedule_id", nullable = false)
+    @ToString.Exclude
+    private HealthCheckSchedule schedule;
+
     @ToString.Exclude
     @OneToOne(mappedBy = "healthCheckConsent", fetch = FetchType.LAZY)
     private HealthCheckRecord healthCheckRecord;
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
-
-    @Column(name = "check_date",nullable = false)
-    private LocalDate checkDate;
+    @Column(name = "is_checked_health",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean checkedHealth = false;
 
     @Column(name = "consent_status", nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'UNCONFIRMED'")
     @Enumerated(EnumType.STRING)
     private ConsentStatus status;
-
-    @Column(name = "sent_date", nullable = false)
-    @CreationTimestamp
-    private LocalDate sentDate;
-
-    @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
-
-    @Column(name = "is_checked_health",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
-    private boolean checkedHealth = false;
 }
 

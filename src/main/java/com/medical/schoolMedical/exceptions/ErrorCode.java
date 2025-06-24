@@ -13,6 +13,7 @@ public enum ErrorCode {
     HEALTH_CHECK_CONSENT_NOT_FOUND("ERR050", "Phiếu đồng ý kiểm tra sức khỏe không tồn tại."),
     SURVEY_EXPIRED("ERR051", "Phiếu đã hết hạn."),
     SAVE_HEALTH_CHECK_CONSENT_FAILED("ERR052", "Lưu phiếu đồng ý kiểm tra sức khỏe thất bại."),
+    CHECK_DATE_INVALID("ERR057", "Ngày kiểm tra không được là ngày trong quá khứ"),
 
 //    Mã lỗi của health check record
     SCHOOL_NURSE_NOT_EXISTS("ERR053", "School nurse không tồn tại."),
@@ -21,6 +22,10 @@ public enum ErrorCode {
 
 //Lỗi tìm kiếm role:
     PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
+
+//    Lỗi health check schedule
+SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
+    HEALTH_CHECK_SCHEDULE_NOT_EXISTS("ERR059", "lịch kiểm tra sức khỏe không tồn tại."),
     // Lỗi hệ thống
     INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau.");
 

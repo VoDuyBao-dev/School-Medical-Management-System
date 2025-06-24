@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "medical_event")
 public class MedicalEvent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_event_id")
     private long id;
 

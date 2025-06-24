@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "vaccination_consent")
 public class VaccinationConsent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vaccination_consent_id")
     private long id;
 
