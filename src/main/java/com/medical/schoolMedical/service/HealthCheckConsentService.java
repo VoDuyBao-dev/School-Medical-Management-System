@@ -113,10 +113,10 @@ public class HealthCheckConsentService {
         Pageable pageable = pagination(page, 20); // Lấy trang đầu tiên với 20 bản ghi
 
         Page<HealthCheckConsent> healthCheckConsents = healthCheckConsentRepository.findByParent_User_IdOrderByIdDesc(userId,pageable);
-        log.info("getHealthCheckConsentByParentId in consentService: {}", healthCheckConsents.getContent());
 
 //        CHuyển qua Page<HealthCheckConsentDTO>
         Page<HealthCheckConsentDTO> consentDTOPage = healthCheckConsents.map(healthCheckConsentMapper::toDTO);
+        log.info("consentDTOPage in getHealthCheckConsentByParentId in consentService: {}", consentDTOPage.getContent());
         return consentDTOPage;
     }
 

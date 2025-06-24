@@ -57,6 +57,8 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
 {
     log.info("consentId in controllerAction: {}", consentId);
     if(bindingResult.hasErrors()){
+        model.addAttribute("consentId", consentId);
+        model.addAttribute("idSchedule", idSchedule);
         return "admin/healthCheckRecord";
     }
 

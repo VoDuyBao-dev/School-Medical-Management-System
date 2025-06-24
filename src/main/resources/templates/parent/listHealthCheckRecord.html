@@ -83,7 +83,7 @@
         .view-all a:hover {
             text-decoration: underline;
         }
-        .notification-item.unconfirmed {
+        .notification-item.noseen {
             background-color: #fff8e1; /* Màu nền vàng nhạt */
             border-left: 5px solid #ffb300; /* Thanh viền trái nổi bật */
         }
@@ -126,10 +126,10 @@
         <p th:text="${error}"></p>
     </div>
 
-    <div th:each="consent : ${listHealthCheckConsent}"
-         th:onclick="|window.location.href='@{/parent/confirm/confirm-health-check(idConsent=${consent.id})}'|"
+    <div th:each="record : ${listHealthCheckRecord}"
+         th:onclick="|window.location.href='@{/parent/healthCheckRecord(idRecord=${record.id})}'|"
          class="notification-item"
-         th:classappend="${consent.status.name() == 'UNCONFIRMED'} ? ' unconfirmed'">
+         th:classappend="${!record.isViewedByParent()} ? ' noseen'">
 
         <div class="notification-icon">
             <i class="fas fa-notes-medical"></i>
@@ -137,17 +137,17 @@
         <div class="notification-content">
             <p>
                 Bạn có kết quả khám sức khỏe cho học sinh
-                <strong th:text="${consent.student.fullName}">Nguyễn Văn A</strong>
+                <strong th:text="${record.healthCheckConsentDTO.student.fullName}">Nguyễn Văn A</strong>
                 vào ngày khám
-                <strong th:text="${#temporals.format(consent.schedule.checkDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
+                <strong th:text="${#temporals.format(record.healthCheckConsentDTO.schedule.checkDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
             </p>
-            <p class="time" th:text="${#temporals.format(consent.schedule.sentDate, 'dd/MM/yyyy')}">
+            <p class="time" th:text="${#temporals.format(record.healthCheckConsentDTO.schedule.sentDate, 'dd/MM/yyyy')}">
                 23/06/2025
             </p>
         </div>
     </div>
 
-    <div th:if="${#lists.isEmpty(listHealthCheckConsent)}"
+    <div th:if="${#lists.isEmpty(listHealthCheckRecord)}"
          style="padding: 24px; color: #888; text-align: center; font-size: 16px;">
         Không có thông báo kết quả khám sức khỏe nào.
     </div>
@@ -155,9 +155,9 @@
 
 </div>
 <!-- Phân trang -->
-<div class="pagination" th:if="${totalPages > 1}">
+<div class="pagination" th:if="${totalPages > 0}">
     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-       th:href="@{/nurse/healthCheckConsent/list-consent-health-check(page=${i})}"
+       th:href="@{/parent/notification/HealthCheckRecords(page=${i})}"
        th:text="${i + 1}"
        th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>

@@ -36,7 +36,7 @@ public class ConfirmHealthCheck {
             ,Model model) {
         try{
             healthCheckConsentService.updateHealthCheckConsent(id, response);
-            return "redirect:/parent/healthCheckConsent/listHealthCheckConsent";
+            return "redirect:/parent/notification/HealthCheckConsents";
         }catch(BusinessException e){
             model.addAttribute("error",e.getMessage());
             return "parent/confirmHealthCheckConsent";

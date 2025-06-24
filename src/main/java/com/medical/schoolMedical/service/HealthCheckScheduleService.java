@@ -63,7 +63,7 @@ public class HealthCheckScheduleService {
 
     //    Lấy các lịch khám sức khỏe đã gửi
     public Page<HealthCheckScheduleDTO> getAllHealthCheckSchedule(int page) {
-        Pageable pageable = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
 
         Page<HealthCheckSchedule> healthCheckSchedule = healthCheckScheduleRepository.findAll(pageable);
         Page<HealthCheckScheduleDTO> healthCheckScheduleDTOPage = healthCheckSchedule.map(healthCheckScheduleMapper::toHealthCheckScheduleDTO);

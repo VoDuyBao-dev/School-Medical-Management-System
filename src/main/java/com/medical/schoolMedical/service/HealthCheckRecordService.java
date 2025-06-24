@@ -19,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -119,8 +122,6 @@ public class HealthCheckRecordService {
 
         }
 
-
-
     }
 
     public void update_HealthCheckRecord(HealthCheckRecordDTO healthCheckRecordDTO, Long nurseId) {
@@ -159,6 +160,33 @@ public class HealthCheckRecordService {
 
         healthCheckRecordRepository.saveAll(recordsToUpdate);
 
+    }
+
+//    Lấy danh sách các record đã được gửi đến phụ huynh
+    public Page<HealthCheckRecordDTO> getSentRecordsToParents(Long userId, int page) {
+        Pageable pageable = PageRequest.of(page, 20);
+
+        Page<HealthCheckRecord> sentRecords = healthCheckRecordRepository.findBySentToParentTrueAndHealthCheckConsent_Parent_User_Id(userId, pageable);
+
+        Page<HealthCheckRecordDTO> sentRecordsDTO = sentRecords.map(healthCheckRecordMapper::toHealthCheckRecordDTO);
+        log.info("list record Sent to parents: {}", sentRecordsDTO.getContent());
+        return sentRecordsDTO;
+    }
+
+//    Lấy health check record tương ứng và cập nhật nó là parent đã xem:
+    public HealthCheckRecordDTO getCheckRecord_updateViewed(long id){
+        HealthCheckRecord healthCheckRecord = healthCheckRecordRepository.findById(id)
+                .orElseThrow(()->new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS));
+
+//        update viewedByParent to true
+        healthCheckRecord.setViewedByParent(true);
+        try{
+            healthCheckRecordRepository.save(healthCheckRecord);
+        }catch (Exception e){
+            throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_RECORD_FAILED);
+        }
+
+        return healthCheckRecordMapper.toHealthCheckRecordDTO(healthCheckRecord);
     }
 
 }
