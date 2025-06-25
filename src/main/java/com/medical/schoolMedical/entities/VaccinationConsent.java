@@ -38,8 +38,5 @@ public class VaccinationConsent {
     @Enumerated(EnumType.STRING)
     private ConsentStatus status;
 
-    @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
-
 
 }

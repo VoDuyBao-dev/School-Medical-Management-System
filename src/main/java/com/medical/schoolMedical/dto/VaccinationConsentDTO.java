@@ -20,5 +20,5 @@ public class VaccinationConsentDTO {
     @ToString.Exclude
     private VaccinationSchedule schedule;
     private ConsentStatus status;
-    private String notes;
+
 }

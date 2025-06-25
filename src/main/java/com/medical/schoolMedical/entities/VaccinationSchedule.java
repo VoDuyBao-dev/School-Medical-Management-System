@@ -26,10 +26,10 @@ public class VaccinationSchedule {
     private SchoolNurse nurse;
 
     @Column(name = "vaccine_type", nullable = false)
-    private String vaccine_type;
+    private String vaccineType;
 
     @Column(name = "recommended_age_months")
-    private String recommended_age_months;
+    private String recommendedAgeMonths;
 
     @Column(name = "injection_date", nullable = false)
     private LocalDateTime injectionDate;

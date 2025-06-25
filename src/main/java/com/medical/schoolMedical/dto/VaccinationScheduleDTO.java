@@ -20,8 +20,8 @@ public class VaccinationScheduleDTO {
     @ToString.Exclude
     private SchoolNurse nurse;
     @NotBlank(message = "Loại vắc xin không được để trống.")
-    private String vaccine_type;
-    private String recommended_age_months;
+    private String vaccineType;
+    private String recommendedAgeMonths;
     @NotNull(message = "Ngày tiêm không được để trống.")
     @FutureOrPresent(message = "Ngày tiêm phải là thời điểm ở hiện tại hoặc tương lai")
     private LocalDateTime injectionDate;

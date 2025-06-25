@@ -10,6 +10,6 @@ public class ErrorController {
     //không đủ quyền truy cập sẽ chuyeenr trang
     @GetMapping("/access-denied")
     public String accessDenied() {
-        return "access-denied";
+        return "admin/access-denied";
     }
 }

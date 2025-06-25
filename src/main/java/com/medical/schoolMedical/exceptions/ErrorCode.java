@@ -30,7 +30,9 @@ SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe
     INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau."),
 
 //    Lỗi của vaccination
-    SAVE_VACCINATION_SCHEDULE_FAILED("ERR060", "Lưu lịch tiêm vaccine thất bại.");
+    SAVE_VACCINATION_SCHEDULE_FAILED("ERR060", "Lưu lịch tiêm vaccine thất bại."),
+    VACCINATION_CONSENT_NOT_EXISTS("ERR061", "Phiếu xác nhận tiêm chủng không tồn tại."),
+    SAVE_VACCINATION_CONSENT_FAILED("ERR062", "Lưu phiếu xác nhận tiêm chủng thất bại.");
 
     private final String code;
     private final String message;

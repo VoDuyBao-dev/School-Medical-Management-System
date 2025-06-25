@@ -2,9 +2,11 @@ package com.medical.schoolMedical.controller.parent;
 
 import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
 import com.medical.schoolMedical.dto.HealthCheckRecordDTO;
+import com.medical.schoolMedical.dto.VaccinationConsentDTO;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.HealthCheckConsentService;
 import com.medical.schoolMedical.service.HealthCheckRecordService;
+import com.medical.schoolMedical.service.VaccinationConsentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class NotificationParentController {
     @Autowired
     private HealthCheckConsentService healthCheckConsentService;
-
     @Autowired
     private HealthCheckRecordService healthCheckRecordService;
+    @Autowired
+    private VaccinationConsentService vaccinationConsentService;
 
+// health check
     @GetMapping("/HealthCheckConsents")
     public String listHealthCheckConsent(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                          @RequestParam(defaultValue = "0") int page,
@@ -56,6 +60,23 @@ public class NotificationParentController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listRecord.getTotalPages());
         return "parent/listHealthCheckRecord";
+
+    }
+
+//    vaccination
+    @GetMapping("/vaccinationConsents")
+    public String listVaccinationConsent(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         Model model) {
+        Long userId = customUserDetails.getUser().getId();
+        log.info("parentId: {}", userId);
+
+        Page<VaccinationConsentDTO> listConsent = vaccinationConsentService.getVaccinationConsentByParentId(userId, page);
+
+        model.addAttribute("listVaccinationConsent", listConsent.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", listConsent.getTotalPages());
+        return "parent/listVaccinationConsent";
 
     }
 }

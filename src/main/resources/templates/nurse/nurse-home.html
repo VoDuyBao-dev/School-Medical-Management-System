@@ -16,6 +16,9 @@
     <div th:if="${success}" class="send_parent">
         <p th:text="${success}"></p>
     </div>
+    <div th:if="${message}" class="send_parent">
+        <p th:text="${message}"></p>
+    </div>
     <div>
         <a th:href="@{/nurse/healthCheckSchedule}">trang tạo health check schedule</a>
     </div>

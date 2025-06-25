@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Thông báo khám sức khỏe</title>
+    <title>Thông báo tiêm chủng</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <style>
@@ -120,7 +120,7 @@
 <body>
 <div class="notification-panel">
     <div class="notification-header">
-        Thông báo khám sức khỏe
+        Thông báo tiêm chủng
     </div>
 
     <div th:if="${error}" class="alert-success" style="color: red; padding: 16px; font-size: 16px;">
@@ -130,8 +130,8 @@
         <p th:text="${success}"></p>
     </div>
 
-    <div th:each="consent : ${listHealthCheckConsent}"
-         th:onclick="|window.location.href='@{/parent/confirm/confirm-health-check(idConsent=${consent.id})}'|"
+    <div th:each="consent : ${listVaccinationConsent}"
+         th:onclick="|window.location.href='@{/parent/confirm/confirm-vaccination(vaccinatonConsentId=${consent.id})}'|"
          class="notification-item"
          th:classappend="${consent.status.name() == 'UNCONFIRMED'} ? ' unconfirmed'">
 
@@ -140,10 +140,10 @@
         </div>
         <div class="notification-content">
             <p>
-                Bạn có lịch khám sức khỏe cho học sinh
+                Bạn có lịch tiêm chủng cho học sinh
                 <strong th:text="${consent.student.fullName}">Nguyễn Văn A</strong>
                 vào ngày
-                <strong th:text="${#temporals.format(consent.schedule.checkDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
+                <strong th:text="${#temporals.format(consent.schedule.injectionDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
             </p>
             <p class="time" th:text="${#temporals.format(consent.schedule.sentDate, 'dd/MM/yyyy')}">
                 23/06/2025
@@ -151,7 +151,7 @@
         </div>
     </div>
 
-    <div th:if="${#lists.isEmpty(listHealthCheckConsent)}"
+    <div th:if="${#lists.isEmpty(listVaccinationConsent)}"
          style="padding: 24px; color: #888; text-align: center; font-size: 16px;">
         Không có thông báo khám sức khỏe nào.
     </div>
@@ -161,7 +161,7 @@
 <!-- Phân trang -->
 <div class="pagination" th:if="${totalPages > 0}">
     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-       th:href="@{/parent/notification/HealthCheckConsents(page=${i})}"
+       th:href="@{/parent/notification/vaccinationConsents(page=${i})}"
        th:text="${i + 1}"
        th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>
