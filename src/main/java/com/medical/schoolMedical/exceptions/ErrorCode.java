@@ -27,7 +27,10 @@ public enum ErrorCode {
 SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
     HEALTH_CHECK_SCHEDULE_NOT_EXISTS("ERR059", "lịch kiểm tra sức khỏe không tồn tại."),
     // Lỗi hệ thống
-    INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau.");
+    INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau."),
+
+//    Lỗi của vaccination
+    SAVE_VACCINATION_SCHEDULE_FAILED("ERR060", "Lưu lịch tiêm vaccine thất bại.");
 
     private final String code;
     private final String message;

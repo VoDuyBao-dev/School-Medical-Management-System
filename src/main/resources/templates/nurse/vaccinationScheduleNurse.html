@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo lịch tiêm chủng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Nhập thông tin tiêm chủng</h2>
+    <form th:action="@{/nurse/vaccinationSchedule/create}" th:object="${vaccinationSchedule}" method="post">
+        <!-- Vaccine Type -->
+        <div class="mb-3">
+            <label for="vaccineType" class="form-label">Loại vắc xin <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="vaccineType" th:field="*{vaccine_type}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('vaccine_type')}" th:errors="*{vaccine_type}">Lỗi</div>
+        </div>
+
+        <!-- Recommended Age in Months -->
+        <div class="mb-3">
+            <label for="recommendedAge" class="form-label">Độ tuổi khuyến nghị (tháng)</label>
+            <input type="text" class="form-control" id="recommendedAge" th:field="*{recommended_age_months}">
+        </div>
+
+        <!-- Injection Date with Time -->
+        <div class="mb-3">
+            <label for="injectionDate" class="form-label">Ngày và giờ tiêm <span class="text-danger">*</span></label>
+            <input type="datetime-local" class="form-control" id="injectionDate" th:field="*{injectionDate}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}">Lỗi</div>
+        </div>
+
+        <!-- Notes -->
+        <div class="mb-3">
+            <label for="notes" class="form-label">Ghi chú</label>
+            <textarea class="form-control" id="notes" th:field="*{notes}" rows="4"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+    </form>
+</div>
+</body>
+</html>

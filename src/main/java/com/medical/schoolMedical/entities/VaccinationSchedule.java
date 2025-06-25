@@ -3,8 +3,11 @@ package com.medical.schoolMedical.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -17,14 +20,23 @@ public class VaccinationSchedule {
     @Column(name = "schedule_id")
     private long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_nurse_id", referencedColumnName = "school_nurse_id", nullable = false)
+    @ToString.Exclude
+    private SchoolNurse nurse;
+
     @Column(name = "vaccine_type", nullable = false)
     private String vaccine_type;
 
     @Column(name = "recommended_age_months")
     private String recommended_age_months;
 
-    @Column(name = "schedule_date", nullable = false)
-    private LocalDate schedule_date;
+    @Column(name = "injection_date", nullable = false)
+    private LocalDateTime injectionDate;
+
+    @Column(name = "sent_date", nullable = false)
+    @CreationTimestamp
+    private LocalDate sentDate;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;

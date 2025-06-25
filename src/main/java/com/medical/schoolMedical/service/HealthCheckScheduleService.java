@@ -32,7 +32,7 @@ import java.util.List;
 public class HealthCheckScheduleService {
     final HealthCheckScheduleRepository healthCheckScheduleRepository;
     final HealthCheckScheduleMapper healthCheckScheduleMapper;
-    final StudentService studentService;
+
     final SchoolNurseRepository schoolNurseRepository;
 
     @Lazy

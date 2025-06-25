@@ -1,25 +1,15 @@
-package com.medical.schoolMedical.controller.admin;
+package com.medical.schoolMedical.controller.schoolNurse;
 
 import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
-import com.medical.schoolMedical.dto.StudentDTO;
-import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.repositories.HealthCheckConsentRepository;
 import com.medical.schoolMedical.service.HealthCheckConsentService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 @Slf4j
 @Controller

@@ -10,9 +10,22 @@
     <div th:if="${send_parent}" class="send_parent">
         <p th:text="${send_parent}"></p>
     </div>
+    <div th:if="${error}" class="send_parent">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${success}" class="send_parent">
+        <p th:text="${success}"></p>
+    </div>
+    <div>
+        <a th:href="@{/nurse/healthCheckSchedule}">trang tạo health check schedule</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">trang các health check schedule đã gửi</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/vaccinationSchedule}">trang tạo lịch tiêm chủng</a>
+    </div>
 
-    <a th:href="@{/nurse/healthCheckSchedule}">trang tạo health check schedule</a>
-    <a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">trang các health check schedule đã gửi</a>
 
 </body>
 </html>

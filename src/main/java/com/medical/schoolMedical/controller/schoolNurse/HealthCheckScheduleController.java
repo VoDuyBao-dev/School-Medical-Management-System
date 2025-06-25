@@ -1,9 +1,6 @@
-package com.medical.schoolMedical.controller.admin;
+package com.medical.schoolMedical.controller.schoolNurse;
 
-import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
 import com.medical.schoolMedical.dto.HealthCheckScheduleDTO;
-import com.medical.schoolMedical.entities.HealthCheckSchedule;
-import com.medical.schoolMedical.entities.SchoolNurse;
 import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.HealthCheckConsentService;
@@ -15,14 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -66,7 +61,7 @@ public class HealthCheckScheduleController {
             try{
 //                    Gửi lịch đến phụ huynh:
                 healthCheckConsentService.sendCheckSchedule_toParent(result);
-                redirectAttributes.addFlashAttribute("send_parent", "Guửi health check schedule đến pảent thành công");
+                redirectAttributes.addFlashAttribute("send_parent", "Gửi health check schedule đến parent thành công");
                 return "redirect:/nurse/nurse-home";
             }catch (BusinessException e){
                 model.addAttribute("error",e.getMessage());
