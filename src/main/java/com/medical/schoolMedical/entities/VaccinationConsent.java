@@ -38,5 +38,8 @@ public class VaccinationConsent {
     @Enumerated(EnumType.STRING)
     private ConsentStatus status;
 
+    @Column(name = "vaccinated",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean vaccinated = false;
+
 
 }

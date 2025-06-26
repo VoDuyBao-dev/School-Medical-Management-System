@@ -17,8 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HealthCheckConsentController {
     @Autowired
     private HealthCheckConsentService healthCheckConsentService;
-    @Autowired
-    private HealthCheckConsentRepository healthCheckConsentRepository;
 
 //    Lấy danh sách các học sinh đc phụ huynh đồng ý cho khám sức khỏe và đã được khám
     @GetMapping("/list-student-health-check/checked-health")
@@ -34,7 +32,7 @@ public class HealthCheckConsentController {
         Page<HealthCheckConsentDTO> consentPage  = healthCheckConsentService.getStudentsHealthCheck(idSchedule, page,is_checked_health);
         log.info("consentPage={}",consentPage.getContent());
 
-// đến đoạn giờ phải gắn mỗi cái nút là 1 id record tương ứng
+
         model.addAttribute("consentPage", consentPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", consentPage.getTotalPages());

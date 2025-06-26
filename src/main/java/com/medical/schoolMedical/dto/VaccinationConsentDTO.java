@@ -20,5 +20,6 @@ public class VaccinationConsentDTO {
     @ToString.Exclude
     private VaccinationSchedule schedule;
     private ConsentStatus status;
+    private boolean vaccinated = false;
 
 }

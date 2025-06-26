@@ -1,12 +1,10 @@
 package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
+import com.medical.schoolMedical.dto.HealthCheckScheduleDTO;
 import com.medical.schoolMedical.dto.VaccinationConsentDTO;
 import com.medical.schoolMedical.dto.VaccinationScheduleDTO;
-import com.medical.schoolMedical.entities.HealthCheckConsent;
-import com.medical.schoolMedical.entities.Student;
-import com.medical.schoolMedical.entities.VaccinationConsent;
-import com.medical.schoolMedical.entities.VaccinationSchedule;
+import com.medical.schoolMedical.entities.*;
 import com.medical.schoolMedical.enums.ConsentStatus;
 import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.exceptions.ErrorCode;
@@ -24,6 +22,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +40,7 @@ public class VaccinationConsentService {
     VaccinationScheduleRepository vaccinationScheduleRepository;
     VaccinationConsentMapper vaccinationConsentMapper;
     StudentService studentService;
+    VaccinationScheduleService vaccinationScheduleService;
 
     //    Gửi lịch đến phụ huynh:
     public void sendVaccinationSchedule_toParent(VaccinationScheduleDTO vaccinationScheduleDTO){
@@ -132,7 +132,7 @@ public class VaccinationConsentService {
 
     //    lấy danh sách các VaccinationConsent của phụ huynh tương ứng
     public Page<VaccinationConsentDTO> getVaccinationConsentByParentId(Long userId, int page) {
-        Pageable pageable = PageRequest.of(page, 1); // Lấy trang đầu tiên với 20 bản ghi
+        Pageable pageable = PageRequest.of(page, 20); // Lấy trang đầu tiên với 20 bản ghi
 
         Page<VaccinationConsent> vaccinationConsents = vaccinationConsentRepository.findByParent_User_IdOrderByIdDesc(userId,pageable);
 
@@ -141,5 +141,34 @@ public class VaccinationConsentService {
         log.info("consentDTOPage in getVaccinationConsentByParentId in consentService: {}", consentDTOPage.getContent());
         return consentDTOPage;
     }
+
+    //    Lấy toàn bộ học sinh theo ngày tiêm, đã tiêm và chưa tiêm
+    public Page<VaccinationConsentDTO> getStudentsVaccination(Long scheduleId, int page, boolean is_vaccinated) {
+
+        Pageable pageable = PageRequest.of(page, 1);
+
+//        Lấy lịch phù hợp với scheduleId
+        VaccinationSchedule schedule =  null;
+        try{
+            VaccinationScheduleDTO scheduleDTO = vaccinationScheduleService.getVaccinationScheduleById(scheduleId);
+            schedule = vaccinationScheduleMapper.toVaccinationSchedule(scheduleDTO);
+        }catch (BusinessException e){
+            throw new BusinessException(e.getErrorCode());
+        }
+        log.info("schedule in getStudentsVaccination: {}", schedule);
+
+
+//        Lấy danh sách student theo consent, dùng consent để truy suất student tương ứng
+        Page<VaccinationConsent> listConsent = vaccinationConsentRepository
+                .listConsentsByScheduleAndStatusAndCheckState(schedule, ConsentStatus.ACCEPTED,is_vaccinated, pageable);
+
+        log.info("listConsent in getStudentsVaccination: {}", listConsent.getContent());
+
+//        CHuyển qua Page<VaccinationConsentDTO>
+        Page<VaccinationConsentDTO> consentDTOPage = listConsent.map(vaccinationConsentMapper::toVaccinationConsentDTO);
+        return consentDTOPage;
+    }
+
+
 
 }

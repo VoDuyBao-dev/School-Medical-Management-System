@@ -26,10 +26,17 @@ public class VaccinationRecord {
     private SchoolNurse schoolNurse;
 
 
+//    Tình trạng sau tiêm chủng
     @Column(name = "post_vaccination_condition",nullable = false)
     private String postVaccinationCondition;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
+
+    @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean sentToParent = false;
+
+    @Column(name = "is_viewed_by_parent ",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean viewedByParent  = false;
 }
 

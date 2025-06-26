@@ -19,7 +19,7 @@ public class HealthCheckRecordDTO {
     @Min(value = 0, message = "Kết quả thị lực phải lớn hơn hoặc bằng 0.")
     @Max(value = 10, message = "Kết quả thị lực phải nhỏ hơn hoặc bằng 10.")
     private int visionResult ;
-    @NotBlank(message = "Không được để trống kết đo thính giác")
+    @NotBlank(message = "Không được để trống kết quả đo thính giác")
     private String hearingResult;
     private String otherResult;
     private String assessment;

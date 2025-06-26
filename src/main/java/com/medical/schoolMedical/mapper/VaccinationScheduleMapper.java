@@ -9,5 +9,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface VaccinationScheduleMapper {
     VaccinationSchedule toVaccinationSchedule(VaccinationScheduleDTO vaccinationScheduleDTO);
-    VaccinationScheduleDTO toHealthCheckScheduleDTO(VaccinationSchedule VaccinationSchedule);
+    VaccinationScheduleDTO toVaccinationScheduleDTO(VaccinationSchedule VaccinationSchedule);
 }

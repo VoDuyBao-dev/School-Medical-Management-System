@@ -12,14 +12,14 @@
         <!-- Vaccine Type -->
         <div class="mb-3">
             <label for="vaccineType" class="form-label">Loại vắc xin <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="vaccineType" th:field="*{vaccine_type}" required>
-            <div class="text-danger" th:if="${#fields.hasErrors('vaccine_type')}" th:errors="*{vaccine_type}">Lỗi</div>
+            <input type="text" class="form-control" id="vaccineType" th:field="*{vaccineType}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('vaccineType')}" th:errors="*{vaccineType}">Lỗi</div>
         </div>
 
         <!-- Recommended Age in Months -->
         <div class="mb-3">
             <label for="recommendedAge" class="form-label">Độ tuổi khuyến nghị</label>
-            <input type="text" class="form-control" id="recommendedAge" th:field="*{recommended_age_months}">
+            <input type="text" class="form-control" id="recommendedAge" th:field="*{recommendedAgeMonths}">
         </div>
 
         <!-- Injection Date with Time -->

@@ -1,5 +1,6 @@
 package com.medical.schoolMedical.controller.schoolNurse;
 
+import com.medical.schoolMedical.dto.HealthCheckScheduleDTO;
 import com.medical.schoolMedical.dto.VaccinationScheduleDTO;
 import com.medical.schoolMedical.entities.VaccinationSchedule;
 import com.medical.schoolMedical.exceptions.BusinessException;
@@ -9,15 +10,13 @@ import com.medical.schoolMedical.service.VaccinationScheduleService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -69,5 +68,15 @@ public class VaccinationScheduleController {
             return "redirect:/nurse/nurse-home";
         }
 
+    }
+
+    //    Danh sách các lịch tiêm chủng đã gửi
+    @GetMapping("/vaccinationSchedules")
+    public String vaccinationSchedule_list(Model model, @RequestParam(defaultValue = "0") int page) {
+        Page<VaccinationScheduleDTO> vaccinationSchedules = vaccinationScheduleService.getAllVaccinationSchedule(page);
+        model.addAttribute("sentVaccinationSchedules",vaccinationSchedules.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", vaccinationSchedules.getTotalPages());
+        return  "nurse/ListSentVaccinationSchedules";
     }
 }
