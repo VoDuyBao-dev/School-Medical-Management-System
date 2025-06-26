@@ -1,0 +1,172 @@
+.header {
+    background-color: #f8f8f8;
+    color: white;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #e74c3c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    flex-grow: 1;
+    margin: 0 20px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Thêm padding-right để chừa chỗ cho nút */
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+    border-color: #e74c3c;
+}
+
+.search-bar input::placeholder {
+    color: #888;
+}
+
+.search-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #e74c3c;
+    padding: 5px;
+}
+
+.search-btn:hover {
+    color: #c0392b;
+}
+
+.contact-login {
+    display: flex;
+    align-items: center;
+}
+
+.hotline {
+    margin-right: 20px;
+    font-size: 16px;
+    color: #434446;
+}
+
+.hotline i {
+    color: #e74c3c;
+    margin-right: 5px;
+}
+
+.login-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+.nav {
+    background: linear-gradient(90deg, rgba(255, 77, 136, 0.56), rgba(255, 26, 102, 0.86));
+    color: rgb(255, 255, 255);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+}
+
+.nav-list {
+    margin: 0 auto;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0 25px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-item a:hover {
+    color: #512323;
+}
+
+
+.nav-item a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #e74c3c;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-item a:hover::after,
+.nav-item a.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
+        padding: 15px 20px;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .nav-item a {
+        padding: 8px 15px;
+    }
+}
