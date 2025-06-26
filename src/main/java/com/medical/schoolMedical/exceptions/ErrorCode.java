@@ -17,8 +17,8 @@ public enum ErrorCode {
 
 //    Mã lỗi của health check record
     SCHOOL_NURSE_NOT_EXISTS("ERR053", "School nurse không tồn tại."),
-    HEALTH_CHECK_RECORD_NOT_EXISTS("ERR054", "Health check record không tồn tại."),
-    SAVE_HEALTH_CHECK_RECORD_FAILED("ERR055", "Lưu health check record thất bại."),
+    HEALTH_CHECK_RECORD_NOT_EXISTS("ERR054", "Bản ghi kết quả khám sức khỏe không tồn tại."),
+    SAVE_HEALTH_CHECK_RECORD_FAILED("ERR055", "Lưu kết quả khám sức khỏe thất bại."),
 
 //Lỗi tìm kiếm role:
     PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
@@ -32,7 +32,8 @@ SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe
 //    Lỗi của vaccination
     SAVE_VACCINATION_SCHEDULE_FAILED("ERR060", "Lưu lịch tiêm vaccine thất bại."),
     VACCINATION_CONSENT_NOT_EXISTS("ERR061", "Phiếu xác nhận tiêm chủng không tồn tại."),
-    SAVE_VACCINATION_CONSENT_FAILED("ERR062", "Lưu phiếu xác nhận tiêm chủng thất bại.");
+    SAVE_VACCINATION_CONSENT_FAILED("ERR062", "Lưu phiếu xác nhận tiêm chủng thất bại."),
+    SAVE_VACCINATION_RECORD_FAILED("ERR063", "Lưu kết quả sau tiêm chủng thất bại.");
 
     private final String code;
     private final String message;

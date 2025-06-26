@@ -145,7 +145,7 @@ public class VaccinationConsentService {
     //    Lấy toàn bộ học sinh theo ngày tiêm, đã tiêm và chưa tiêm
     public Page<VaccinationConsentDTO> getStudentsVaccination(Long scheduleId, int page, boolean is_vaccinated) {
 
-        Pageable pageable = PageRequest.of(page, 1);
+        Pageable pageable = PageRequest.of(page, 20);
 
 //        Lấy lịch phù hợp với scheduleId
         VaccinationSchedule schedule =  null;
@@ -167,6 +167,13 @@ public class VaccinationConsentService {
 //        CHuyển qua Page<VaccinationConsentDTO>
         Page<VaccinationConsentDTO> consentDTOPage = listConsent.map(vaccinationConsentMapper::toVaccinationConsentDTO);
         return consentDTOPage;
+    }
+
+    public VaccinationConsent getVaccinationConsentEntity_ById(Long consentID) {
+        VaccinationConsent vaccinationConsent =  vaccinationConsentRepository.findById(consentID)
+                .orElseThrow(() -> new BusinessException(ErrorCode.VACCINATION_CONSENT_NOT_EXISTS));
+
+        return  vaccinationConsent;
     }
 
 

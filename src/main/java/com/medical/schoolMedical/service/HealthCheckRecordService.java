@@ -56,12 +56,12 @@ public class HealthCheckRecordService {
         this.healthCheckConsentMapper = healthCheckConsentMapper;
     }
 
-    private HealthCheckRecord healthCheckRecord_fullInfor(HealthCheckRecordDTO healthCheckRecordDTO, Long nurseId){
+    private HealthCheckRecord healthCheckRecord_fullInfor(HealthCheckRecordDTO healthCheckRecordDTO, Long userId){
         //Chuyển kiểu để lưu form:
         HealthCheckRecord healthCheckRecord =  healthCheckRecordMapper.toHealthCheckRecord(healthCheckRecordDTO);
 
 //        tìm school nurse phù hơp và gán vào trường schoolNurse trong đối tượng healthCheckRecord
-        SchoolNurse schoolNurse = schoolNurseRepository.findByUser_Id(nurseId).orElseThrow(()->
+        SchoolNurse schoolNurse = schoolNurseRepository.findByUser_Id(userId).orElseThrow(()->
                 new BusinessException(ErrorCode.SCHOOL_NURSE_NOT_EXISTS));
 //        Gán lại
         healthCheckRecord.setSchoolNurse(schoolNurse);
@@ -76,17 +76,17 @@ public class HealthCheckRecordService {
     }
 
 
-    public void create_HealthCheckRecord(HealthCheckRecordDTO healthCheckRecordDTO, HealthCheckConsentDTO healthCheckConsentDTO ,Long nurseId) {
+    public void create_HealthCheckRecord(HealthCheckRecordDTO healthCheckRecordDTO,Long consentID ,Long userId) {
         HealthCheckConsent healthCheckConsent = null;
         HealthCheckRecord healthCheckRecord = null;
         try{
-            healthCheckConsent = healthCheckConsentService.getHealthCheckConsentEntity_ById(healthCheckConsentDTO.getId());
+            healthCheckConsent = healthCheckConsentService.getHealthCheckConsentEntity_ById(consentID);
         }catch (BusinessException e){
             throw new BusinessException(e.getErrorCode());
         }
 
         try{
-            healthCheckRecord = healthCheckRecord_fullInfor(healthCheckRecordDTO, nurseId);
+            healthCheckRecord = healthCheckRecord_fullInfor(healthCheckRecordDTO, userId);
             healthCheckRecord.setHealthCheckConsent(healthCheckConsent);
 //            Cập nhật bản health check consent tương ứng để biết học sinh đó đã có bản ghi kết quả
             healthCheckRecord.getHealthCheckConsent().setCheckedHealth(true);

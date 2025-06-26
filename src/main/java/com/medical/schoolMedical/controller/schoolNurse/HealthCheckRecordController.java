@@ -63,7 +63,7 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
 
     log.info("healthCheckRecordDTO của /save-update-Form: {}", healthCheckRecordDTO);
     if(healthCheckRecordDTO.getId() == 0){
-        log.info("chạy cái create");
+
         return saveHealthCheckRecord(healthCheckRecordDTO,
                 consentId,
                 idSchedule,
@@ -71,7 +71,7 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
                 redirectAttributes,
                 model);
     } else{
-        log.info("chạy cái update");
+
         return updateHealthCheckRecord(healthCheckRecordDTO,
                 consentId,
                 idSchedule,
@@ -89,25 +89,14 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
                                         RedirectAttributes redirectAttributes,
                                         Model model)
     {
-//
-//        Lấy HealthCheckConsentDTO phù hợp với id được gửi tới để
-        HealthCheckConsentDTO healthCheckConsentDTO;
-        try {
-            healthCheckConsentDTO = healthCheckConsentService.getHealthCheckConsentById(consentId);
-        }catch (BusinessException e){
-            model.addAttribute("error",e.getMessage());
-            return "admin/healthCheckRecord";
-        }
 
-        log.info("healthCheckConsentDTO của record: "+ healthCheckConsentDTO);
-
-//        Lấy id của school nurse
-        Long nurseId = customUserDetails.getUser().getId();
-        log.info("nurseId ==> "+nurseId);
+//        Lấy id của người tạo form
+        Long userId = customUserDetails.getUser().getId();
+        log.info("userId ==> "+userId);
 
 //        Tạo record
         try{
-            healthCheckRecordService.create_HealthCheckRecord(healthCheckRecordDTO,healthCheckConsentDTO, nurseId);
+            healthCheckRecordService.create_HealthCheckRecord(healthCheckRecordDTO,consentId, userId);
             redirectAttributes.addFlashAttribute("success","Kết quả khám đã được ghi nhận thành công!");
             return "redirect:/nurse/healthCheckConsent/list-student-health-check?idSchedule=" + idSchedule;
         }catch (BusinessException e){

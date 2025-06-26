@@ -9,7 +9,11 @@
 <div class="container mt-5">
     <h2 class="mb-4">Nhập kết quả tiêm chủng cho học sinh</h2>
 
-    <form th:action="@{/nurse/vaccinationRecord/create}" th:object="${vaccinationRecordDTO}" method="post">
+    <form th:action="@{/nurse/vaccinationRecord/save-update-vaccinationRecord}" th:object="${vaccinationRecordDTO}" method="post">
+
+        <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinatonConsentId}"/>
+        <input type="hidden" name="vaccinatonScheduleId" th:value="${vaccinatonScheduleId}"/>
+        <input type="hidden" th:field="*{id}" />
 
         <!-- Post Vaccination Condition -->
         <div class="mb-3">
