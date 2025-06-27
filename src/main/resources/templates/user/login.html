@@ -1,33 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Đăng nhập</title>
-</head>
-<body>
-<h2>Đăng nhập</h2>
-<form th:action="@{/doLogin}" method="post" th:object="${user}">
-    <div>
-        <label for="username">Số điện thoại:</label>
-        <input type="text" id="username" th:field="*{username}" required />
-    </div>
-    <div>
-        <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" th:field="*{password}" required />
-    </div>
-    <div>
-        <button type="submit">Đăng nhập</button>
-    </div>
-    <div th:if="${error}" style="color: red">
-        <p th:text="${error}"></p>
-    </div>
-    <div th:if="${param.error}">
-        <p style="color:red">Sai tài khoản hoặc mật khẩu</p>
-    </div>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/pages/login.css}"/>
 
-    <div th:if="${param.logout}">
-        <p style="color:green">Đã đăng xuất thành công</p>
+</head>
+
+<body>
+<div class="container">
+    <div class="left-section"></div>
+    <div class="right-section">
+        <h1>Đăng nhập</h1>
+        <form th:action="@{/doLogin}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="username">Số điện thoại:</label>
+                <input type="text" id="username" th:field="*{username}" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" th:field="*{password}" required />
+                <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+            <div class="form-options">
+                <div class="remember-me-container"><input class="checkbox" type="checkbox" id="remember" name="remember" value="1">
+                    <label for="remember">Nhớ tài khoản</label>
+                </div>
+                <div class="forgot-password">
+                    <a th:href="@{/forgotpass}">Quên mật khẩu?</a>
+                </div>
+            </div>
+            <button type="submit" class="btn-login">Đăng nhập</button>
+            <div th:if="${error}" style="color: red">
+                <p th:text="${error}"></p>
+            </div>
+            <div th:if="${param.error}">
+                <p style="color:red">Sai tài khoản hoặc mật khẩu</p>
+            </div>
+
+            <div th:if="${param.logout}">
+                <p style="color:green">Đã đăng xuất thành công</p>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+<script th:src="@{/assets/js/login.js}"></script>
 </body>
 </html>
