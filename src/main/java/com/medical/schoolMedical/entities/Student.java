@@ -24,9 +24,6 @@ public class Student {
     @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
     private Parent parent;
 
-
-
-
     @Column(name = "fullname", length = 50,nullable = false)
     private String fullName;
 
