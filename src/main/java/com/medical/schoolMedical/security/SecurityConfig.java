@@ -36,6 +36,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/admin/login").permitAll()
@@ -66,7 +67,8 @@ public class SecurityConfig {
                         // trang cần đăng nhập
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
-                        .requestMatchers("/schoolNurse/**").hasRole("SCHOOL_NURSE")
+                        .requestMatchers("/school_nurse/**").hasRole("SCHOOL_NURSE")
+
                         .anyRequest().permitAll() // mặc định: cho phép
                 )
                 .formLogin(form -> form

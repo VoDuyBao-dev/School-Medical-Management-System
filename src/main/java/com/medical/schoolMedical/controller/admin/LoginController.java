@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
@@ -17,8 +18,12 @@ public class LoginController {
     UserService userService;
 
     @GetMapping("/login")
-    public String loginPage(Model model) {
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            Model model) {
         model.addAttribute("user", new UserDTO());
+        if (error != null) {
+            model.addAttribute("errorMessage", "Sai tên đăng nhập hoặc mật khẩu!");
+        }
         return "user/login";
     }
 

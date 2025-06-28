@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin,Integer> {
+public interface AdminRepository extends JpaRepository<Admin, Long> {
     Optional<Admin> findByUser_Username(String username);
 
 }

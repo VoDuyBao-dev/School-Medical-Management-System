@@ -4,7 +4,8 @@
 <body>
     <h1>Welcome Manager: <span th:text="${username}">Manager</span></h1>
     <p>This is your management dashboard.</p>
-    <a href="#">View Reports</a>
+    <a th:href="@{/manager/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
 
 </body>
 </html>
