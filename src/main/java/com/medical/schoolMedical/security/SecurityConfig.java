@@ -68,6 +68,7 @@ public class SecurityConfig {
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
                         .requestMatchers("/school_nurse/**").hasRole("SCHOOL_NURSE")
+
                         .anyRequest().permitAll() // mặc định: cho phép
                 )
                 .formLogin(form -> form

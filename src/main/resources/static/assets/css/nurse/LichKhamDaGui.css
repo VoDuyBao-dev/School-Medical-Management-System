@@ -1,0 +1,119 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+h2 {
+    text-align: center;
+    color: #ff4d65; /* Tiêu đề màu hồng đào */
+    margin-bottom: 20px;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.alert-success {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #e6ffe6; /* Nền xanh nhạt cho thông báo thành công */
+    color: #28a745; /* Màu xanh lá nhẹ */
+    font-weight: 500;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px auto;
+    background-color: #ffffff; /* Nền trắng cho bảng */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(255, 77, 136, 0.1); /* Bóng đổ với màu hồng */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ffe6f0; /* Viền hồng nhạt */
+}
+
+th {
+    background: linear-gradient(90deg, #ff4d88, #ff1a66); /* Gradient hồng đào */
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+tr:hover {
+    background-color: #fff0f5; /* Hồng nhạt khi hover */
+    transition: background-color 0.3s ease;
+}
+
+td {
+    color: #333;
+    font-size: 14px;
+}
+
+td:last-child a {
+    color: #ff4d88; /* Liên kết màu hồng đào */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+td:last-child a:hover {
+    color: #ff1a66; /* Hồng đậm hơn khi hover */
+    text-decoration: underline;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.no-data {
+    text-align: center;
+    font-style: italic;
+    color: #ff9999; /* Hồng nhạt cho thông báo rỗng */
+    padding: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #ff4d88; /* Màu hồng đào cho phân trang */
+    padding: 10px 15px;
+    border: 1px solid #ff4d88;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #ff4d88;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.pagination a.current {
+    background-color: #ff6b9a; /* Hồng đào đậm cho trang hiện tại */
+    color: white;
+    border-color: #ff6b9a;
+    font-weight: 600;
+    pointer-events: none;
+}
