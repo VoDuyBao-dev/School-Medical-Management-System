@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'">Form thuốc</title>
+  <style>
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 16px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+<p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+<h2 th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'"></h2>
+
+<form th:action="@{/school_nurse/medicines/save}" method="post" th:object="${medicine}">
+  <input type="hidden" th:field="*{id}"/>
+
+  <label for="name">Tên thuốc</label>
+  <input type="text" th:field="*{name}" id="name" required/>
+
+  <label for="unit">Đơn vị</label>
+  <input type="text" th:field="*{unit}" id="unit" required/>
+
+  <label for="quantityInStock">Số lượng trong kho</label>
+  <input type="number" th:field="*{quantityInStock}" id="quantityInStock" min="0" required/>
+
+  <label for="expiryDate">Hạn sử dụng</label>
+  <input type="date" th:field="*{expiryDate}" id="expiryDate" required/>
+
+
+  <button type="submit">Lưu</button>
+  <a th:href="@{/school_nurse/medicines}">
+    <button type="button">Quay lại danh sách</button>
+  </a>
+
+</form>
+</body>
+</html>

@@ -21,7 +21,7 @@ import java.time.LocalDate;
 
 @Controller
 @Slf4j
-@RequestMapping("/schoolNurse/healthCheckRecord")
+@RequestMapping("/school_nurse/healthCheckRecord")
 public class HealthCheckRecordController {
     @Autowired
     HealthCheckConsentService healthCheckConsentService;
@@ -108,10 +108,10 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
         try{
             healthCheckRecordService.create_HealthCheckRecord(healthCheckRecordDTO,healthCheckConsentDTO, nurseId);
             redirectAttributes.addFlashAttribute("success","Kết quả khám đã được ghi nhận thành công!");
-            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check?date=" + date;
+            return "redirect:/school_nurse/healthCheckConsent/list-student-health-check?date=" + date;
         }catch (BusinessException e){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
-            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check?date=" + date;
+            return "redirect:/school_nurse/healthCheckConsent/list-student-health-check?date=" + date;
         }
 
     }
@@ -143,7 +143,7 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
             return "admin/healthCheckRecord";
         }catch (BusinessException e){
             model.addAttribute("error",e.getMessage());
-            return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
+            return "redirect:/school_nurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
         }
 
     }
@@ -179,11 +179,11 @@ public String updateHealthCheckRecord(@ModelAttribute("healthCheckRecordDTO") @V
     try{
         healthCheckRecordService.update_HealthCheckRecord(healthCheckRecordDTO_request, nurseId);
         redirectAttributes.addFlashAttribute("success","Cập nhật kết quả khám thành công!");
-        return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
+        return "redirect:/school_nurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
 
     }catch (BusinessException e){
         redirectAttributes.addFlashAttribute("error",e.getMessage());
-        return "redirect:/schoolNurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
+        return "redirect:/school_nurse/healthCheckConsent/list-student-health-check/checked-health?date=" + date;
     }
 
 }

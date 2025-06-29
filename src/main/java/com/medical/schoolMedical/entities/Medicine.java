@@ -13,13 +13,12 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-
 @Table(name = "medicine")
 public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "medicine_id")
-    private long id;
+    private Long id;
 
     // Quan hệ với bảng trung gian
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)

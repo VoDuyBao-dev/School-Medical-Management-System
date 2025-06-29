@@ -14,7 +14,7 @@ public class MedicalSupply {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "medical_supply_id")
-    private long id;
+    private Long id;
 
     // Quan hệ với bảng trung gian
     @OneToMany(mappedBy = "medicalSupply", cascade = CascadeType.ALL)

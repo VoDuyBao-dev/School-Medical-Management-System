@@ -2,16 +2,18 @@ package com.medical.schoolMedical.service;
 
 
 import com.medical.schoolMedical.dto.MedicalEventDTO;
-import com.medical.schoolMedical.entities.MedicalEvent;
-import com.medical.schoolMedical.entities.Student;
-import com.medical.schoolMedical.repositories.MedicalEventRepository;
-import com.medical.schoolMedical.repositories.StudentRepository;
-import com.medical.schoolMedical.repositories.UserRepository;
+import com.medical.schoolMedical.dto.MedicineUsedDTO;
+import com.medical.schoolMedical.dto.SupplyUsedDTO;
+import com.medical.schoolMedical.entities.*;
+import com.medical.schoolMedical.repositories.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,13 @@ public class MedicalEventService {
     private final StudentRepository studentRepository;
 
     private final UserRepository userRepository;
+
+    private final UserService userService;
+
+    private final MedicineRepository medicineRepository;
+
+    private final MedicalSupplyRepository medicalSupplyRepository;
+
 
     //Lưu và cập nhật sự kiện y tế
     public void saveMedicalEvent(MedicalEvent event) {
@@ -53,23 +62,114 @@ public class MedicalEventService {
         medicalEventRepository.deleteById(id);
     }
 
+
     // Chuyển từ Entity sang DTO
     public MedicalEventDTO convertToDto(MedicalEvent event) {
         MedicalEventDTO dto = new MedicalEventDTO();
         dto.setId(event.getId());
         dto.setStudentId(event.getStudent().getId());
         dto.setStudentFullName(event.getStudent().getFullName());
-        dto.setEventTime(event.getEventTime());
+        dto.setNurseId(event.getSchoolNurse().getId());
+        dto.setNurseFullName(event.getSchoolNurse().getFullName());
         dto.setLocation(event.getLocation());
         dto.setDescription(event.getDescription());
         dto.setInitialTreatment(event.getInitial_treatment());
         dto.setFinalTreatment(event.getFinal_treatment());
         dto.setNotes(event.getNotes());
+        dto.setEventTime(event.getEventTime());
+
+        // Medicines used
+        if (event.getMedicineUsed() != null) {
+            List<MedicineUsedDTO> medicinesUsed = event.getMedicineUsed().stream().map(mu -> {
+                MedicineUsedDTO muDto = new MedicineUsedDTO();
+                muDto.setMedicineId(mu.getMedicine().getId());
+                muDto.setMedicineName(mu.getMedicine().getName());
+                muDto.setQuantity(mu.getQuantity());
+                muDto.setNotes(mu.getNotes());
+                return muDto;
+            }).collect(Collectors.toList());
+            dto.setMedicinesUsed(medicinesUsed);
+        }
+
+        // Supplies used
+        if (event.getSupplyUsed() != null) {
+            List<SupplyUsedDTO> suppliesUsed = event.getSupplyUsed().stream().map(su -> {
+                SupplyUsedDTO suDto = new SupplyUsedDTO();
+                suDto.setSupplyId(su.getMedicalSupply().getId());
+                suDto.setSupplyName(su.getMedicalSupply().getName());
+                suDto.setQuantity(su.getQuantity());
+                suDto.setNotes(su.getNotes());
+                return suDto;
+            }).collect(Collectors.toList());
+            dto.setSuppliesUsed(suppliesUsed);
+        }
+
         return dto;
     }
 
+    // Chuyển từ DTO sang Entity để tạo mới
+    public MedicalEvent convertFromDto(MedicalEventDTO dto, User user, SchoolNurse nurse) {
+        MedicalEvent event = new MedicalEvent();
+        event.setUser(user);
+        event.setSchoolNurse(nurse);
+
+        Student student = userService.findStudentById(dto.getStudentId());
+        event.setStudent(student);
+        event.setLocation(dto.getLocation());
+        event.setDescription(dto.getDescription());
+        event.setInitial_treatment(dto.getInitialTreatment());
+        event.setFinal_treatment(dto.getFinalTreatment());
+        event.setNotes(dto.getNotes());
+
+        /*List<MedicineUsed> medicineUsedList = dto.getMedicinesUsed().stream()
+                .filter(m -> m.getMedicineId() != null)
+                .map(medDto -> {
+                    MedicineUsed mu = new MedicineUsed();
+                    Medicine medicine = medicineRepository.findById(medDto.getMedicineId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy thuốc ID: " + medDto.getMedicineId()));
+                    mu.setMedicine(medicine);
+                    mu.setQuantity(medDto.getQuantity());
+                    mu.setNotes(medDto.getNotes());
+                    mu.setMedicalEvent(event);
+                    return mu;
+                }).collect(Collectors.toList());
+        event.setMedicineUsed(medicineUsedList);*/
+        List<MedicineUsed> medicinesUsed = dto.getMedicinesUsed().stream()
+                .filter(mu -> mu.getMedicineId() != null) // rất quan trọng!
+                .map(muDto -> {
+                    MedicineUsed mu = new MedicineUsed();
+                    mu.setQuantity(muDto.getQuantity());
+                    mu.setNotes(muDto.getNotes());
+                    mu.setMedicalEvent(event);
+                    mu.setMedicine(medicineRepository.findById(muDto.getMedicineId()).orElseThrow());
+                    return mu;
+                }).collect(Collectors.toList());
+
+        event.setMedicineUsed(medicinesUsed);
+
+
+        List<SupplyUsed> supplyUsedList = dto.getSuppliesUsed().stream()
+                .filter(s -> s.getSupplyId() != null)
+                .map(supplyDto -> {
+                    SupplyUsed su = new SupplyUsed();
+                    MedicalSupply supply = medicalSupplyRepository.findById(supplyDto.getSupplyId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy vật tư ID: " + supplyDto.getSupplyId()));
+                    su.setMedicalSupply(supply);
+                    su.setQuantity(supplyDto.getQuantity());
+                    su.setNotes(supplyDto.getNotes());
+                    su.setMedicalEvent(event);
+                    return su;
+                }).collect(Collectors.toList());
+        event.setSupplyUsed(supplyUsedList);
+
+        return event;
+    }
+
+
+
+
     // Cập nhật entity từ DTO
-    public void updateFromDto(MedicalEventDTO dto) {
+    /*public void updateFromDto(MedicalEventDTO dto) {
         Optional<MedicalEvent> optionalEvent = medicalEventRepository.findById(dto.getId());
         if (optionalEvent.isEmpty()) {
             throw new IllegalArgumentException("Không tìm thấy sự kiện y tế có ID: " + dto.getId());
@@ -89,7 +189,173 @@ public class MedicalEventService {
         event.setNotes(dto.getNotes());
 
         medicalEventRepository.save(event);
+    }*/
+
+    // Cập nhật từ DTO vào entity đã tồn tại
+    public void updateFromDto(MedicalEventDTO dto) {
+        MedicalEvent event = medicalEventRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sự kiện với ID: " + dto.getId()));
+
+        Student student = userService.findStudentById(dto.getStudentId());
+        event.setStudent(student);
+        event.setLocation(dto.getLocation());
+        event.setDescription(dto.getDescription());
+        event.setInitial_treatment(dto.getInitialTreatment());
+        event.setFinal_treatment(dto.getFinalTreatment());
+        event.setNotes(dto.getNotes());
+
+        List<MedicineUsed> medicineUsedList = dto.getMedicinesUsed().stream()
+                .filter(m -> m.getMedicineId() != null)
+                .map(medDto -> {
+                    MedicineUsed mu = new MedicineUsed();
+                    Medicine medicine = medicineRepository.findById(medDto.getMedicineId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy thuốc ID: " + medDto.getMedicineId()));
+                    mu.setMedicine(medicine);
+                    mu.setQuantity(medDto.getQuantity());
+                    mu.setNotes(medDto.getNotes());
+                    mu.setMedicalEvent(event);
+                    return mu;
+                }).collect(Collectors.toList());
+        event.setMedicineUsed(medicineUsedList);
+
+        List<SupplyUsed> supplyUsedList = dto.getSuppliesUsed().stream()
+                .filter(s -> s.getSupplyId() != null)
+                .map(supplyDto -> {
+                    SupplyUsed su = new SupplyUsed();
+                    MedicalSupply supply = medicalSupplyRepository.findById(supplyDto.getSupplyId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy vật tư ID: " + supplyDto.getSupplyId()));
+                    su.setMedicalSupply(supply);
+                    su.setQuantity(supplyDto.getQuantity());
+                    su.setNotes(supplyDto.getNotes());
+                    su.setMedicalEvent(event);
+                    return su;
+                }).collect(Collectors.toList());
+        event.setSupplyUsed(supplyUsedList);
+
+        medicalEventRepository.save(event);
     }
+
+   /* public MedicalEvent convertFromDto(MedicalEventDTO dto, User user, SchoolNurse nurse) {
+        MedicalEvent event = new MedicalEvent();
+
+        // Gán các thông tin cơ bản
+        event.setUser(user);
+        event.setSchoolNurse(nurse);
+
+        // Tìm học sinh từ ID (nếu bạn dùng studentId thay vì fullName)
+        Student student = userService.findStudentById(dto.getStudentId());
+        event.setStudent(student);
+
+        event.setLocation(dto.getLocation());
+        event.setDescription(dto.getDescription());
+        event.setInitial_treatment(dto.getInitialTreatment());
+        event.setFinal_treatment(dto.getFinalTreatment());
+        event.setNotes(dto.getNotes());
+
+        // Duyệt danh sách thuốc đã dùng từ DTO và chuyển thành thực thể
+        List<MedicineUsed> medicineUsedList = dto.getMedicinesUsed().stream().map(medDto -> {
+            MedicineUsed mu = new MedicineUsed();
+            Medicine medicine = medicineRepository.findById(medDto.getMedicineId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy thuốc ID: " + medDto.getMedicineId()));
+            mu.setMedicine(medicine);
+            mu.setQuantity(medDto.getQuantity());
+            mu.setNotes(medDto.getNotes());
+            mu.setMedicalEvent(event); // thiết lập mối liên hệ ngược
+            return mu;
+        }).collect(Collectors.toList());
+
+        event.setMedicineUsed(medicineUsedList);
+
+        // Duyệt danh sách vật tư y tế đã dùng từ DTO và chuyển thành thực thể
+        List<SupplyUsed> supplyUsedList = dto.getSuppliesUsed().stream().map(supplyDto -> {
+            SupplyUsed su = new SupplyUsed();
+            MedicalSupply supply = medicalSupplyRepository.findById(supplyDto.getSupplyId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy vật tư ID: " + supplyDto.getSupplyId()));
+            su.setMedicalSupply(supply);
+            su.setQuantity(supplyDto.getQuantity());
+            su.setNotes(supplyDto.getNotes());
+            su.setMedicalEvent(event); // thiết lập mối liên hệ ngược
+            return su;
+        }).collect(Collectors.toList());
+
+        event.setSupplyUsed(supplyUsedList);
+
+        return event;
+    }*/
+
+
+    public void updateMedicalEvent(Long id, MedicalEvent updatedEvent) {
+        MedicalEvent existing = medicalEventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sự kiện"));
+
+        existing.setStudent(updatedEvent.getStudent());
+        existing.setLocation(updatedEvent.getLocation());
+        existing.setDescription(updatedEvent.getDescription());
+        existing.setInitial_treatment(updatedEvent.getInitial_treatment());
+        existing.setFinal_treatment(updatedEvent.getFinal_treatment());
+        existing.setNotes(updatedEvent.getNotes());
+
+        // Xoá và thêm lại danh sách thuốc
+        existing.getMedicineUsed().clear();
+        existing.getMedicineUsed().addAll(updatedEvent.getMedicineUsed());
+
+        // Xoá và thêm lại danh sách vật tư
+        existing.getSupplyUsed().clear();
+        existing.getSupplyUsed().addAll(updatedEvent.getSupplyUsed());
+
+        medicalEventRepository.save(existing);
+    }
+
+
+    public MedicalEvent convertToEntity(MedicalEventDTO dto) {
+        MedicalEvent event = medicalEventRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sự kiện với ID: " + dto.getId()));
+
+        // Cập nhật các thông tin cơ bản
+        Student student = userService.findStudentById(dto.getStudentId());
+        event.setStudent(student);
+
+        event.setLocation(dto.getLocation());
+        event.setDescription(dto.getDescription());
+        event.setInitial_treatment(dto.getInitialTreatment());
+        event.setFinal_treatment(dto.getFinalTreatment());
+        event.setNotes(dto.getNotes());
+
+        // Xử lý danh sách thuốc sử dụng
+        List<MedicineUsed> medicinesUsed = dto.getMedicinesUsed().stream()
+                .filter(m -> m.getMedicineId() != null) // tránh lỗi ID null
+                .map(medDto -> {
+                    MedicineUsed mu = new MedicineUsed();
+                    Medicine medicine = medicineRepository.findById(medDto.getMedicineId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy thuốc ID: " + medDto.getMedicineId()));
+                    mu.setMedicine(medicine);
+                    mu.setQuantity(medDto.getQuantity());
+                    mu.setNotes(medDto.getNotes());
+                    mu.setMedicalEvent(event); // gán liên kết ngược
+                    return mu;
+                }).collect(Collectors.toList());
+        event.setMedicineUsed(medicinesUsed);
+
+        // Xử lý danh sách vật tư y tế sử dụng
+        List<SupplyUsed> suppliesUsed = dto.getSuppliesUsed().stream()
+                .filter(s -> s.getSupplyId() != null) // tránh lỗi ID null
+                .map(supplyDto -> {
+                    SupplyUsed su = new SupplyUsed();
+                    MedicalSupply supply = medicalSupplyRepository.findById(supplyDto.getSupplyId())
+                            .orElseThrow(() -> new RuntimeException("Không tìm thấy vật tư ID: " + supplyDto.getSupplyId()));
+                    su.setMedicalSupply(supply);
+                    su.setQuantity(supplyDto.getQuantity());
+                    su.setNotes(supplyDto.getNotes());
+                    su.setMedicalEvent(event); // gán liên kết ngược
+                    return su;
+                }).collect(Collectors.toList());
+        event.setSupplyUsed(suppliesUsed);
+
+        return event;
+    }
+
+
+
 
 
 

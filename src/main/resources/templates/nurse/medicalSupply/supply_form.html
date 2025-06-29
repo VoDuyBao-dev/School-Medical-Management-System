@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thêm / Sửa Vật tư y tế</title>
+  <style>
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 16px; padding: 8px 16px; }
+    .form-container { max-width: 500px; margin: auto; }
+  </style>
+</head>
+<body>
+<div class="form-container">
+  <h2 th:text="${supply.id == null} ? 'Thêm vật tư y tế mới' : 'Cập nhật vật tư y tế'"></h2>
+  <!-- Thông báo lỗi -->
+  <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+
+
+
+  <form th:action="@{/school_nurse/medical-supplies/save}" th:object="${supply}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="name">Tên vật tư</label>
+    <input type="text" id="name" th:field="*{name}" required />
+
+
+    <label for="quantityInStock">Số lượng trong kho</label>
+    <input type="number" id="quantityInStock" th:field="*{quantityInStock}" min="0" required />
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/school_nurse/medical-supplies}">
+      <button type="button">Quay lại danh sách</button>
+    </a>
+
+  </form>
+
+</div>
+</body>
+</html>

@@ -4,6 +4,8 @@ package com.medical.schoolMedical.dto;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class MedicalEventDTO {
@@ -21,5 +23,8 @@ public class MedicalEventDTO {
     private String notes;
 
     private Timestamp eventTime; // Dùng cho list
+
+    private List<MedicineUsedDTO> medicinesUsed = new ArrayList<>();
+    private List<SupplyUsedDTO> suppliesUsed = new ArrayList<>();
 
 }
