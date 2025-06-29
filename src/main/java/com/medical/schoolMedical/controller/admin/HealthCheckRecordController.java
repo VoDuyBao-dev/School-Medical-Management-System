@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -107,7 +108,7 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
         try{
             healthCheckRecordService.create_HealthCheckRecord(healthCheckRecordDTO,healthCheckConsentDTO, nurseId);
             redirectAttributes.addFlashAttribute("success","Kết quả khám đã được ghi nhận thành công!");
-            return "redirect:/school_urse/healthCheckConsent/list-student-health-check?date=" + date;
+            return "redirect:/school_nurse/healthCheckConsent/list-student-health-check?date=" + date;
         }catch (BusinessException e){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
             return "redirect:/school_nurse/healthCheckConsent/list-student-health-check?date=" + date;

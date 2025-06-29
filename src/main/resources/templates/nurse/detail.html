@@ -16,6 +16,46 @@
 <p><strong>Ghi chú:</strong> <span th:text="${event.notes}"></span></p>
 <p><strong>Người xử lý: </strong> <span th:text="${event.nurseFullName}"></span></p>
 
+<!-- Thuốc đã sử dụng -->
+<h3>Thuốc đã sử dụng</h3>
+<table th:if="${event.medicinesUsed != null && !event.medicinesUsed.isEmpty()}">
+  <thead>
+  <tr>
+    <th>Tên thuốc</th>
+    <th>Số lượng</th>
+    <th>Ghi chú</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="m : ${event.medicinesUsed}">
+    <td th:text="${m.medicineName}"></td>
+    <td th:text="${m.quantity}"></td>
+    <td th:text="${m.notes}"></td>
+  </tr>
+  </tbody>
+</table>
+<p th:if="${event.medicinesUsed == null || event.medicinesUsed.isEmpty()}"><em>Không sử dụng thuốc</em></p>
+
+<!-- Vật tư y tế đã sử dụng -->
+<h3>Vật tư y tế đã sử dụng</h3>
+<table th:if="${event.suppliesUsed != null && !event.suppliesUsed.isEmpty()}">
+  <thead>
+  <tr>
+    <th>Tên vật tư</th>
+    <th>Số lượng</th>
+    <th>Ghi chú</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="s : ${event.suppliesUsed}">
+    <td th:text="${s.supplyName}"></td>
+    <td th:text="${s.quantity}"></td>
+    <td th:text="${s.notes}"></td>
+  </tr>
+  </tbody>
+</table>
+<p th:if="${event.suppliesUsed == null || event.suppliesUsed.isEmpty()}"><em>Không sử dụng vật tư</em></p>
+
 <a th:href="@{'/school_nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
 <a th:href="@{/school_nurse/medical-events}"><button type="button">Quay lại</button></a>
 </body>
