@@ -128,28 +128,6 @@ public class MedicalEventController {
     }
 
 
-
-    /*@GetMapping("/{id}")
-    public String viewEventDetail(@PathVariable Long id, Model model) {
-        MedicalEvent event = medicalEventService.findMedicalEventById(id);
-
-        // Chuyển đổi sang DTO
-        MedicalEventDTO dto = new MedicalEventDTO();
-        dto.setId(event.getId());
-        dto.setStudentFullName(event.getStudent().getFullName());
-        dto.setEventTime(event.getEventTime());
-        dto.setLocation(event.getLocation());
-        dto.setDescription(event.getDescription());
-        dto.setInitialTreatment(event.getInitial_treatment());
-        dto.setFinalTreatment(event.getFinal_treatment());
-        dto.setNotes(event.getNotes());
-        dto.setNurseFullName(event.getSchoolNurse().getFullName());
-
-
-        model.addAttribute("event", dto);
-        return "nurse/detail";
-    }*/
-
     @GetMapping("/{id}")
     public String viewEventDetail(@PathVariable Long id, Model model) {
         MedicalEvent event = medicalEventService.findMedicalEventById(id);
@@ -204,6 +182,5 @@ public class MedicalEventController {
     public ResponseEntity<List<MedicineUsedDTO>> getUsedMedicines(@PathVariable Long eventId) {
         return ResponseEntity.ok(medicineUsedService.getUsedMedicinesByEvent(eventId));
     }
-
 
 }
