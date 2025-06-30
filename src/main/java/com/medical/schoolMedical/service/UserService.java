@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -195,6 +197,34 @@ public class UserService {
     public Student findStudentById(long id) {
         return studentRepository.findById(id).orElse(null);
     }
+
+    // Lấy Parent hiện đang đăng nhập từ Spring Security
+    public Parent getCurrentParent() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();  // hoặc username nếu không dùng email
+
+        return parentRepositoty.findByUser_Username(username)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy phụ huynh với username: " + username));
+    }
+
+
+
+    // Lấy danh sách học sinh theo phụ huynh
+    public List<Student> getStudentsByParent(Parent parent) {
+        return studentRepository.findByParent(parent);
+    }
+
+    // Lấy danh sách học sinh theo id phụ huynh
+    public List<Student> getStudentsByParentId(Long parentId) {
+        return studentRepository.findByParent_Id(parentId);
+    }
+
+    public List<Student> getStudentsByParent() {
+        Parent parent = getCurrentParent(); // lấy đúng parent entity
+        return studentRepository.findByParent_Id(parent.getId()); // dùng parent_id
+    }
+
+
 
 
 }
