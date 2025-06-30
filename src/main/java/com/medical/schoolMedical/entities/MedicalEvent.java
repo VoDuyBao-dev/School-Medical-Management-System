@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class MedicalEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medical_event_id")
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = false)
@@ -49,11 +50,15 @@ public class MedicalEvent {
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
-    @OneToMany(mappedBy = "medicalEvent", cascade = CascadeType.ALL)
-    private List<SupplyUsed> supplyUsed;
+
 
     @OneToMany(mappedBy = "medicalEvent", cascade = CascadeType.ALL)
     private List<MedicineUsed> medicineUsed;
+
+
+    @OneToMany(mappedBy = "medicalEvent", cascade = CascadeType.ALL)
+    private List<SupplyUsed> supplyUsed;
+
 
 
 }

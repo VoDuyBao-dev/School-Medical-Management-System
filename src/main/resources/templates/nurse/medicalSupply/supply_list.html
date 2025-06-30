@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách vật tư y tế</title>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    th {
+        background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+<h2>Danh sách vật tư y tế</h2>
+
+<button><a th:href="@{/school_nurse/medical-supplies/new}">Thêm vật tư</a></button>
+
+<table>
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Tên vật tư</th>
+    <th>Số lượng</th>
+    <th>Thao tác</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="supply, iterStat : ${supplyList}">
+    <td th:text="${iterStat.index + 1}"></td>
+    <td th:text="${supply.name}"></td>
+    <td th:text="${supply.quantityInStock}"
+        th:classappend="${supply.quantityInStock < 10} ? 'danger' : ''">
+    </td>
+    <td>
+      <a th:href="@{'/school_nurse/medical-supplies/edit/' + ${supply.id}}" class="button"><button>Sửa</button></a> |
+      <a th:href="@{'/school_nurse/medical-supplies/delete/' + ${supply.id}}"
+         onclick="return confirm('Bạn có chắc muốn xóa vật tư này?')" class="button danger"><button>Xóa</button></a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/school_nurse/nurse-home}">
+  <button type="button">Quay lại</button>
+</a>
+</body>
+</html>

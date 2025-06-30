@@ -12,7 +12,7 @@ public class SupplyUsed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supply_used_id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "medical_supply_id", nullable = false)

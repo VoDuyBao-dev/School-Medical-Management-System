@@ -31,11 +31,48 @@
   <label>Xử lý ban đầu:</label>
   <textarea th:field="*{initialTreatment}"></textarea>
 
-  <label>Điều trị cuối cùng:</label>
+  <label>Xử lý cuối cùng:</label>
   <textarea th:field="*{finalTreatment}"></textarea>
 
   <label>Ghi chú thêm:</label>
   <textarea th:field="*{notes}"></textarea>
+
+  <h3>Thuốc được sử dụng</h3>
+  <div th:each="med, stat : *{medicinesUsed}">
+    <label>Tên thuốc:</label>
+    <select th:field="*{medicinesUsed[__${stat.index}__].medicineId}">
+      <option value="">-- Chọn thuốc --</option>
+      <option th:each="m : ${medicines}"
+              th:value="${m.id}"
+              th:text="${m.name}"></option>
+    </select>
+
+    <label>Số lượng:</label>
+    <input type="number" min="1" th:field="*{medicinesUsed[__${stat.index}__].quantity}"/>
+
+    <label>Ghi chú:</label>
+    <textarea th:field="*{medicinesUsed[__${stat.index}__].notes}"></textarea>
+    <hr/>
+  </div>
+
+
+  <h3>Vật tư y tế được sử dụng</h3>
+  <div th:each="sup, stat : *{suppliesUsed}">
+    <label>Tên vật tư:</label>
+    <select th:field="*{suppliesUsed[__${stat.index}__].supplyId}">
+      <option value="">-- Chọn vật tư --</option>
+      <option th:each="s : ${supplies}"
+              th:value="${s.id}"
+              th:text="${s.name}"></option>
+    </select>
+
+    <label>Số lượng:</label>
+    <input type="number" min="1" th:field="*{suppliesUsed[__${stat.index}__].quantity}"/>
+
+    <label>Ghi chú:</label>
+    <textarea th:field="*{suppliesUsed[__${stat.index}__].notes}"></textarea>
+    <hr/>
+  </div>
 
   <button type="submit">Cập nhật</button>
   <a th:href="@{/school_nurse/medical-events}">

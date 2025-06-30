@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách thuốc trong kho</title>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    th {
+        background-color: #eee;
+    }
+
+  </style>
+</head>
+<body>
+<h2>Danh sách thuốc trong kho</h2>
+
+<button><a th:href="@{/school_nurse/medicines/new}">Thêm thuốc mới</a></button>
+
+<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Tên thuốc</th>
+    <th>Đơn vị</th>
+    <th>Số lượng</th>
+    <th>Ngày nhập</th>
+    <th>Hạn sử dụng</th>
+    <th>Thao tác</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="medicine : ${medicines}">
+    <td th:text="${medicine.id}"></td>
+    <td th:text="${medicine.name}"></td>
+    <td th:text="${medicine.unit}"></td>
+    <td th:text="${medicine.quantityInStock}"></td>
+    <td th:text="${medicine.entryDate}"></td>
+    <td th:text="${medicine.expiryDate}"></td>
+    <td>
+      <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
+      <a th:href="@{'/school_nurse/medicines/delete/' + ${medicine.id}}"
+         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"><button>Xóa</button></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/school_nurse/nurse-home}">
+  <button type="button">Quay lại</button>
+</a>
+</body>
+</html>

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class MedicineUsed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medicine_used_id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "medicine_id", nullable = false)
@@ -29,5 +30,7 @@ public class MedicineUsed {
 
     @Column(name = "notes",columnDefinition = "TEXT")
     private String notes;
+
+
 }
 
