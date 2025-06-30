@@ -12,4 +12,6 @@ public interface ParentRepositoty extends JpaRepository<Parent,Long> {
 
     Optional<Parent> findByUser_Username(String username);
 
+
+
 }

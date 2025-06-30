@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách hồ sơ sức khỏe</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #2c3e50; }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+        }
+        th, td {
+          padding: 12px;
+          border: 1px solid #ccc;
+          text-align: left;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+        input[type="text"] {
+          padding: 8px;
+          width: 250px;
+          margin-right: 8px;
+        }
+        button {
+          padding: 8px 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Danh sách hồ sơ sức khỏe học sinh</h2>
+
+<!-- Form tìm kiếm -->
+<form method="get" th:action="@{/school_nurse/health-record}">
+    <input type="text" name="keyword" placeholder="Tìm học sinh..." th:value="${keyword}" />
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<!-- Bảng hiển thị danh sách -->
+<table>
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Họ tên học sinh</th>
+        <th>Lớp</th>
+        <th>Dị ứng</th>
+        <th>Bệnh mãn tính</th>
+        <th>Chi tiết</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="record, stat : ${records}">
+        <td th:text="${stat.index + 1}">1</td>
+        <td th:text="${record.student.fullName}">Nguyễn Văn A</td>
+        <td th:text="${record.student.className}">10A1</td>
+        <td th:text="${record.allergies}">Không</td>
+        <td th:text="${record.chronicDisease}">Không</td>
+        <td>
+            <a th:href="@{'/school_nurse/health-record/view/' + ${record.id}}">
+                <button>Xem chi tiết</button>
+            </a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(records)}">
+        <td colspan="6">Không tìm thấy hồ sơ nào.</td>
+    </tr>
+
+    </tbody>
+</table>
+<a th:href="@{/school_nurse/nurse-home}">
+    <button type="button">Quay lại</button>
+</a>
+
+</body>
+</html>

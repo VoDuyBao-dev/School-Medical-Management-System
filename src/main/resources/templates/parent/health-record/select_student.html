@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Chọn học sinh để khai báo hồ sơ sức khỏe</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .student-list {
+        max-width: 600px;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .button {
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<h2>Chọn học sinh để khai báo hồ sơ sức khỏe</h2>
+
+<div class="student-list">
+  <table>
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Họ tên học sinh</th>
+      <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student, iterStat : ${students}">
+      <td th:text="${iterStat.index + 1}"></td>
+      <td th:text="${student.fullName}"></td>
+      <td>
+        <a th:href="@{'/parent/health-record/form/' + ${student.id}}" class="button">Khai báo / Cập nhật</a>
+        <a th:href="@{'/parent/health-record/view/' + ${student.id}}" class="button" style="background-color: #28a745;">Xem hồ sơ</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+<a th:href="@{/parent/parent-home}">
+  <button type="button">Quay lại trang chủ</button>
+</a>
+</body>
+</html>

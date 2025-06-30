@@ -5,7 +5,11 @@
     <h1>Welcome, <span th:text="${username}">Parent</span>!</h1>
     <p>This is your dashboard.</p>
 
-    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
+    <br>
+    <!-- Điều hướng đến trang chọn học sinh để khai báo hồ sơ -->
+    <a th:href="@{/parent/health-record/select-student}"><button type="button">Khai báo hồ sơ sức khỏe học sinh</button></a>
+    <br>
     <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
     <br>
 
