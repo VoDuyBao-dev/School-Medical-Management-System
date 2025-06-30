@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/parent/confirm/confirm-vaccination")
 public class ConfirmVaccination {
     @Autowired
-    VaccinationConsentService vaccinationConsentService;
+    private VaccinationConsentService vaccinationConsentService;
 
     @GetMapping
     public String confirmVaccination(@RequestParam(value = "vaccinatonConsentId", required = false) Long consentId

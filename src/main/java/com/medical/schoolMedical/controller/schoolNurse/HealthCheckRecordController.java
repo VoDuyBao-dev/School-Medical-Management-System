@@ -160,8 +160,8 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
         try {
             healthCheckConsentDTO = healthCheckConsentService.getHealthCheckConsentById(consentId);
         }catch (BusinessException e){
-            model.addAttribute("error",e.getMessage());
-            return "admin/healthCheckRecord";
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            return "redirect:/nurse/healthCheckConsent/list-student-health-check/checked-health?idSchedule=" + idSchedule;
         }
 
         //        Gán obj healthCheckConsentDTO vừa lấy vô healthCheckRecordDTO

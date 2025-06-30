@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sự kiện y tế</title>
+</head>
+<body>
+<h2>Chi tiết sự kiện y tế</h2>
+
+<p><strong>Học sinh:</strong> <span th:text="${event.studentFullName}"></span></p>
+<p><strong>Thời gian:</strong> <span th:text="${#dates.format(event.eventTime, 'dd/MM/yyyy HH:mm')}"></span></p>
+<p><strong>Vị trí:</strong> <span th:text="${event.location}"></span></p>
+<p><strong>Mô tả:</strong> <span th:text="${event.description}"></span></p>
+<p><strong>Xử lý ban đầu:</strong> <span th:text="${event.initialTreatment}"></span></p>
+<p><strong>Xử lý sau cùng:</strong> <span th:text="${event.finalTreatment}"></span></p>
+<p><strong>Ghi chú:</strong> <span th:text="${event.notes}"></span></p>
+<p><strong>Người xử lý: </strong> <span th:text="${event.nurseFullName}"></span></p>
+
+<a th:href="@{'/school_nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
+<a th:href="@{/school_nurse/medical-events}"><button type="button">Quay lại</button></a>
+</body>
+</html>

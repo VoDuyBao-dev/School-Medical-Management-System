@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/parent/confirm/confirm-health-check")
 public class ConfirmHealthCheck {
     @Autowired
-    HealthCheckConsentService healthCheckConsentService;
+    private HealthCheckConsentService healthCheckConsentService;
     @GetMapping
     public String confirmHealthCheck(@RequestParam("idConsent") Long consentId, Model model) {
 

@@ -176,6 +176,16 @@ public class VaccinationConsentService {
         return  vaccinationConsent;
     }
 
+    public VaccinationConsentDTO getVaccinationConsentDTO_ById(Long consentID) {
+        VaccinationConsent vaccinationConsent =  vaccinationConsentRepository.findById(consentID)
+                .orElseThrow(() -> new BusinessException(ErrorCode.VACCINATION_CONSENT_NOT_EXISTS));
+
+        return vaccinationConsentMapper.toVaccinationConsentDTO(vaccinationConsent);
+
+    }
+
+
+
 
 
 }

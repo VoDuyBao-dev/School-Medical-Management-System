@@ -16,17 +16,13 @@ public class VaccinationRecordDTO {
     private long id;
 
     @ToString.Exclude
-    private VaccinationConsent vaccinationConsent;
-
+    private VaccinationConsentDTO vaccinationConsent;
     @ToString.Exclude
     private SchoolNurse schoolNurse;
-
+    private long vaccinationConsentId;
     @NotBlank(message = "Không được để trống tình trạng sau tiêm chủng")
     private String postVaccinationCondition;
-
     private String notes;
-
     private boolean sentToParent = false;
-
     private boolean viewedByParent  = false;
 }

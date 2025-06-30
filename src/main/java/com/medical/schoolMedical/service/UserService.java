@@ -31,6 +31,8 @@ public class UserService {
     SchoolNurseRepository schoolNurseRepository;
     ManagerRepository managerRepository;
     UserMapper userMapper;
+    StudentRepository studentRepository;
+    MedicalEventRepository medicalEventRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -159,6 +161,39 @@ public class UserService {
 
     public void saveAdmin(Admin admin) {
         adminRepository.save(admin);
+    }
+
+    public Parent findParentByUsername(String username) {
+        return parentRepositoty.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveParent(Parent parent) {
+        parentRepositoty.save(parent);
+    }
+
+    public Manager findManagerByUsername(String username) {
+        return managerRepository.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveManager(Manager manager) {
+        managerRepository.save(manager);
+    }
+
+    public SchoolNurse findNurseByUsername(String username) {
+        return schoolNurseRepository.findByUser_Username(username).orElse(null);
+    }
+
+    public void saveNurse(SchoolNurse nurse) {
+        schoolNurseRepository.save(nurse);
+    }
+
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public Student findStudentById(long id) {
+        return studentRepository.findById(id).orElse(null);
     }
 
 

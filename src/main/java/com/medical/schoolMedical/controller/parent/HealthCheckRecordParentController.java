@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/parent/healthCheckRecord")
 public class HealthCheckRecordParentController {
     @Autowired
-    HealthCheckRecordService healthCheckRecordService;
+    private HealthCheckRecordService healthCheckRecordService;
 
     @GetMapping
     public String getHealthCheckRecordParent(Model model

@@ -1,0 +1,123 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #ff4d88;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.calendar-controls {
+    margin-bottom: 20px;
+}
+
+.btn-month {
+    background-color: #ffffff00;
+    color: rgb(118, 118, 118);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.btn-month:hover {
+    background-color: #ffffff00;
+    color: #313030;
+}
+
+#current-month-year {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.day-header, .day {
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.day-header {
+    background-color: #3498db;
+    color: white;
+}
+
+.day {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.day.selected {
+    background-color: #f3285a;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #34495e;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #f1305c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: rgba(241, 48, 92, 0.85);
+}

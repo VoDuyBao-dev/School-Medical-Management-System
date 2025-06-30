@@ -19,6 +19,7 @@
 </head>
 <body>
 <h2>Admin Login</h2>
+<div th:if="${errorMessage}" style="color:red;" th:text="${errorMessage}"></div>
 <form th:action="@{/admin/doLogin}" method="post">
     <div>
         <label>Username:</label>

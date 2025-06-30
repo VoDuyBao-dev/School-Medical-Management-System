@@ -3,10 +3,13 @@ package com.medical.schoolMedical.controller.parent;
 import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
 import com.medical.schoolMedical.dto.HealthCheckRecordDTO;
 import com.medical.schoolMedical.dto.VaccinationConsentDTO;
+import com.medical.schoolMedical.dto.VaccinationRecordDTO;
+import com.medical.schoolMedical.entities.VaccinationRecord;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.HealthCheckConsentService;
 import com.medical.schoolMedical.service.HealthCheckRecordService;
 import com.medical.schoolMedical.service.VaccinationConsentService;
+import com.medical.schoolMedical.service.VaccinationRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +30,8 @@ public class NotificationParentController {
     private HealthCheckRecordService healthCheckRecordService;
     @Autowired
     private VaccinationConsentService vaccinationConsentService;
+    @Autowired
+    private VaccinationRecordService vaccinationRecordService;
 
 // health check
     @GetMapping("/HealthCheckConsents")
@@ -77,6 +82,22 @@ public class NotificationParentController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listConsent.getTotalPages());
         return "parent/listVaccinationConsent";
+
+    }
+
+    @GetMapping("/VaccinationRecords")
+    public String listVaccinationRecord(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                        @RequestParam(defaultValue = "0") int page,
+                                        Model model) {
+        Long userId = customUserDetails.getUser().getId();
+        log.info("parentId: {}", userId);
+
+        Page<VaccinationRecordDTO> listRecord = vaccinationRecordService.getSentRecordsToParents(userId, page);
+
+        model.addAttribute("listVaccinationRecord", listRecord.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", listRecord.getTotalPages());
+        return "parent/listVaccinationRecord";
 
     }
 }

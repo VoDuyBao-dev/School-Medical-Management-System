@@ -157,9 +157,6 @@ public class HealthCheckRecordService {
         recordsToUpdate.forEach(record -> record.setSentToParent(true));
         healthCheckRecordRepository.saveAll(recordsToUpdate);
 
-
-        healthCheckRecordRepository.saveAll(recordsToUpdate);
-
     }
 
 //    Lấy danh sách các record đã được gửi đến phụ huynh

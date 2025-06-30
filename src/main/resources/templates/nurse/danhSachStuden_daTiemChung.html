@@ -83,7 +83,7 @@
     <p th:text="${notification}"></p>
 </div>
 <h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
-<form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">
+<form th:action="@{/nurse/vaccinationRecord/sendRecordsToParents}" method="post">
     <table>
         <thead>
         <tr>
@@ -103,8 +103,8 @@
             <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
             <td th:text="${consent.student.gender}">Nam</td>
             <td>
-                <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule},
-               idConsent=${consent.id})}"
+                <a th:href="@{/nurse/vaccinationRecord/updateForm(vaccinatonScheduleId=${idSchedule},
+               vaccinatonConsentId=${consent.id})}"
 
                    class="btn">Sửa kết quả khám</a>
             </td>

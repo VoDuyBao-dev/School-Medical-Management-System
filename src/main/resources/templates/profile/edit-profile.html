@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chỉnh sửa hồ sơ</title>
+    <meta charset="UTF-8">
+    <style>
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+        input, textarea {
+            width: 300px;
+            padding: 6px;
+        }
+        button {
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+<h2>Chỉnh sửa hồ sơ <span th:text="${user.username}"></span></h2>
+
+<form th:action="@{'/' + ${user.role.name().toLowerCase()} + '/update-profile'}" th:object="${info}" method="post">
+
+    <input type="hidden" name="userId" th:value="${user.id}"/>
+
+    <!-- Trường chung -->
+    <h3><strong> Vai trò: <span th:text="${user.role}"></span></strong></h3>
+
+    <!-- Trường của ADMIN -->
+    <div th:if="${user.role.name() == 'ADMIN'}">
+        <label>Họ tên Admin:</label>
+        <input type="text" th:field="*{fullName}" required/><br/>
+    </div>
+
+    <!-- Trường của PARENT -->
+    <div th:if="${user.role.name() == 'PARENT'}">
+        <label>Họ tên Phụ huynh:</label>
+        <input type="text" th:field="*{fullName}" required/><br/>
+
+        <label>SĐT:</label>
+        <input type="text" th:field="*{phoneNumber}" required/><br/>
+
+        <label>Địa chỉ:</label>
+        <textarea th:field="*{address}" required></textarea><br/>
+    </div>
+
+    <!-- Trường của MANAGER -->
+    <div th:if="${user.role.name() == 'MANAGER'}">
+        <label>Họ tên Quản lý:</label>
+        <input type="text" th:field="*{fullName}" required/><br/>
+
+    </div>
+
+    <!-- Trường của SCHOOL_NURSE -->
+    <div th:if="${user.role.name() == 'SCHOOL_NURSE'}">
+        <label>Họ tên Nhân viên y tế:</label>
+        <input type="text" th:field="*{fullName}" required/><br/>
+
+        <label>Năm kinh nghiệm:</label>
+        <input type="text" th:field="*{experience}" required/><br/>
+    </div>
+
+    <br>
+    <p>
+        <a th:href="@{'/' + ${role} + '/change-password'}" style="color: blue; font-weight: bold;">
+            → Đổi mật khẩu
+        </a>
+    </p>
+    <button type="submit">Cập nhật</button>
+    <a th:href="@{'/' + ${user.role.name().toLowerCase()} + '/profile'}"><button type="button">Quay lại hồ sơ</button></a>
+
+</form>
+
+</body>
+</html>
+
