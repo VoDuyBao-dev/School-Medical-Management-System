@@ -1,5 +1,7 @@
 package com.medical.schoolMedical.dto;
 
+import com.medical.schoolMedical.entities.HealthCheckRecord;
+import com.medical.schoolMedical.entities.HealthCheckSchedule;
 import com.medical.schoolMedical.entities.Parent;
 import com.medical.schoolMedical.entities.Student;
 import com.medical.schoolMedical.enums.ConsentStatus;
@@ -11,6 +13,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,10 +23,13 @@ public class HealthCheckConsentDTO {
     private StudentDTO student;
     @ToString.Exclude
     private Parent parent;
-    private String content;
-    @FutureOrPresent(message = "Ngày kiểm tra không được là ngày trong quá khứ")
-    private LocalDate checkDate;
+    @ToString.Exclude
+    private HealthCheckSchedule schedule;
+    private Long healthCheckRecordId;
     private ConsentStatus status;
-    private LocalDate sentDate;
-    private String notes;
+    private boolean checkedHealth = false;
+
+
+
+
 }

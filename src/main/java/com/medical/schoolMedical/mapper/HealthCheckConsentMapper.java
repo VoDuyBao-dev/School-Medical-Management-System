@@ -15,12 +15,10 @@ public interface HealthCheckConsentMapper {
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "student", target = "student"),
             @Mapping(source = "parent", target = "parent"),
-            @Mapping(source = "content", target = "content"),
-            @Mapping(source = "checkDate", target = "checkDate"),
             @Mapping(source = "status", target = "status"),
-            @Mapping(source = "sentDate", target = "sentDate"),
-            @Mapping(source = "notes", target = "notes")
+
     })
     HealthCheckConsentDTO toDTO(HealthCheckConsent healthCheckConsent);
+
     List<HealthCheckConsentDTO> toHealthCheckConsentDTOs(List<HealthCheckConsent> healthCheckConsents);
 }

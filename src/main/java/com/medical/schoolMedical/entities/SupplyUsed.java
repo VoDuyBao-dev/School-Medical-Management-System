@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "supply_used")
 public class SupplyUsed {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supply_used_id")
     private Long id;
 

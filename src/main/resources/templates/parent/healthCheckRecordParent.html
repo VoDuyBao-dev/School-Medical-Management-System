@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Phiếu kết quả khám Sức Khỏe</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      padding: 40px;
+    }
+    .health-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .field-label {
+      font-weight: 600;
+      color: #333;
+    }
+    .field-value {
+      color: #555;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mb-5">Phiếu kết quả khám Sức Khỏe Học Sinh</h2>
+
+  <div class="section-title">Học sinh: <span th:text="${healthCheckRecord.healthCheckConsentDTO.getStudent().getFullName()}"></span></div>
+  <div class="section-title">Y tá phụ trách: <span th:text="${healthCheckRecord.getSchoolNurseDTO().getFullName()}"></span></div>
+  <div class="section-title">Ngày khám <span th:text="${healthCheckRecord.healthCheckConsentDTO.getSchedule().getCheckDate()}">1</span></div>
+
+  <div class="row mb-2">
+    <div class="col-md-4"><span class="field-label">Thính lực:</span></div>
+    <div class="col-md-8"><span class="field-value" th:text="${healthCheckRecord.getHearingResult()}">haha</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-4"><span class="field-label">Thị lực:</span></div>
+    <div class="col-md-8"><span class="field-value" th:text="${healthCheckRecord.getVisionResult()}">9</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-4"><span class="field-label">Cần tư vấn:</span></div>
+    <div class="col-md-8"><span class="field-value" th:text="${healthCheckRecord.isNeedsConsultation()? 'Có' : 'Không'}">Không</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-4"><span class="field-label">Kết quả khác:</span></div>
+    <div class="col-md-8"><span class="field-value" th:text="${healthCheckRecord.getOtherResult()}">haha</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-4"><span class="field-label">Đánh giá:</span></div>
+    <div class="col-md-8"><span class="field-value" th:text="${healthCheckRecord.getAssessment()}">asd</span></div>
+  </div>
+
+
+</div>
+
+</body>
+</html>

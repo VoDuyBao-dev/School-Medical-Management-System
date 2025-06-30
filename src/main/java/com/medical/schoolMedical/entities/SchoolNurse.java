@@ -6,13 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "school_nurses")
 public class SchoolNurse {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "school_nurse_id")
     private long id;
 
@@ -20,6 +22,9 @@ public class SchoolNurse {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     @ToString.Exclude
     private User user;
+
+    @OneToMany(mappedBy = "nurse", cascade = CascadeType.ALL)
+    private List<HealthCheckSchedule> healthCheckSchedules;
 
     @Column(name = "fullname", length = 50)
     private String fullName;

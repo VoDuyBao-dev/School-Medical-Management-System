@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "health_record")
 public class HealthRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_record_id")
     private long id;
 

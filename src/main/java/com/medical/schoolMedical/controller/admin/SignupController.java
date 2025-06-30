@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/admin")
 public class SignupController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
