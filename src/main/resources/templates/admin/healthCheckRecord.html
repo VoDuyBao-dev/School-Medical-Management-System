@@ -11,8 +11,10 @@
 
 
 
-  <form th:action="@{/schoolNurse/healthCheckRecord/save-update-Form}" th:object="${healthCheckRecordDTO}" method="post">
-    <input type="hidden" th:field="*{healthCheckConsentId}" />
+  <form th:action="@{/nurse/healthCheckRecord/save-update-Form}" th:object="${healthCheckRecordDTO}" method="post">
+
+    <input type="hidden" name="consentId" th:value="${consentId}"/>
+    <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
     <input type="hidden" th:field="*{id}" />
     <div>
     <label for="visionResult">Vision Result:</label>
@@ -38,7 +40,7 @@
 
   <div>
     <label for="needs_consultation">Needs Consultation:</label>
-    <input type="checkbox" id="needs_consultation" th:field="*{needs_consultation}" />
+    <input type="checkbox" id="needs_consultation" th:field="*{needsConsultation}" />
   </div>
 
   <div>

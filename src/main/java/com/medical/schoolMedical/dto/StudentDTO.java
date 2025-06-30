@@ -13,10 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class StudentDTO {
     private long id;
+    private long healthCheck_recordId;
     private Parent parent;
     private String fullName;
     private Gender gender;
     private LocalDate birthDate;
     private String address;
     private String className;
+
 }

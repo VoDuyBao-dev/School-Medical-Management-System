@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class HealthCheckRecordDTO {
     private long id;
     private HealthCheckConsentDTO healthCheckConsentDTO;
@@ -17,10 +19,11 @@ public class HealthCheckRecordDTO {
     @Min(value = 0, message = "Kết quả thị lực phải lớn hơn hoặc bằng 0.")
     @Max(value = 10, message = "Kết quả thị lực phải nhỏ hơn hoặc bằng 10.")
     private int visionResult ;
-    @NotBlank(message = "Không được để trống kết đo thính giác")
+    @NotBlank(message = "Không được để trống kết quả đo thính giác")
     private String hearingResult;
     private String otherResult;
     private String assessment;
-    private boolean needs_consultation = false;
+    private boolean needsConsultation = false;
     private boolean is_sent_to_parentv = false;
+    private boolean viewedByParent  = false;
 }

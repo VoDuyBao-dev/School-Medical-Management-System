@@ -11,6 +11,34 @@
 <body>
     <h1>Welcome Nurse: <span th:text="${username}">Nurse</span></h1>
     <p>This is your dashboard for managing student health.</p>
+    <div th:if="${create_checkSchedule}" class="create_checkSchedule">
+        <p th:text="${create_checkSchedule}"></p>
+    </div>
+    <div th:if="${send_parent}" class="send_parent">
+        <p th:text="${send_parent}"></p>
+    </div>
+    <div th:if="${error}" class="send_parent">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${success}" class="send_parent">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${message}" class="send_parent">
+        <p th:text="${message}"></p>
+    </div>
+    <div>
+        <a th:href="@{/nurse/healthCheckSchedule}">trang tạo health check schedule</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">trang các health check schedule đã gửi</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/vaccinationSchedule}">trang tạo lịch tiêm chủng</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules}">trang các vaccination schedule đã gửi</a>
+    </div>
+
     <a th:href="@{/school_nurse/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
     <br>
     <a th:href="@{/school_nurse/medical-events}"><button>Danh sách sự kiện y tế</button></a>

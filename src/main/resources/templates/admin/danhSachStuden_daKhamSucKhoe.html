@@ -67,7 +67,7 @@
 <body>
 
 <h2>Danh sách học sinh đã được khám sức khỏe và ghi nhận kết quả</h2>
-<a th:href="@{/schoolNurse/healthCheckConsent/list-student-health-check(date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
+<a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule})}"
    style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white;
           text-decoration: none; border-radius: 5px;">
     → Xem danh sách học sinh chưa được khám
@@ -83,7 +83,7 @@
     <p th:text="${notification}"></p>
 </div>
 <h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
-
+<form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">
 <table>
     <thead>
     <tr>
@@ -97,19 +97,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="student : ${consentPage.content}">
-        <td th:text="${student.fullName}">Nguyễn Văn A</td>
-        <td th:text="${student.className}">10A1</td>
-        <td th:text="${student.birthDate != null ? #temporals.format(student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
-        <td th:text="${student.gender}">Nam</td>
-        <td th:text="${student.address}"></td>
+    <tr th:each="consent : ${consentPage.content}">
+        <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>
+        <td th:text="${consent.student.className}">10A1</td>
+        <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
+        <td th:text="${consent.student.gender}">Nam</td>
         <td>
-            <a th:href="@{/schoolNurse/healthCheckRecord/updateForm(stdId=${student.id},
-date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
+            <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule},
+               idConsent=${consent.id})}"
+
                class="btn">Sửa kết quả khám</a>
         </td>
         <td>
-            <input type="checkbox" name="selectedStudentIds" th:value="${student.id}" class="studentCheckbox"/>
+            <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>
         </td>
     </tr>
 
@@ -118,7 +118,7 @@ date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
     </tr>
     </tbody>
 </table>
-
+    <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
 <!-- Nút gửi -->
 <div style="margin-top: 20px; text-align: right;">
     <button type="submit"
@@ -126,11 +126,12 @@ date=${#temporals.format(checkDate, 'yyyy-MM-dd')})}"
         Gửi kết quả đến phụ huynh
     </button>
 </div>
+</form>
 
 <!-- Phân trang -->
 <div class="pagination" th:if="${totalPages > 1}">
     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-       th:href="@{/schoolNurse/healthCheckConsent/list-student-health-check(date=${checkDate}, page=${i})}"
+       th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule}, page=${i})}"
        th:text="${i + 1}"
        th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>

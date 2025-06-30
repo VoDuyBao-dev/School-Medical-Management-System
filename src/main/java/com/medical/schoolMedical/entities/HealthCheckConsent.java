@@ -6,10 +6,10 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
-@ToString(exclude = {"student", "parent"}) // nếu cần
 @EqualsAndHashCode(exclude = {"student", "parent"})
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,36 +17,34 @@ import java.time.LocalDate;
 @Table(name = "health_check_consent")
 public class HealthCheckConsent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "health_check_consent_id")
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = false)
+    @ToString.Exclude
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
+    @ToString.Exclude
     private Parent parent;
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "health_check_schedule_id", referencedColumnName = "health_check_schedule_id", nullable = false)
+    @ToString.Exclude
+    private HealthCheckSchedule schedule;
 
-    @Column(name = "check_date",nullable = false)
-    private LocalDate checkDate;
+    @ToString.Exclude
+    @OneToOne(mappedBy = "healthCheckConsent", fetch = FetchType.LAZY)
+    private HealthCheckRecord healthCheckRecord;
+
+    @Column(name = "is_checked_health",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean checkedHealth = false;
 
     @Column(name = "consent_status", nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'UNCONFIRMED'")
     @Enumerated(EnumType.STRING)
     private ConsentStatus status;
-
-    @Column(name = "sent_date", nullable = false)
-    @CreationTimestamp
-    private LocalDate sentDate;
-
-    @Column(name = "notes", columnDefinition = "TEXT")
-    private String notes;
-
-    @Column(name = "is_checked_health",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
-    private boolean is_checked_health = false;
 }
 

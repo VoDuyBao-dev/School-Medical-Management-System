@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông báo tiêm chủng</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .notification-panel {
+            width: 800px; /* tăng từ 400px lên 800px */
+            max-height: 90vh;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .notification-header {
+            padding: 24px;
+            border-bottom: 1px solid #ddd;
+            background: #4CAF50;
+            color: #fff;
+            font-size: 24px; /* tăng cỡ chữ */
+            font-weight: bold;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background: #f2fef4;
+        }
+
+        .notification-icon {
+            color: #4CAF50;
+            margin-right: 20px;
+            font-size: 28px; /* tăng icon size */
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-content p {
+            margin: 0;
+            font-size: 18px; /* tăng cỡ chữ */
+        }
+
+        .notification-content .time {
+            font-size: 14px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        .view-all {
+            text-align: center;
+            padding: 16px;
+            background: #f5f5f5;
+            border-top: 1px solid #ddd;
+        }
+
+        .view-all a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .view-all a:hover {
+            text-decoration: underline;
+        }
+        .notification-item.unconfirmed {
+            background-color: #fff8e1; /* Màu nền vàng nhạt */
+            border-left: 5px solid #ffb300; /* Thanh viền trái nổi bật */
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: blue;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .pagination a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .pagination a.current {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border-color: #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+<div class="notification-panel">
+    <div class="notification-header">
+        Thông báo tiêm chủng
+    </div>
+
+    <div th:if="${error}" class="alert-success" style="color: red; padding: 16px; font-size: 16px;">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${success}" class="alert-success" style="color: green; padding: 16px; font-size: 16px;">
+        <p th:text="${success}"></p>
+    </div>
+
+    <div th:each="consent : ${listVaccinationConsent}"
+         th:onclick="|window.location.href='@{/parent/confirm/confirm-vaccination(vaccinatonConsentId=${consent.id})}'|"
+         class="notification-item"
+         th:classappend="${consent.status.name() == 'UNCONFIRMED'} ? ' unconfirmed'">
+
+        <div class="notification-icon">
+            <i class="fas fa-notes-medical"></i>
+        </div>
+        <div class="notification-content">
+            <p>
+                Bạn có lịch tiêm chủng cho học sinh
+                <strong th:text="${consent.student.fullName}">Nguyễn Văn A</strong>
+                vào ngày
+                <strong th:text="${#temporals.format(consent.schedule.injectionDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
+            </p>
+            <p class="time" th:text="${#temporals.format(consent.schedule.sentDate, 'dd/MM/yyyy')}">
+                23/06/2025
+            </p>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(listVaccinationConsent)}"
+         style="padding: 24px; color: #888; text-align: center; font-size: 16px;">
+        Không có thông báo khám sức khỏe nào.
+    </div>
+
+
+</div>
+<!-- Phân trang -->
+<div class="pagination" th:if="${totalPages > 0}">
+    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+       th:href="@{/parent/notification/vaccinationConsents(page=${i})}"
+       th:text="${i + 1}"
+       th:classappend="${i == currentPage} ? ' current'">1</a>
+</div>
+</body>
+</html>
