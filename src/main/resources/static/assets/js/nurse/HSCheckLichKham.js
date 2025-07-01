@@ -125,3 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize table
     updateTable();
 });
+
+document.getElementById('selectAll').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('.studentCheckbox');
+    checkboxes.forEach(cb => cb.checked = this.checked);
+});
