@@ -24,7 +24,7 @@ public enum ErrorCode {
     PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
 
 //    Lỗi health check schedule
-SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
+    SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
     HEALTH_CHECK_SCHEDULE_NOT_EXISTS("ERR059", "lịch kiểm tra sức khỏe không tồn tại."),
     // Lỗi hệ thống
     INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau."),

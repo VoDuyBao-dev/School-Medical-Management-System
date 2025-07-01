@@ -22,7 +22,7 @@
 <body>
 <h2>Danh sách thuốc trong kho</h2>
 
-<button><a th:href="@{/school_nurse/medicines/new}">Thêm thuốc mới</a></button>
+<button><a th:href="@{/nurse/medicines/new}">Thêm thuốc mới</a></button>
 
 <p th:if="${success}" th:text="${success}" style="color: green;"></p>
 
@@ -47,14 +47,14 @@
     <td th:text="${medicine.entryDate}"></td>
     <td th:text="${medicine.expiryDate}"></td>
     <td>
-      <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
-      <a th:href="@{'/school_nurse/medicines/delete/' + ${medicine.id}}"
+      <a th:href="@{'/nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
+      <a th:href="@{'/nurse/medicines/delete/' + ${medicine.id}}"
          onclick="return confirm('Bạn có chắc chắn muốn xóa?')"><button>Xóa</button></a>
     </td>
   </tr>
   </tbody>
 </table>
-<a th:href="@{/school_nurse/nurse-home}">
+<a th:href="@{/nurse/nurse-home}">
   <button type="button">Quay lại</button>
 </a>
 </body>

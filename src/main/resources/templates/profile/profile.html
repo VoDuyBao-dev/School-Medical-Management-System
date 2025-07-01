@@ -41,7 +41,7 @@
 </div>
 
 <!-- Nếu là SCHOOL_NURSE -->
-<div th:if="${user.role.name() == 'SCHOOL_NURSE'}">
+<div th:if="${user.role.name() == 'NURSE'}">
     <h3>Thông tin Nhân viên y tế</h3>
     <p><strong>Họ tên:</strong> <span th:text="${info.fullName}"></span></p>
     <p><strong>Kinh nghiệm:</strong> <span th:text="${info.experience}"></span></p>
