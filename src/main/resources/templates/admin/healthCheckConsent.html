@@ -2,105 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Gửi phiếu khám sức khỏe</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f7f9;
-            padding: 30px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #444;
-        }
-
-        input[type="date"],
-        input[type="time"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Lịch Khám Sức Khỏe Định Kỳ</title>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/nurse/heath-chekup-calendar.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
+<div class="container">
+    <h1>Lịch Khám Sức Khỏe Định Kỳ</h1>
 
-<h2>Gửi Phiếu Khám Sức Khỏe</h2>
+    <!-- Điều khiển tháng năm -->
+    <div class="calendar-controls">
+        <button class="btn-month" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+        <span id="current-month-year"></span>
+        <button class="btn-month" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Lịch -->
+    <div class="calendar" id="calendar"></div>
 
 <div th:if="${error}" class="error">
     <p th:text="${error}"></p>
 </div>
 
-<form th:action="@{/nurse/healthCheckSchedule/createSchedule-sendParent}" method="post" th:object="${healthCheckSchedule}">
+<form th:action="@{/nurse/healthCheckSchedule/createSchedule-sendParent}" method="post" th:object="${healthCheckSchedule}" id="checkupForm">
 
-    <div>
-        <label for="checkDatePart">Ngày kiểm tra:</label>
-        <input type="date" id="checkDatePart" name="checkDatePart" required />
+    <div class="form-group">
+        <label for="classId">Lớp:</label>
+        <input type="text" id="classId" name="class" required>
     </div>
 
-    <div>
-        <label for="checkTimePart">Giờ kiểm tra:</label>
-        <input type="time" id="checkTimePart" name="checkTimePart" required />
+    <div class="form-group">
+        <label for="date">Ngày khám:</label>
+        <input type="text" id="date" name="date" readonly>
+    </div>
+    <div class="form-group">
+        <label for="time">Giờ khám:</label>
+        <select id="time" name="time" required>
+            <option value="">Chọn giờ</option>
+            <option value="08:00">08:00</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+        </select>
     </div>
 
-
-    <div>
-        <label for="content">Nội dung:</label>
-        <textarea id="content" th:field="*{content}" rows="4" placeholder="Nội dung chi tiết về buổi khám..."></textarea>
-    </div>
-
-    <div>
-        <label for="notes">Ghi chú:</label>
-        <textarea id="notes" th:field="*{notes}" rows="4" placeholder="Ghi chú thêm (nếu có)..."></textarea>
-    </div>
-
-    <button type="submit">📨 Gửi phiếu</button>
+    <button type="submit" class="btn">📨 Gửi phiếu</button>
 </form>
-
+</div>
+    <script th:src="@{assets/js/nurse/heath-chekup-calendar.js}"></script>
+    <script th:src="@{assets/js/fragments/header.js}"></script>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
