@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "parents")
 public class Parent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "parent_id")
     private long id;
 
