@@ -17,8 +17,6 @@
   <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 
 
-
-
   <form th:action="@{/school_nurse/medical-supplies/save}" th:object="${supply}" method="post">
     <input type="hidden" th:field="*{id}" />
 

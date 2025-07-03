@@ -61,7 +61,7 @@ public class SignupController {
     }*/
    @GetMapping("/add-user")
    public String showAddUserForm(Model model) {
-       model.addAttribute("newUser", new User());
+       model.addAttribute("user", new User());
        model.addAttribute("roles", Role.values());
        return "admin/add-user";
    }
@@ -78,7 +78,7 @@ public class SignupController {
 
     @PostMapping("/add-user")
     public String addUser(@ModelAttribute ("user") @Valid UserDTO user,
-                         BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()){
             return "admin/add-user";
