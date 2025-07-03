@@ -1,0 +1,39 @@
+.text-pink {
+    color: #e91e63;
+}
+
+.table-pink {
+    background-color: #e91e63;
+}
+
+/* Nút outline hồng */
+.btn-outline-pink {
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    transition: background .3s;
+}
+.btn-outline-pink:hover {
+    background-color: #e91e63;
+    color: white;
+}
+
+/* Phân trang */
+.page-link-custom {
+    padding: 8px 14px;
+    margin: 0 4px;
+    border: 1px solid #e91e63;
+    color: #e91e63;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all .3s;
+}
+.page-link-custom:hover {
+    background: #e91e63;
+    color: white;
+}
+.current-page {
+    background: #e91e63;
+    color: white !important;
+    font-weight: 700;
+}

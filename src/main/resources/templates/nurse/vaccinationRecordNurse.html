@@ -1,36 +1,103 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Nhập kết quả sau tiêm chủng</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <h2 class="mb-4">Nhập kết quả tiêm chủng cho học sinh</h2>-->
+
+<!--    <form th:action="@{/nurse/vaccinationRecord/save-update-vaccinationRecord}" th:object="${vaccinationRecordDTO}" method="post">-->
+
+<!--        <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinatonConsentId}"/>-->
+<!--        <input type="hidden" name="vaccinatonScheduleId" th:value="${vaccinatonScheduleId}"/>-->
+<!--        <input type="hidden" th:field="*{id}" />-->
+
+<!--        &lt;!&ndash; Post Vaccination Condition &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label for="postVaccinationCondition" class="form-label">Tình trạng sau tiêm</label>-->
+<!--            <input type="text" class="form-control" id="postVaccinationCondition" th:field="*{postVaccinationCondition}" required>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Notes &ndash;&gt;-->
+<!--        <div class="mb-3">-->
+<!--            <label for="notes" class="form-label">Ghi chú</label>-->
+<!--            <textarea class="form-control" id="notes" th:field="*{notes}" rows="3"></textarea>-->
+<!--        </div>-->
+
+
+<!--        &lt;!&ndash; Submit &ndash;&gt;-->
+<!--        <button type="submit" class="btn btn-primary">Lưu thông tin</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Nhập kết quả sau tiêm chủng</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8" />
+    <title>Ghi nhận kết quả tiêm chủng</title>
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <!-- CSS tuỳ chỉnh -->
+    <link rel="stylesheet" href="/assets/css/nurse/vaccination-record-form.css" />
 </head>
-<body>
+<body style="background-color: #fff0f5;">
 <div class="container mt-5">
-    <h2 class="mb-4">Nhập kết quả tiêm chủng cho học sinh</h2>
 
-    <form th:action="@{/nurse/vaccinationRecord/save-update-vaccinationRecord}" th:object="${vaccinationRecordDTO}" method="post">
+    <!-- Tiêu đề -->
+    <h2 class="text-center text-uppercase fw-bold text-pink mb-4">
+        Nhập kết quả sau tiêm chủng
+    </h2>
 
-        <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinatonConsentId}"/>
-        <input type="hidden" name="vaccinatonScheduleId" th:value="${vaccinatonScheduleId}"/>
+    <!-- Thông báo -->
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <form th:action="@{/nurse/vaccinationRecord/save-update-vaccinationRecord}"
+          th:object="${vaccinationRecordDTO}" method="post"
+          class="shadow-sm p-4 rounded bg-white">
+
+        <!-- Hidden fields -->
+        <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinatonConsentId}" />
+        <input type="hidden" name="vaccinatonScheduleId" th:value="${vaccinatonScheduleId}" />
         <input type="hidden" th:field="*{id}" />
 
-        <!-- Post Vaccination Condition -->
+        <!-- Tình trạng sau tiêm -->
         <div class="mb-3">
             <label for="postVaccinationCondition" class="form-label">Tình trạng sau tiêm</label>
-            <input type="text" class="form-control" id="postVaccinationCondition" th:field="*{postVaccinationCondition}" required>
+            <input type="text"
+                   class="form-control"
+                   id="postVaccinationCondition"
+                   th:field="*{postVaccinationCondition}"
+                   placeholder="Ví dụ: Không phản ứng, sốt nhẹ..."
+                   required />
         </div>
 
-        <!-- Notes -->
+        <!-- Ghi chú -->
         <div class="mb-3">
             <label for="notes" class="form-label">Ghi chú</label>
-            <textarea class="form-control" id="notes" th:field="*{notes}" rows="3"></textarea>
+            <textarea class="form-control"
+                      id="notes"
+                      th:field="*{notes}"
+                      rows="4"
+                      placeholder="Ghi chú thêm (nếu có)..."></textarea>
         </div>
 
-
-        <!-- Submit -->
-        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+        <!-- Nút lưu -->
+        <div class="text-end">
+            <button type="submit" class="btn btn-pink px-4">
+                Lưu thông tin
+            </button>
+        </div>
     </form>
 </div>
+
+<!-- JS tuỳ chỉnh -->
+<script src="/assets/js/nurse/vaccination-record-form.js"></script>
 </body>
 </html>

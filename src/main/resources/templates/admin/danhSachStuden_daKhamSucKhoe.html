@@ -1,146 +1,255 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>danh sách hs đã khám</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Segoe UI', sans-serif;-->
+<!--            background-color: #f8f9fa;-->
+<!--            padding: 30px;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            margin-bottom: 20px;-->
+<!--            color: #2c3e50;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            background: #fff;-->
+<!--            box-shadow: 0 2px 10px rgba(0,0,0,0.1);-->
+<!--        }-->
+
+<!--        th, td {-->
+<!--            padding: 12px 15px;-->
+<!--            border-bottom: 1px solid #dee2e6;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        th {-->
+<!--            background-color: #17a2b8;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        tr:hover {-->
+<!--            background-color: #f1f1f1;-->
+<!--        }-->
+
+<!--        .no-data {-->
+<!--            text-align: center;-->
+<!--            font-style: italic;-->
+<!--            color: #888;-->
+<!--            padding: 20px;-->
+<!--        }-->
+
+<!--        .pagination {-->
+<!--            margin-top: 20px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .pagination a {-->
+<!--            margin: 0 5px;-->
+<!--            padding: 8px 12px;-->
+<!--            background-color: #17a2b8;-->
+<!--            color: white;-->
+<!--            text-decoration: none;-->
+<!--            border-radius: 5px;-->
+<!--        }-->
+
+<!--        .pagination a.current {-->
+<!--            background-color: #138496;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h2>Danh sách học sinh đã được khám sức khỏe và ghi nhận kết quả</h2>-->
+<!--<a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule})}"-->
+<!--   style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white;-->
+<!--          text-decoration: none; border-radius: 5px;">-->
+<!--    → Xem danh sách học sinh chưa được khám-->
+<!--</a>-->
+<!--&lt;!&ndash;Thành công và thất bại của sửa check health record&ndash;&gt;-->
+<!--<div th:if="${success}" class="alert-success" style="color: green;">-->
+<!--    <p th:text="${success}"></p>-->
+<!--</div>-->
+<!--<div th:if="${error}" class="error" style="color: red;">-->
+<!--    <p th:text="${error}"></p>-->
+<!--</div>-->
+<!--<div th:if="${notification}" class="notification" style="color: orange;">-->
+<!--    <p th:text="${notification}"></p>-->
+<!--</div>-->
+<!--<h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>-->
+<!--<form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Họ và tên</th>-->
+<!--        <th>Lớp</th>-->
+<!--        <th>Ngày sinh</th>-->
+<!--        <th>Giới tính</th>-->
+<!--        <th>Địa chỉ</th>-->
+<!--        <th>Thao tác</th>-->
+<!--        <th><input type="checkbox" id="selectAll"/></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="consent : ${consentPage.content}">-->
+<!--        <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>-->
+<!--        <td th:text="${consent.student.className}">10A1</td>-->
+<!--        <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>-->
+<!--        <td th:text="${consent.student.gender}">Nam</td>-->
+<!--        <td>-->
+<!--            <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule},-->
+<!--               idConsent=${consent.id})}"-->
+
+<!--               class="btn">Sửa kết quả khám</a>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>-->
+<!--        </td>-->
+<!--    </tr>-->
+
+<!--    <tr th:if="${#lists.isEmpty(consentPage.content)}">-->
+<!--        <td colspan="4" class="no-data">Chưa có học sinh nào được ghi nhận kết quả khám.</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--    <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>-->
+<!--&lt;!&ndash; Nút gửi &ndash;&gt;-->
+<!--<div style="margin-top: 20px; text-align: right;">-->
+<!--    <button type="submit"-->
+<!--            style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px;">-->
+<!--        Gửi kết quả đến phụ huynh-->
+<!--    </button>-->
+<!--</div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; Phân trang &ndash;&gt;-->
+<!--<div class="pagination" th:if="${totalPages > 1}">-->
+<!--    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"-->
+<!--       th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule}, page=${i})}"-->
+<!--       th:text="${i + 1}"-->
+<!--       th:classappend="${i == currentPage} ? ' current'">1</a>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    document.getElementById('selectAll').addEventListener('change', function () {-->
+<!--        const checkboxes = document.querySelectorAll('.studentCheckbox');-->
+<!--        checkboxes.forEach(cb => cb.checked = this.checked);-->
+<!--    });-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>danh sách hs đã khám</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f8f9fa;
-            padding: 30px;
-        }
+    <meta charset="UTF-8" />
+    <title>Danh sách HS đã khám</title>
 
-        h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #dee2e6;
-            text-align: left;
-        }
-
-        th {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .no-data {
-            text-align: center;
-            font-style: italic;
-            color: #888;
-            padding: 20px;
-        }
-
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .pagination a {
-            margin: 0 5px;
-            padding: 8px 12px;
-            background-color: #17a2b8;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .pagination a.current {
-            background-color: #138496;
-            font-weight: bold;
-        }
-    </style>
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- CSS tuỳ chỉnh -->
+    <link rel="stylesheet"
+          href="/assets/css/nurse/list-student-health-checked.css">
 </head>
-<body>
+<body style="background-color:#fff0f5;">
+<div class="container mt-5">
 
-<h2>Danh sách học sinh đã được khám sức khỏe và ghi nhận kết quả</h2>
-<a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule})}"
-   style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white;
-          text-decoration: none; border-radius: 5px;">
-    → Xem danh sách học sinh chưa được khám
-</a>
-<!--Thành công và thất bại của sửa check health record-->
-<div th:if="${success}" class="alert-success" style="color: green;">
-    <p th:text="${success}"></p>
-</div>
-<div th:if="${error}" class="error" style="color: red;">
-    <p th:text="${error}"></p>
-</div>
-<div th:if="${notification}" class="notification" style="color: orange;">
-    <p th:text="${notification}"></p>
-</div>
-<h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
-<form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">
-<table>
-    <thead>
-    <tr>
-        <th>Họ và tên</th>
-        <th>Lớp</th>
-        <th>Ngày sinh</th>
-        <th>Giới tính</th>
-        <th>Địa chỉ</th>
-        <th>Thao tác</th>
-        <th><input type="checkbox" id="selectAll"/></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="consent : ${consentPage.content}">
-        <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>
-        <td th:text="${consent.student.className}">10A1</td>
-        <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
-        <td th:text="${consent.student.gender}">Nam</td>
-        <td>
-            <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule},
-               idConsent=${consent.id})}"
+    <!-- Tiêu đề -->
+    <h2 class="text-center text-uppercase fw-bold text-pink mb-4">
+        Danh sách học sinh đã được khám sức&nbsp;khỏe
+    </h2>
 
-               class="btn">Sửa kết quả khám</a>
-        </td>
-        <td>
-            <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>
-        </td>
-    </tr>
+    <!-- Đường link quay lại danh sách chưa khám -->
+    <a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule})}"
+       class="btn btn-success mb-3">
+        → Xem danh sách học sinh chưa được khám
+    </a>
 
-    <tr th:if="${#lists.isEmpty(consentPage.content)}">
-        <td colspan="4" class="no-data">Chưa có học sinh nào được ghi nhận kết quả khám.</td>
-    </tr>
-    </tbody>
-</table>
-    <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
-<!-- Nút gửi -->
-<div style="margin-top: 20px; text-align: right;">
-    <button type="submit"
-            style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-        Gửi kết quả đến phụ huynh
-    </button>
+    <!-- Thông báo -->
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}"   class="alert alert-danger"  th:text="${error}"></div>
+    <div th:if="${notification}" class="alert alert-warning" th:text="${notification}"></div>
+
+    <!-- Thông tin thời gian -->
+    <h5 class="mb-3">
+        Thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span>
+    </h5>
+
+    <!-- FORM gửi kết quả -->
+    <form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">
+
+        <!-- BẢNG -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center shadow-sm">
+                <thead class="table-pink text-white">
+                <tr>
+                    <th>Họ và&nbsp;tên</th>
+                    <th>Lớp</th>
+                    <th>Ngày&nbsp;sinh</th>
+                    <th>Giới&nbsp;tính</th>
+                    <th>Thao tác</th>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="consent : ${consentPage.content}">
+                    <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>
+                    <td th:text="${consent.student.className}">10A1</td>
+                    <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate,'dd/MM/yyyy') : 'Không rõ'}"></td>
+                    <td th:text="${consent.student.gender}">Nam</td>
+                    <td>
+                        <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule}, idConsent=${consent.id})}"
+                           class="btn btn-outline-pink btn-sm">
+                            Sửa kết quả
+                        </a>
+                    </td>
+                    <td>
+                        <input type="checkbox"
+                               name="selectedRecordIds"
+                               th:value="${consent.id}"
+                               class="studentCheckbox">
+                    </td>
+                </tr>
+
+                <!-- Không có dữ liệu -->
+                <tr th:if="${#lists.isEmpty(consentPage.content)}">
+                    <td colspan="6" class="text-center fst-italic">Chưa có học sinh nào được ghi nhận kết quả khám.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- hidden -->
+        <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
+
+        <!-- Nút gửi -->
+        <div class="text-end mt-3">
+            <button type="submit" class="btn btn-primary">
+                Gửi kết quả đến phụ huynh
+            </button>
+        </div>
+    </form>
+
+    <!-- PHÂN TRANG -->
+    <div class="pagination justify-content-center mt-4" th:if="${totalPages > 1}">
+        <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+           th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule}, page=${i})}"
+           th:text="${i + 1}"
+           class="page-link-custom"
+           th:classappend="${i == currentPage} ? ' current-page' : ''">1</a>
+    </div>
 </div>
-</form>
 
-<!-- Phân trang -->
-<div class="pagination" th:if="${totalPages > 1}">
-    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-       th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule}, page=${i})}"
-       th:text="${i + 1}"
-       th:classappend="${i == currentPage} ? ' current'">1</a>
-</div>
-
-<script>
-    document.getElementById('selectAll').addEventListener('change', function () {
-        const checkboxes = document.querySelectorAll('.studentCheckbox');
-        checkboxes.forEach(cb => cb.checked = this.checked);
-    });
-</script>
+<!-- JS tuỳ chỉnh -->
+<script src="/assets/js/nurse/list-student-health-checked.js"></script>
 </body>
 </html>
