@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/school_nurse/medicines")
+@RequestMapping("/nurse/medicines")
 public class MedicineController {
     @Autowired
     private MedicineService medicineService;
@@ -36,6 +36,7 @@ public class MedicineController {
     @PostMapping("/save")
     public String saveMedicine(@ModelAttribute("medicine") Medicine medicine, RedirectAttributes redirectAttributes) {
 
+
         // Kiểm tra nếu là thêm mới
         boolean isNew = (medicine.getId() == null);
 
@@ -46,26 +47,28 @@ public class MedicineController {
             // Kiểm tra trùng tên khi thêm mới
             if (medicineService.existsByName(normalizedName)) {
                 redirectAttributes.addFlashAttribute("error", "Thuốc với tên \"" + normalizedName + "\" đã tồn tại.");
-                return "redirect:/school_nurse/medicines/new";
+                return "redirect:/nurse/medicines/new";
             }
         } else {
             if (medicineService.isNameTakenByOtherId(normalizedName, medicine.getId())) {
                 redirectAttributes.addFlashAttribute("error", "Tên thuốc \"" + normalizedName + "\" đã được sử dụng bởi một thuốc khác.");
-                return "redirect:/school_nurse/medicines/edit/" + medicine.getId();
+                return "redirect:/nurse/medicines/edit/" + medicine.getId();
             }
         }
 
         // Nếu là cập nhật (đã có ID), giữ nguyên entryDate cũ
-        if (medicine.getId() != 0) {
+        if (medicine.getId() != null && medicine.getId() != 0) {
             Medicine existing = medicineService.getMedicineById(medicine.getId());
             medicine.setEntryDate(existing.getEntryDate());
         }
 
         medicine.setName(normalizedName);
         medicineService.saveMedicine(medicine); // sử dụng service để lưu luôn
+        System.out.println("DEBUG: Đã lưu thành công thuốc, ID = " + medicine.getId());
+
         redirectAttributes.addFlashAttribute("success", isNew ? "Thêm thuốc thành công." : "Cập nhật thuốc thành công.");
 
-        return "redirect:/school_nurse/medicines";
+        return "redirect:/nurse/medicines";
     }
 
 
@@ -83,7 +86,7 @@ public class MedicineController {
     public String deleteMedicine(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         medicineService.deleteMedicine(id);
         redirectAttributes.addFlashAttribute("success", "Xóa thuốc thành công!");
-        return "redirect:/school_nurse/medicines";
+        return "redirect:/nurse/medicines";
     }
 
 }

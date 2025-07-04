@@ -14,7 +14,7 @@
 
 <h2 th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'"></h2>
 
-<form th:action="@{/school_nurse/medicines/save}" method="post" th:object="${medicine}">
+<form th:action="@{/nurse/medicines/save}" method="post" th:object="${medicine}">
   <input type="hidden" th:field="*{id}"/>
 
   <label for="name">Tên thuốc</label>
@@ -31,7 +31,7 @@
 
 
   <button type="submit">Lưu</button>
-  <a th:href="@{/school_nurse/medicines}">
+  <a th:href="@{/nurse/medicines}">
     <button type="button">Quay lại danh sách</button>
   </a>
 

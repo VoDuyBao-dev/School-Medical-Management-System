@@ -28,6 +28,11 @@ public class MedicineService {
     public void saveMedicine(Medicine medicine) {
         medicineRepository.save(medicine);
     }
+/*
+    public Medicine saveMedicine(Medicine medicine) {
+        return medicineRepository.save(medicine);
+    }*/
+
 
 
     public void deleteMedicine(Long id) {

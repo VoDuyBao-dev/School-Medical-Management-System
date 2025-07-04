@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/school_nurse/health-record")
+@RequestMapping("/nurse/health-record")
 @RequiredArgsConstructor
 public class NurseHealthRecordController {
     @Autowired
@@ -32,14 +32,6 @@ public class NurseHealthRecordController {
         return "nurse/health-records/health_record_list";
     }
 
-    /*@GetMapping("/view/{id}")
-    public String viewDetail(@PathVariable Long id, Model model) {
-
-        HealthRecord record = healthRecordService.getById(id);
-
-        model.addAttribute("records", record);
-        return "nurse/health-records/health_record_view";
-    }*/
 
     @GetMapping("/view/{id}")
     public String viewDetail(@PathVariable Long id, Model model) {
@@ -47,7 +39,7 @@ public class NurseHealthRecordController {
         Optional<HealthRecord> optionalRecord = healthRecordService.findByIdWithStudentAndParent(id);
 
         if (optionalRecord.isEmpty()) {
-            return "redirect:/school_nurse/health-records";
+            return "redirect:/nurse/health-records";
         }
 
         model.addAttribute("record", optionalRecord.get());

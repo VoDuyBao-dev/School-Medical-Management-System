@@ -56,7 +56,7 @@
 </table>
 <p th:if="${event.suppliesUsed == null || event.suppliesUsed.isEmpty()}"><em>Không sử dụng vật tư</em></p>
 
-<a th:href="@{'/school_nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
-<a th:href="@{/school_nurse/medical-events}"><button type="button">Quay lại</button></a>
+<a th:href="@{'/nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
+<a th:href="@{/nurse/medical-events}"><button type="button">Quay lại</button></a>
 </body>
 </html>

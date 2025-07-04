@@ -34,7 +34,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 case "ROLE_MANAGER":
                     response.sendRedirect("/yte/manager/manager-home");
                     return;
-                case "ROLE_SCHOOL_NURSE":
+                case "ROLE_NURSE":
 
                     response.sendRedirect("/yte/nurse/nurse-home");
 

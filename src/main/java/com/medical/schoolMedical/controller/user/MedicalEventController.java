@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@RequestMapping("/school_nurse/medical-events")
+@RequestMapping("/nurse/medical-events")
 @RequiredArgsConstructor
 public class MedicalEventController {
 
@@ -84,31 +84,6 @@ public class MedicalEventController {
 
 
 
-
-    /*//Xử lý lưu sự kiện
-        @PostMapping("/save")
-    public String saveMedicalEvent(@ModelAttribute("eventDTO") MedicalEventDTO dto,
-                                   @AuthenticationPrincipal CustomUserDetails currentUser,
-                                   RedirectAttributes redirectAttributes) {
-        Student student = userService.findStudentById(dto.getStudentId());
-        SchoolNurse nurse = userService.findNurseByUsername(currentUser.getUsername());
-        User createdBy = userService.findByUsername(currentUser.getUsername());
-
-        MedicalEvent event = new MedicalEvent();
-        event.setStudent(student);
-        event.setSchoolNurse(nurse);
-        event.setUser(createdBy);
-        event.setLocation(dto.getLocation());
-        event.setDescription(dto.getDescription());
-        event.setInitial_treatment(dto.getInitialTreatment());
-        event.setFinal_treatment(dto.getFinalTreatment());
-        event.setNotes(dto.getNotes());
-
-        medicalEventService.saveMedicalEvent(event);
-        redirectAttributes.addFlashAttribute("success", "Ghi nhận sự kiện thành công!");
-        return "redirect:/school_nurse/medical-events";
-    }*/
-
     @PostMapping("/save")
     public String saveMedicalEvent(@ModelAttribute("eventDTO") MedicalEventDTO dto,
                                    @AuthenticationPrincipal CustomUserDetails currentUser,
@@ -124,7 +99,7 @@ public class MedicalEventController {
         medicalEventService.saveMedicalEvent(event);
 
         redirectAttributes.addFlashAttribute("success", "Ghi nhận sự kiện thành công!");
-        return "redirect:/school_nurse/medical-events";
+        return "redirect:/nurse/medical-events";
     }
 
 
@@ -163,7 +138,7 @@ public class MedicalEventController {
                               RedirectAttributes redirectAttributes) {
         medicalEventService.updateFromDto(dto);
         redirectAttributes.addFlashAttribute("success", "Cập nhật sự kiện thành công!");
-        return "redirect:/school_nurse/medical-events";
+        return "redirect:/nurse/medical-events";
     }
 
     @PostMapping("/{eventId}/use-medicine")

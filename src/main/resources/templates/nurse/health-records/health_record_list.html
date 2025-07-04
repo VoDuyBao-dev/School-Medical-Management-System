@@ -34,7 +34,7 @@
 <h2>Danh sách hồ sơ sức khỏe học sinh</h2>
 
 <!-- Form tìm kiếm -->
-<form method="get" th:action="@{/school_nurse/health-record}">
+<form method="get" th:action="@{/nurse/health-record}">
     <input type="text" name="keyword" placeholder="Tìm học sinh..." th:value="${keyword}" />
     <button type="submit">Tìm kiếm</button>
 </form>
@@ -59,7 +59,7 @@
         <td th:text="${record.allergies}">Không</td>
         <td th:text="${record.chronicDisease}">Không</td>
         <td>
-            <a th:href="@{'/school_nurse/health-record/view/' + ${record.id}}">
+            <a th:href="@{'/nurse/health-record/view/' + ${record.id}}">
                 <button>Xem chi tiết</button>
             </a>
         </td>
@@ -70,7 +70,7 @@
 
     </tbody>
 </table>
-<a th:href="@{/school_nurse/nurse-home}">
+<a th:href="@{/nurse/nurse-home}">
     <button type="button">Quay lại</button>
 </a>
 

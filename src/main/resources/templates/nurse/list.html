@@ -7,7 +7,7 @@
 <body>
 <h2>Danh sách sự kiện y tế</h2>
 
-<a th:href="@{/school_nurse/medical-events/create}">
+<a th:href="@{/nurse/medical-events/create}">
     <button>Ghi nhận sự kiện mới</button>
 </a>
 
@@ -29,10 +29,10 @@
         <td th:text="${#dates.format(event.eventTime, 'dd/MM/yyyy HH:mm')}"></td>
         <td th:text="${event.location}"></td>
         <td th:text="${event.description}"></td>
-        <td><a th:href="@{'/school_nurse/medical-events/' + ${event.id}}">Xem chi tiết sự kiện</a></td>
+        <td><a th:href="@{'/nurse/medical-events/' + ${event.id}}">Xem chi tiết sự kiện</a></td>
     </tr>
     </tbody>
 </table>
-<a th:href="@{/school_nurse/nurse-home}"><button type="button">Quay lại</button></a>
+<a th:href="@{/nurse/nurse-home}"><button type="button">Quay lại</button></a>
 </body>
 </html>

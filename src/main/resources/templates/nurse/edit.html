@@ -12,7 +12,7 @@
 <body>
 <h2>Cập nhật sự kiện y tế</h2>
 
-<form th:action="@{/school_nurse/medical-events/update}" th:object="${event}" method="post">
+<form th:action="@{/nurse/medical-events/update}" th:object="${event}" method="post">
   <input type="hidden" th:field="*{id}" />
 
   <label>Học sinh:</label>
@@ -75,7 +75,7 @@
   </div>
 
   <button type="submit">Cập nhật</button>
-  <a th:href="@{/school_nurse/medical-events}">
+  <a th:href="@{/nurse/medical-events}">
     <button type="button">Quay lại</button>
   </a>
 </form>

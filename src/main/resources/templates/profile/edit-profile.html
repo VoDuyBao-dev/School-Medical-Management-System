@@ -53,7 +53,7 @@
     </div>
 
     <!-- Trường của SCHOOL_NURSE -->
-    <div th:if="${user.role.name() == 'SCHOOL_NURSE'}">
+    <div th:if="${user.role.name() == 'NURSE'}">
         <label>Họ tên Nhân viên y tế:</label>
         <input type="text" th:field="*{fullName}" required/><br/>
 

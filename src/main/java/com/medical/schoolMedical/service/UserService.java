@@ -80,7 +80,7 @@ public class UserService {
                     manager.setUser(user);
                     managerRepository.save(manager);
                     break;
-                case SCHOOL_NURSE:
+                case NURSE:
                     SchoolNurse schoolNurse = new SchoolNurse();
                     schoolNurse.setUser(user);
                     schoolNurseRepository.save(schoolNurse);

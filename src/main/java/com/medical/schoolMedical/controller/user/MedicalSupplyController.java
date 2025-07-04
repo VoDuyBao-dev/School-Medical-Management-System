@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/school_nurse/medical-supplies")
+@RequestMapping("/nurse/medical-supplies")
 public class MedicalSupplyController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class MedicalSupplyController {
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         MedicalSupply supply = medicalSupplyService.getSupplyById(id);
         if (supply == null) {
-            return "redirect:/school_nurse/medical-supplies?error=Không tìm thấy vật tư";
+            return "redirect:/nurse/medical-supplies?error=Không tìm thấy vật tư";
         }
         model.addAttribute("supply", supply);
         return "nurse/medicalSupply/supply_form";
@@ -62,12 +62,12 @@ public class MedicalSupplyController {
         if (isNew) {
             if (medicalSupplyService.existsByName(normalizedName)) {
                 redirectAttributes.addFlashAttribute("error", "Vật tư với tên \"" + normalizedName + "\" đã tồn tại.");
-                return "redirect:/school_nurse/medical-supplies/new";
+                return "redirect:/nurse/medical-supplies/new";
             }
         } else {
             if (medicalSupplyService.isNameTakenByOtherId(normalizedName, supply.getId())) {
                 redirectAttributes.addFlashAttribute("error", "Tên vật tư \"" + normalizedName + "\" đã được sử dụng bởi vật tư khác.");
-                return "redirect:/school_nurse/medical-supplies/edit/" + supply.getId();
+                return "redirect:/nurse/medical-supplies/edit/" + supply.getId();
             }
         }
 
@@ -76,14 +76,14 @@ public class MedicalSupplyController {
         redirectAttributes.addFlashAttribute("success", isNew ? "Thêm vật tư thành công." : "Cập nhật vật tư thành công.");
 
 
-        return "redirect:/school_nurse/medical-supplies"; // quay lại danh sách sau khi lưu
+        return "redirect:/nurse/medical-supplies"; // quay lại danh sách sau khi lưu
     }
 
     // Xóa vật tư
     @GetMapping("/delete/{id}")
     public String deleteSupply(@PathVariable("id") Long id) {
         medicalSupplyService.deleteById(id);
-        return "redirect:/school_nurse/medical-supplies";
+        return "redirect:/nurse/medical-supplies";
     }
 
 }
