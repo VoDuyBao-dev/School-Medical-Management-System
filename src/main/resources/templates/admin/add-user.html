@@ -21,7 +21,7 @@
 
 <h2>Thêm người dùng</h2>
 
-<form th:action="@{/admin/add-user}" th:object="${newUser}" method="post">
+<form th:action="@{/admin/add-user}" th:object="${user}" method="post">
     <label for="username">Tên đăng nhập:</label>
     <input type="text" th:field="*{username}" id="username" required />
     <br/>
