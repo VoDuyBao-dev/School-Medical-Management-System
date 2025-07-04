@@ -61,7 +61,7 @@ public class SignupController {
     }*/
    @GetMapping("/add-user")
    public String showAddUserForm(Model model) {
-       model.addAttribute("newUser", new User());
+       model.addAttribute("user", new User());
        model.addAttribute("roles", Role.values());
        return "admin/add-user";
    }
