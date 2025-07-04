@@ -17,7 +17,9 @@
   <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 
 
-  <form th:action="@{/school_nurse/medical-supplies/save}" th:object="${supply}" method="post">
+
+
+  <form th:action="@{/nurse/medical-supplies/save}" th:object="${supply}" method="post">
     <input type="hidden" th:field="*{id}" />
 
     <label for="name">Tên vật tư</label>
@@ -28,7 +30,7 @@
     <input type="number" id="quantityInStock" th:field="*{quantityInStock}" min="0" required />
 
     <button type="submit">Lưu</button>
-    <a th:href="@{/school_nurse/medical-supplies}">
+    <a th:href="@{/nurse/medical-supplies}">
       <button type="button">Quay lại danh sách</button>
     </a>
 

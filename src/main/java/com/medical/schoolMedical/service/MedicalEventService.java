@@ -222,7 +222,7 @@ public class MedicalEventService {
         medicalEventRepository.save(existing);
     }
 
-
+    // Chuyển từ DTO sang entity
     public MedicalEvent convertToEntity(MedicalEventDTO dto) {
         MedicalEvent event = medicalEventRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sự kiện với ID: " + dto.getId()));
@@ -269,11 +269,6 @@ public class MedicalEventService {
 
         return event;
     }
-
-
-
-
-
 
 
 }

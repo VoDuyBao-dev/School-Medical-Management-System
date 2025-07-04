@@ -1,3 +1,4 @@
+/* Header Styles (Unchanged) */
 .header {
     background-color: #f8f8f8;
     color: white;
@@ -21,13 +22,13 @@
     align-items: center;
     max-width: 500px;
     flex-grow: 1;
-    margin: 0 20px;
+    margin: 0 10px;
     position: relative;
 }
 
 .search-bar input {
-    width: 100%;
-    padding: 10px 40px 10px 15px; /* Thêm padding-right để chừa chỗ cho nút */
+    width: 190%; /* Corrected from 190% to 100% to fit container */
+    padding: 10px 40px 10px 15px; /* Adjusted padding */
     border: 1px solid #ddd;
     border-radius: 25px;
     outline: none;
@@ -91,6 +92,9 @@
     background-color: #c0392b;
     transform: scale(1.05);
 }
+
+/* Navigation Styles (Unchanged) */
+/* Navigation Styles */
 .nav {
     background: linear-gradient(90deg, rgba(255, 77, 136, 0.56), rgba(255, 26, 102, 0.86));
     color: rgb(255, 255, 255);
@@ -113,6 +117,7 @@
 
 .nav-item {
     margin: 0 25px;
+    position: relative; /* Ensure relative positioning for submenu */
 }
 
 .nav-item a {
@@ -132,7 +137,6 @@
     color: #512323;
 }
 
-
 .nav-item a::after {
     content: '';
     position: absolute;
@@ -150,7 +154,49 @@
     left: 0;
 }
 
-/* Responsive */
+/* Submenu Styles */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 180%; /* Position below the parent <a> */
+    left: 0; /* Align with the left edge of the parent */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(17, 17, 17, 0.562);
+    list-style: none;
+    width: 200px; /* Adjusted width for better visibility */
+    z-index: 1500; /* Higher z-index to ensure it appears above other elements */
+    padding: 8px 0;
+}
+
+.nav-item:hover .submenu {
+    display: block; /* Show submenu on hover of .nav-item */
+}
+
+.submenu li {
+    border-bottom: 1px solid #ddd;
+}
+
+.submenu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s;
+    text-transform: capitalize;
+}
+
+.submenu li a i {
+    color: #e74c3c; /* Match theme color */
+    margin-right: 10px;
+}
+
+.submenu li a:hover {
+    background: linear-gradient(90deg, rgba(255, 77, 136, 0.56), rgba(255, 26, 102, 0.86));
+    color: #ffffff;
+}
+
+/* Responsive (Unchanged) */
 @media (max-width: 768px) {
     .nav {
         padding: 15px 20px;
@@ -169,4 +215,92 @@
     .nav-item a {
         padding: 8px 15px;
     }
+
+    .submenu {
+        position: static; /* Stack vertically on mobile */
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .nav-item:hover .submenu {
+        display: none; /* Hide on hover in mobile view; use a toggle instead */
+    }
+}
+/* Back to Top Button (Unchanged) */
+#backToTop {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    background-color: #f3285a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 17px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: none;
+    transition: opacity 0.3s;
+    z-index: 1050;
+}
+
+#backToTop:hover {
+    background-color: #ff7f9f;
+}
+
+/* Dropdown User Menu (Fixed) */
+.user {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.user i {
+    color: #f3285a;
+    font-size: 26px;
+    transition: color 0.3s;
+}
+
+.user i:hover {
+    color: #fa1748;
+}
+
+.user p {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #fa1748;
+    white-space: nowrap;
+}
+
+.dropdown-user {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; /* Align to the right of the user icon */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    min-width: 155px;
+    z-index: 1500;
+    padding: 5px 0;
+}
+
+.user:hover .dropdown-user {
+    display: block; /* Show dropdown on hover of .user */
+}
+
+.dropdown-user a {
+    display: block;
+    padding: 10px 20px;
+    color: #333 !important;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-user a:hover {
+    background-color: #f1305c;
+    color: #ffffff !important;
 }

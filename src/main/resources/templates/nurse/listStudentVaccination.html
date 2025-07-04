@@ -127,41 +127,14 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Danh sách học sinh tiêm chủng</title>
 
-  <!-- Bootstrap -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-  <!-- CSS tùy chỉnh -->
-  <link rel="stylesheet" href="/assets/css/nurse/list-student-vaccination.css">
 </head>
-<body style="background-color: #fff0f5;">
-<div class="container mt-5">
 
-  <!-- Tiêu đề -->
-  <h2 class="text-center text-uppercase fw-bold text-pink mb-4">
-    Danh sách học sinh đăng ký tiêm chủng
-  </h2>
-
-  <!-- Link xem danh sách đã tiêm -->
   <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule})}"
-     class="btn btn-success mb-3">
     → Xem danh sách học sinh đã tiêm
   </a>
 
-  <!-- Thông báo -->
-  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-  <div th:if="${notification}" class="alert alert-warning" th:text="${notification}"></div>
-
-  <!-- Thời gian -->
-  <h5>Thời gian: <span th:text="${#temporals.format(injectionDate, 'dd/MM/yyyy')}"></span></h5>
-
-  <!-- Bảng -->
-  <div class="table-responsive mt-3">
-    <table class="table table-bordered table-hover shadow-sm text-center">
-      <thead class="table-pink text-white">
       <tr>
         <th>Họ và tên</th>
         <th>Lớp</th>
@@ -177,28 +150,17 @@
         <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
         <td th:text="${consent.student.gender}">Nam</td>
         <td>
-          <a th:href="@{/nurse/vaccinationRecord/form(vaccinatonScheduleId=${idSchedule}, vaccinatonConsentId=${consent.id})}"
-             class="btn btn-outline-pink btn-sm">
-            Ghi nhận kết quả khám
-          </a>
         </td>
       </tr>
       <tr th:if="${#lists.isEmpty(consentPage.content)}">
-        <td colspan="5" class="text-center fst-italic">Chưa có học sinh nào được đồng ý.</td>
       </tr>
       </tbody>
     </table>
-  </div>
 
   <!-- Phân trang -->
-  <div class="pagination justify-content-center mt-4" th:if="${totalPages > 0}">
     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
        th:href="@{/nurse/vaccinationConsent/list-student-vaccination(vaccinatonScheduleId=${idSchedule}, page=${i})}"
        th:text="${i + 1}"
-       class="page-link-custom"
-       th:classappend="${i == currentPage} ? ' current-page' : ''">1</a>
-  </div>
-
 </div>
 </body>
 </html>
