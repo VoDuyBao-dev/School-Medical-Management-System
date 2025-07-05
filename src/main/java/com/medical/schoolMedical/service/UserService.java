@@ -123,18 +123,6 @@ public class UserService {
             adminRepository.save(admin);
 
         }
-        if (userRepository.findByUsername("nurse") == null) {
-            User nurseUser = new User();
-            nurseUser.setUsername("nurse");
-            nurseUser.setPassword(passwordEncoder.encode("nurse"));
-            nurseUser.setRole(Role.NURSE);          // hoặc Role.SCHOOL_NURSE tuỳ enum của bạn
-            userRepository.save(nurseUser);
-
-            SchoolNurse nurse = new SchoolNurse();
-            nurse.setUser(nurseUser);
-            nurse.setFullName("School Nurse");      // hoặc thông tin khác
-            schoolNurseRepository.save(nurse);
-        }
     }
 
 

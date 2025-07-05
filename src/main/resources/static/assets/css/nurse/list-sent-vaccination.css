@@ -2,8 +2,17 @@
     color: #e91e63;
 }
 
-.table-pink {
+.table-pink-header {
     background-color: #e91e63;
+    color: white;
+}
+
+.table-pink-header th {
+    background-color: #e91e63;
+    color: white;
+    border: 1px solid #fff; /* tùy chọn */
+    text-align: center;
+    vertical-align: middle;
 }
 
 .btn-outline-pink {
