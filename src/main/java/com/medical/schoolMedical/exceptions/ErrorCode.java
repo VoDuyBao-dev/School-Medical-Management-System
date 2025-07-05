@@ -7,6 +7,7 @@ public enum ErrorCode {
     INVALID_PASSWORD("ERR002", "Mật khẩu không chính xác."),
     USERNAME_EXISTS("ERR003", "Tên đăng nhập đã tồn tại."),
     CONTAINS_WHITESPACE("ERR004", "Tên đăng nhập không được chứa khoảng trắng."),
+    USER_NOT_EXISTS("ERR005", "Người dùng không tồn tại."),
 
 //    INTERNAL_ERROR,
 //health check consent

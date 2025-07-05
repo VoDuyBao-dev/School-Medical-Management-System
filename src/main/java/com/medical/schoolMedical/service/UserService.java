@@ -112,6 +112,7 @@ public class UserService {
             adminUser.setUsername("admin");
             adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
             adminUser.setRole(Role.ADMIN);
+            adminUser.setEmail("admin123@gmail.com");
             userRepository.save(adminUser);
 
             // Tạo và lưu admin vào bảng admins
@@ -196,5 +197,24 @@ public class UserService {
         return studentRepository.findById(id).orElse(null);
     }
 
+    public boolean existsUserByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    public UserDTO findUserByEmail(String email) {
+        return userMapper.toUserDTO(userRepository.findByEmail(email));
+    }
 
+
+//    reset password
+    public void resetPassword(long userId, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_EXISTS));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        try{
+            userRepository.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR);
+        }
+    }
 }

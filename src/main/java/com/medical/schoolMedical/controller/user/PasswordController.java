@@ -1,9 +1,11 @@
 package com.medical.schoolMedical.controller.user;
 
 import com.medical.schoolMedical.entities.User;
+import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class PasswordController {
@@ -62,5 +65,42 @@ public class PasswordController {
         return "redirect:/" + user.getRole().name().toLowerCase() + "/profile";
     }
 
+
+//    Quên password
+    @GetMapping("/forgot-password")
+    public String forgotPasswordPage(Model model) {
+
+        return "user/forgotpass";
+    }
+
+//    Xác thực 2 pass mới và xác thực đã giống chưa ở quên password
+    @GetMapping("/reset-password")
+    public String resetPasswordPage(@RequestParam("userID") long userId,Model model) {
+        model.addAttribute("userID", userId);
+        return "user/newpass";
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("userID") long userId,
+                                @RequestParam("password") String newPassword,
+                                @RequestParam("confirm-password") String confirmNewPassword,
+                                RedirectAttributes redirectAttributes,
+                                Model model) {
+        if (!newPassword.equals(confirmNewPassword)) {
+            model.addAttribute("error", "Mật khẩu xác nhận không khớp!");
+            model.addAttribute("userID", userId);
+            return "user/newpass";
+        }
+//        reset mật khẩu
+        try{
+            userService.resetPassword(userId, newPassword);
+        }catch (BusinessException e){
+            model.addAttribute("error", e.getMessage());
+            return "user/newpass";
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Đặt lại mật khẩu thành công!");
+        return "redirect:/login";
+    }
 
 }
