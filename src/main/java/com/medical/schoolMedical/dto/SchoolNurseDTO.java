@@ -8,7 +8,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 public class SchoolNurseDTO {
-    private long id;
+    private Long id;
     @ToString.Exclude
     private User user;
     private String fullName;

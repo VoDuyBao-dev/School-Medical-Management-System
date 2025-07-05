@@ -27,7 +27,7 @@ public class LoginController {
         return "user/login";
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public String login(@ModelAttribute("user") UserDTO user, Model model) {
         try {
             boolean isValid = userService.checkLogin(user.getUsername(), user.getPassword());
@@ -43,7 +43,7 @@ public class LoginController {
             model.addAttribute("error", e.getMessage());
             return "user/login";
         }
-    }
+    }*/
 
     @GetMapping("/admin/login")
     public String adminLoginPage(Model model) {

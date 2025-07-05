@@ -42,6 +42,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin/login").permitAll()
                         .anyRequest().hasRole("ADMIN")
                 )
+                .exceptionHandling(e -> e
+                        .accessDeniedPage("/access-denied")  // Khi không đủ quyền
+                )
                 .formLogin(form -> form
                         .loginPage("/admin/login")
                         .loginProcessingUrl("/admin/doLogin")
