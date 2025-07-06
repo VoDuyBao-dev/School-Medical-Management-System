@@ -1,0 +1,67 @@
+<!-- File: templates/nurse/vaccination/schedule-list.html -->
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Danh sách lịch tiêm chủng</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/assets/css/nurse/vaccination-schedule-list.css}" />
+</head>
+<body>
+
+<!-- ❶ NỀN HỒNG toàn màn hình  -->
+<div class="bg-pink min-vh-100 d-flex justify-content-center align-items-start py-5">
+
+    <!-- ❷ Khung trắng  -->
+    <div class="schedule-card p-4 w-100" style="max-width:900px;">
+
+        <h2 class="text-center text-uppercase fw-bold mb-4 text-pink">
+            Danh sách lịch tiêm chủng
+        </h2>
+
+        <!-- Nút tạo lịch đặt bên phải -->
+        <div class="d-flex justify-content-end mb-3">
+            <a th:href="@{/nurse/vaccinationSchedule/create}" class="btn btn-pink">Tạo lịch tiêm chủng</a>
+        </div>
+
+        <!-- Bảng danh sách -->
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                <tr class="table-pink text-white">
+                    <th>STT</th>
+                    <th>Loại vắc‑xin</th>
+                    <th>Độ tuổi (tháng)</th>
+                    <th>Ngày dự kiến</th>
+                    <th>Ghi chú</th>
+                    <th class="text-center">Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="schedule, iterStat : ${schedules}">
+                    <td th:text="${iterStat.index + 1}">1</td>
+                    <td th:text="${schedule.vaccineType}">Viêm gan B</td>
+                    <td th:text="${schedule.recommendedAgeMonths}">4</td>
+                    <td th:text="${#temporals.format(schedule.injectionDate,'yyyy-MM-dd')}">2025‑07‑17</td>
+                    <td th:text="${schedule.notes}">ghi chú</td>
+                    <td class="text-center">
+                        <a th:href="@{/nurse/vaccinationSchedule/sendConsent(id=${schedule.id})}" class="btn btn-outline-pink btn-sm">Gửi xác nhận</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(schedules)}">
+                    <td colspan="6" class="text-center fst-italic">Chưa có lịch tiêm chủng nào.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JS (nếu cần)  -->
+<script th:src="@{/assets/js/nurse/vaccination-schedule-list.js}"></script>
+</body>
+</html>

@@ -8,6 +8,7 @@
     box-shadow:0 10px 26px rgba(0,0,0,.08);
     overflow-y:auto;
     font-family:'Segoe UI',sans-serif;
+    text-transform: uppercase;
 }
 /* Header */
 .notification-header{
@@ -53,6 +54,13 @@
     color:#888;
     text-align:center;
     font-style:italic;
+}
+.pagination {
+    display: flex;          /* quan trọng: bật flexbox */
+    justify-content: center;/* căn giữa ngang */
+    align-items: center;    /* (tùy) căn giữa dọc */
+    margin: 30px 0;
+    gap: 10px;
 }
 /* Phân trang */
 .page-link-custom{

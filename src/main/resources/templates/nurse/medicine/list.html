@@ -1,100 +1,32 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Danh sách thuốc trong kho</title>-->
-<!--  <style>-->
-<!--    table {-->
-<!--        width: 100%;-->
-<!--        border-collapse: collapse;-->
-<!--        margin-top: 20px;-->
-<!--    }-->
-<!--    th, td {-->
-<!--        border: 1px solid #ccc;-->
-<!--        padding: 10px;-->
-<!--    }-->
-<!--    th {-->
-<!--        background-color: #eee;-->
-<!--    }-->
-
-<!--  </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Danh sách thuốc trong kho</h2>-->
-
-<!--<button><a th:href="@{/school_nurse/medicines/new}">Thêm thuốc mới</a></button>-->
-
-<!--<p th:if="${success}" th:text="${success}" style="color: green;"></p>-->
-
-<!--<table>-->
-<!--  <thead>-->
-<!--  <tr>-->
-<!--    <th>ID</th>-->
-<!--    <th>Tên thuốc</th>-->
-<!--    <th>Đơn vị</th>-->
-<!--    <th>Số lượng</th>-->
-<!--    <th>Ngày nhập</th>-->
-<!--    <th>Hạn sử dụng</th>-->
-<!--    <th>Thao tác</th>-->
-<!--  </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--  <tr th:each="medicine : ${medicines}">-->
-<!--    <td th:text="${medicine.id}"></td>-->
-<!--    <td th:text="${medicine.name}"></td>-->
-<!--    <td th:text="${medicine.unit}"></td>-->
-<!--    <td th:text="${medicine.quantityInStock}"></td>-->
-<!--    <td th:text="${medicine.entryDate}"></td>-->
-<!--    <td th:text="${medicine.expiryDate}"></td>-->
-<!--    <td>-->
-<!--      <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |-->
-<!--      <a th:href="@{'/school_nurse/medicines/delete/' + ${medicine.id}}"-->
-<!--         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"><button>Xóa</button></a>-->
-<!--    </td>-->
-<!--  </tr>-->
-<!--  </tbody>-->
-<!--</table>-->
-<!--<a th:href="@{/school_nurse/nurse-home}">-->
-<!--  <button type="button">Quay lại</button>-->
-<!--</a>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Danh sách thuốc trong kho</title>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    th {
+        background-color: #eee;
+    }
 
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/list.css}" />
+  </style>
 </head>
 <body>
+<h2>Danh sách thuốc trong kho</h2>
 
-<h2>DANH SÁCH THUỐC TRONG KHO</h2>
+<button><a th:href="@{/school_nurse/medicines/new}">Thêm thuốc mới</a></button>
 
-<!-- Nút trái – phải -->
-<div class="top-buttons">
-  <a th:href="@{/school_nurse/nurse-home}" class="btn">
-    <i class="fas fa-arrow-left"></i> Quay lại
-  </a>
-  <a th:href="@{/school_nurse/medicines/new}" class="btn">
-    <i class="fas fa-plus"></i> Thêm thuốc mới
-  </a>
-</div>
+<p th:if="${success}" th:text="${success}" style="color: green;"></p>
 
-<!-- Thông báo -->
-<p th:if="${success}" th:text="${success}" class="notice-success"></p>
-
-<!-- Không có thuốc -->
-<div th:if="${#lists.isEmpty(medicines)}" class="no-data">
-  Hiện chưa có thuốc
-</div>
-
-<!-- Bảng -->
-<table th:if="${!#lists.isEmpty(medicines)}">
+<table>
   <thead>
   <tr>
     <th>ID</th>
@@ -108,25 +40,88 @@
   </thead>
   <tbody>
   <tr th:each="medicine : ${medicines}">
-    <td th:text="${medicine.id}">1</td>
-    <td th:text="${medicine.name}">Paracetamol</td>
-    <td th:text="${medicine.unit}">Viên</td>
-    <td th:text="${medicine.quantityInStock}">50</td>
-    <td th:text="${#dates.format(medicine.entryDate,'dd/MM/yyyy')}">01/07/2025</td>
-    <td th:text="${#dates.format(medicine.expiryDate,'dd/MM/yyyy')}">31/12/2025</td>
+    <td th:text="${medicine.id}"></td>
+    <td th:text="${medicine.name}"></td>
+    <td th:text="${medicine.unit}"></td>
+    <td th:text="${medicine.quantityInStock}"></td>
+    <td th:text="${medicine.entryDate}"></td>
+    <td th:text="${medicine.expiryDate}"></td>
     <td>
-      <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}" class="btn">
-        <i class="fas fa-edit"></i> Sửa
-      </a>
+      <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
       <a th:href="@{'/school_nurse/medicines/delete/' + ${medicine.id}}"
-         onclick="return confirm('Bạn có chắc chắn muốn xóa?')" class="btn ms-1">
-        <i class="fas fa-trash-alt"></i> Xóa
-      </a>
+         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"><button>Xóa</button></a>
     </td>
   </tr>
   </tbody>
 </table>
-
-  <script th:src="@{/assets/js/nurse/medicine/list.js}"></script>
+<a th:href="@{/school_nurse/nurse-home}">
+  <button type="button">Quay lại</button>
+</a>
 </body>
 </html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="vi" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Danh sách thuốc trong kho</title>-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">-->
+<!--  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/list.css}">-->
+<!--</head>-->
+<!--<body class="bg-light">-->
+
+<!--<div class="container py-5">-->
+<!--  <div class="card shadow rounded-4">-->
+<!--    <div class="card-body">-->
+
+<!--      <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--        <h3 class="fw-bold text-pink">Danh sách thuốc trong kho</h3>-->
+<!--        <a class="btn btn-pink" th:href="@{/school_nurse/medicines/new}">Thêm thuốc mới</a>-->
+<!--      </div>-->
+
+<!--      <p th:if="${success}" th:text="${success}" class="text-success fw-semibold"></p>-->
+
+<!--      <div class="table-responsive">-->
+<!--        <table class="table table-bordered align-middle">-->
+<!--          <thead class="table-pink text-white">-->
+<!--          <tr class="text-center">-->
+<!--            <th>ID</th>-->
+<!--            <th>Tên thuốc</th>-->
+<!--            <th>Đơn vị</th>-->
+<!--            <th>Số lượng</th>-->
+<!--            <th>Ngày nhập</th>-->
+<!--            <th>Hạn sử dụng</th>-->
+<!--            <th>Thao tác</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr th:each="medicine : ${medicines}" class="text-center">-->
+<!--            <td th:text="${medicine.id}"></td>-->
+<!--            <td th:text="${medicine.name}"></td>-->
+<!--            <td th:text="${medicine.unit}"></td>-->
+<!--            <td th:text="${medicine.quantityInStock}"></td>-->
+<!--            <td th:text="${medicine.entryDate}"></td>-->
+<!--            <td th:text="${medicine.expiryDate}"></td>-->
+<!--            <td>-->
+<!--              <div class="d-flex justify-content-center gap-2">-->
+<!--                <a th:href="@{'/school_nurse/medicines/edit/' + ${medicine.id}}" class="btn btn-sm btn-outline-pink">Sửa</a>-->
+<!--                <a th:href="@{'/school_nurse/medicines/delete/' + ${medicine.id}}"-->
+<!--                   onclick="return confirm('Bạn có chắc chắn muốn xóa?')"-->
+<!--                   class="btn btn-sm btn-outline-danger">Xóa</a>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+
+<!--      <div class="text-end mt-4">-->
+<!--        <a th:href="@{/school_nurse/nurse-home}" class="btn btn-secondary">Quay lại</a>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
