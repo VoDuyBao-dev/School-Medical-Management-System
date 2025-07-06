@@ -17,4 +17,30 @@ public class SchoolNurseController {
         return "nurse/nurse-home"; // templates/nurse/home.html
     }
 
+    // Tư vấn
+    @GetMapping("nurse/listReview")
+    public String listReview() {
+        return "nurse/listReview";
+    }
+
+    @GetMapping("parent/listReview")
+    public String listParentReview() {
+        return "parent/listReview";
+    }
+
+    @GetMapping("nurse/listCreatedReview")
+    public String listCreatedReview() {
+        return "nurse/listCreatedReview";
+    }
+
+    @GetMapping("nurse/createReview")
+    public String createReview() {
+        return "nurse/createReview";
+    }
+
+    @GetMapping("parent/confirmReview")
+    public String confirmReview() {
+        return "parent/confirmReview";
+    }
+
 }
