@@ -69,39 +69,41 @@
 </head>
 <body>
 
-<div class="container">
-    <h2 class="text-center text-pink fw-bold mb-5">
-        Phiếu kết quả tiêm chủng Học Sinh
-    </h2>
+<div class="wrapper">
+    <div class="container">
+        <h2 class="text-center text-pink fw-bold mb-5">
+            Phiếu kết quả tiêm chủng Học Sinh
+        </h2>
 
-    <!-- Thông tin học sinh -->
-    <div class="section-title">
-        Học sinh:
-        <span th:text="${vaccinationRecord.vaccinationConsent.getStudent().getFullName()}"></span>
-    </div>
-
-    <!-- Thông tin y tá -->
-    <div class="section-title">
-        Y tá phụ trách:
-        <span th:text="${vaccinationRecord.schoolNurse.fullName}"></span>
-    </div>
-
-    <!-- Ngày tiêm -->
-    <div class="section-title">
-        Ngày tiêm:
-        <span th:text="${#temporals.format(vaccinationRecord.vaccinationConsent.schedule.injectionDate, 'dd/MM/yyyy')}"></span>
-    </div>
-
-    <div class="health-card mt-4">
-
-        <div class="row mb-3">
-            <div class="col-md-4 field-label">Tình trạng sau tiêm:</div>
-            <div class="col-md-8 field-value" th:text="${vaccinationRecord.postVaccinationCondition}">Không phản ứng</div>
+        <!-- Thông tin học sinh -->
+        <div class="section-title">
+            Học sinh:
+            <span th:text="${vaccinationRecord.vaccinationConsent.getStudent().getFullName()}"></span>
         </div>
 
-        <div class="row mb-2">
-            <div class="col-md-4 field-label">Ghi chú:</div>
-            <div class="col-md-8 field-value" th:text="${vaccinationRecord.notes}">Không có biểu hiện bất thường.</div>
+        <!-- Thông tin y tá -->
+        <div class="section-title">
+            Y tá phụ trách:
+            <span th:text="${vaccinationRecord.schoolNurse.fullName}"></span>
+        </div>
+
+        <!-- Ngày tiêm -->
+        <div class="section-title">
+            Ngày tiêm:
+            <span th:text="${#temporals.format(vaccinationRecord.vaccinationConsent.schedule.injectionDate, 'dd/MM/yyyy')}"></span>
+        </div>
+
+        <div class="health-card mt-4">
+
+            <div class="row mb-3">
+                <div class="col-md-4 field-label">Tình trạng sau tiêm:</div>
+                <div class="col-md-8 field-value" th:text="${vaccinationRecord.postVaccinationCondition}">Không phản ứng</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4 field-label">Ghi chú:</div>
+                <div class="col-md-8 field-value" th:text="${vaccinationRecord.notes}">Không có biểu hiện bất thường.</div>
+            </div>
         </div>
     </div>
 </div>

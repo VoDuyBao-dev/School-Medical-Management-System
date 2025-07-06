@@ -27,7 +27,7 @@
         </div>
         <div class="notification-content">
             <p>
-                Bạn có kế tủa khám sức khỏe cho học sinh
+                Bạn có kết quả khám sức khỏe cho học sinh
                 <strong th:text="${record.vaccinationConsent.student.fullName}">Nguyễn Văn A</strong>
                 vào ngày khám
                 <strong th:text="${#temporals.format(record.vaccinationConsent.schedule.injectionDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
@@ -39,7 +39,7 @@
     </div>
 
     <div th:if="${#lists.isEmpty(listVaccinationRecord)}" class="no-records">
-        Không có thông báo kế tủa khám sức khỏe nào.
+        Không có thông báo kết quả khám sức khỏe nào.
     </div>
 </div>
 
