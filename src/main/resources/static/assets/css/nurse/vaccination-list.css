@@ -1,0 +1,167 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff0f5;
+    padding: 30px;
+}
+
+h2 {
+    color: #e91e63;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin-top: 10px;
+    color: #555;
+}
+
+.link-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #e91e63;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.alert-success {
+    color: green;
+}
+
+.alert-error {
+    color: red;
+}
+
+.alert-warning {
+    color: orange;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* thêm khoảng trắng giữa các dòng */
+    background: transparent;
+}
+
+th, td {
+    padding: 12px 15px;
+    background: #fff;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #e91e63;
+    color: white;
+    border-radius: 6px 6px 0 0;
+}
+
+tr:hover td {
+    background-color: #fce4ec;
+}
+
+.no-data {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.btn-edit {
+    padding: 6px 12px;
+    color: #e91e63;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #fce4ec;
+    border-color: #e91e63;
+    color: #d81b60;
+}
+
+.send-button {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.send-button button {
+    padding: 10px 15px;
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-button button:hover {
+    background-color: #d81b60;
+}
+
+.pagination {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #e91e63;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a.current {
+    background-color: #c2185b;
+    font-weight: bold;
+}
+
+/* Label chọn tất cả */
+th input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 6px;
+}
+
+th label {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: normal;
+    font-size: 14px;
+}
+/* === TOAST (thông báo góc phải) ================================ */
+.toast-container{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:9999;
+}
+.toast{
+    min-width:260px;
+    padding:12px 16px;
+    margin-bottom:10px;
+    border-radius:6px;
+    color:#fff;
+    font-weight:500;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+    opacity:0;
+    transform:translateX(100%);
+    transition:all .4s ease;
+}
+.toast.show{
+    opacity:1;
+    transform:translateX(0);
+}
+.toast-info   {background:#e91e63;}
+.toast-success{background:#4caf50;}
+.toast-error  {background:#f44336;}
+

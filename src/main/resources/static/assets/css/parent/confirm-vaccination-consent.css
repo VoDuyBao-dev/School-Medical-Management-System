@@ -1,0 +1,36 @@
+.text-pink {
+    color: #e91e63;
+}
+/* Giảm chiều rộng khung */
+.card {
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+/* Làm đậm dòng xác nhận */
+.confirm-question {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.btn-pink {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn-pink:hover {
+    background-color: #d81b60;
+    color: white;
+}
+
+button.disabled, .btn.disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
