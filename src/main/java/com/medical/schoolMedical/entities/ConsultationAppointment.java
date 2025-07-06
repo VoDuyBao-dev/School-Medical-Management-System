@@ -3,7 +3,9 @@ package com.medical.schoolMedical.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,10 +24,6 @@ public class ConsultationAppointment {
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
-    private Parent parent;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_nurse_id", referencedColumnName = "school_nurse_id", nullable = false)
     private SchoolNurse schoolNurse;
 
@@ -33,17 +31,20 @@ public class ConsultationAppointment {
     private LocalDateTime scheduledTime;
 
     @Column(name = "createdAt")
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Column(name = "sent_date", nullable = false)
+    private LocalDate sentDate;
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name = "status")
 //    private AppointmentStatus status;
 
-    @Column(name = "noteFromSchool",columnDefinition = "TEXT")
-    private String noteFromSchool;
+    @Column(name = "content",columnDefinition = "TEXT")
+    private String content;
 
-    @Column(name = "noteFromParent",columnDefinition = "TEXT")
-    private String noteFromParent;
+
 
 
 

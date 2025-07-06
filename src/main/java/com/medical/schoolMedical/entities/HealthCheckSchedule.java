@@ -37,8 +37,11 @@ public class HealthCheckSchedule {
     private LocalDateTime checkDate;
 
     @Column(name = "sent_date", nullable = false)
-    @CreationTimestamp
     private LocalDate sentDate;
+
+    @Column(name = "create_date", nullable = false)
+    @CreationTimestamp
+    private LocalDate createDate;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
