@@ -1,7 +1,18 @@
 .text-pink {
     color: #e91e63;
 }
+/* Giảm chiều rộng khung */
+.card {
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
 
+/* Làm đậm dòng xác nhận */
+.confirm-question {
+    font-weight: bold;
+    font-size: 1rem;
+}
 .btn-pink {
     background-color: #e91e63;
     color: white;
