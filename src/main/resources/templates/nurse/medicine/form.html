@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
   <meta charset="UTF-8">
   <title th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'">Form thuốc</title>
-  <style>
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, select { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 16px; padding: 10px 20px; }
-  </style>
+
+  <!-- FontAwesome cho icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- CSS tuỳ chỉnh -->
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/form.css}">
 </head>
 <body>
-<p th:if="${error}" th:text="${error}" style="color: red;"></p>
 
+<p th:if="${error}" th:text="${error}" class="error-msg"></p>
 <h2 th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'"></h2>
 
-<form th:action="@{/school_nurse/medicines/save}" method="post" th:object="${medicine}">
+<form th:action="@{/nurse/medicines/save}" method="post"
+      th:object="${medicine}" id="medicineForm">
+
   <input type="hidden" th:field="*{id}"/>
 
   <label for="name">Tên thuốc</label>
@@ -29,59 +32,14 @@
   <label for="expiryDate">Hạn sử dụng</label>
   <input type="date" th:field="*{expiryDate}" id="expiryDate" required/>
 
-
-  <button type="submit">Lưu</button>
-  <a th:href="@{/school_nurse/medicines}">
-    <button type="button">Quay lại danh sách</button>
-  </a>
-
+  <div class="button-group">
+    <button type="submit">Lưu</button>
+    <a th:href="@{/nurse/medicines}" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Quay lại
+    </a>
+  </div>
 </form>
+<!-- JS kiểm tra -->
+<script th:src="@{/assets/js/nurse/medicine/form.js}"></script>
 </body>
 </html>
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org" lang="vi">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'">Form thuốc</title>-->
-
-<!--  &lt;!&ndash; FontAwesome cho icon &ndash;&gt;-->
-<!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>-->
-
-<!--  &lt;!&ndash; CSS tuỳ chỉnh &ndash;&gt;-->
-<!--  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/form.css}">-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<p th:if="${error}" th:text="${error}" class="error-msg"></p>-->
-
-<!--<h2 th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'"></h2>-->
-
-<!--<form th:action="@{/school_nurse/medicines/save}" method="post"-->
-<!--      th:object="${medicine}" id="medicineForm">-->
-
-<!--  <input type="hidden" th:field="*{id}"/>-->
-
-<!--  <label for="name">Tên thuốc</label>-->
-<!--  <input type="text" th:field="*{name}" id="name" required/>-->
-
-<!--  <label for="unit">Đơn vị</label>-->
-<!--  <input type="text" th:field="*{unit}" id="unit" required/>-->
-
-<!--  <label for="quantityInStock">Số lượng trong kho</label>-->
-<!--  <input type="number" th:field="*{quantityInStock}" id="quantityInStock" min="0" required/>-->
-
-<!--  <label for="expiryDate">Hạn sử dụng</label>-->
-<!--  <input type="date" th:field="*{expiryDate}" id="expiryDate" required/>-->
-
-<!--  <div class="button-group">-->
-<!--    <button type="submit">Lưu</button>-->
-<!--    <a th:href="@{/school_nurse/medicines}" class="back-btn">-->
-<!--      <i class="fas fa-arrow-left"></i> Quay lại-->
-<!--    </a>-->
-<!--  </div>-->
-<!--</form>-->
-
-<!--&lt;!&ndash; JS kiểm tra &ndash;&gt;-->
-<!--<script th:src="@{/assets/js/nurse/medicine/form.js}"></script>-->
-<!--</body>-->
-<!--</html>-->

@@ -1,0 +1,35 @@
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff0f5;
+}
+.text-pink { color:#e91e63; }
+
+.btn-pink{
+    background:#e91e63;
+    color:#fff;
+    border:none;
+    padding:8px 16px;
+    font-weight:600;
+    border-radius:50px;
+    transition:.3s;
+}
+.btn-pink:hover{ background:#d81b60; color:#fff; }
+
+.btn-outline-pink{
+    border:1px solid #e91e63;
+    color:#e91e63;
+}
+.btn-outline-pink:hover{
+    background:#e91e63;
+    color:#fff;
+}
+
+.table-pink th{
+    background:#e91e63;
+    color:#fff;
+}
+.danger{ color:red; font-weight:bold; }
+
+/* Thanh tìm kiếm */
+.search-box{ max-width:320px; }
+.search-box input{ padding-left:2.25rem; }
