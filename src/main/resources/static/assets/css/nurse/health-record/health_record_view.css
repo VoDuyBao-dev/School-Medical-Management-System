@@ -1,0 +1,13 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fff0f5;
+}
+.text-pink {
+    color: #e91e63;
+}
+.bg-white {
+    background-color: #fff;
+}
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}

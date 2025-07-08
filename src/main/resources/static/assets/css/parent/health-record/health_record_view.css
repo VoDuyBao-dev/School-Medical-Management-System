@@ -1,0 +1,50 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fff0f5;
+}
+h2{
+    color: #e91e63;
+}
+.record-container {
+    max-width: 740px;
+    margin: 0 auto;
+}
+
+.w-25 {
+    width: 160px;
+}
+.btn-pink {
+    background-color: #e91e63;
+    border-color:   #e91e63;
+    color: #fff;
+}
+
+.btn-pink:hover,
+.btn-pink:focus {
+    background-color: #d81b60;
+    border-color:     #d81b60;
+    color: #fff;
+}
+/* ===== Khung lớn bao quanh toàn bộ chi tiết ===== */
+.record-container{
+    border: 2px solid #e91e63;     /* viền hồng đậm */
+    border-radius: 12px;           /* bo góc khung */
+    background:#fff;               /* nền trắng nổi bật */
+}
+
+/* ===== Tạo “đường kẻ” ngăn cách từng mục ===== */
+.record-container .mb-3{
+    padding: 8px 0;
+    border-bottom: 1px dashed #f3c6d6;   /* đường kẻ mỏng hồng nhạt */
+}
+.record-container .mb-3:last-child{
+    border-bottom:none;             /* bỏ kẻ cuối */
+}
+
+/* ===== Căn lại label/value cho gọn ===== */
+.record-container strong{
+    width: 180px;                   /* cột nhãn cố định */
+    display:inline-block;
+    font-weight:600;
+}
+
