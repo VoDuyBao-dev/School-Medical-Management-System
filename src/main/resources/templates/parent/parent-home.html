@@ -48,6 +48,8 @@
     <!-- Điều hướng đến trang chọn học sinh để khai báo hồ sơ -->
     <a th:href="@{/parent/health-record/select-student}"><button type="button">Khai báo hồ sơ sức khỏe học sinh</button></a>
     <br>
+    <a th:href="@{/parent/sentMedicine/list}"><button type="button">Danh sách thuốc đã gửi</button></a>
+    <br>
     <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
     <br>
 
@@ -70,6 +72,6 @@
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         });
     </script>
-
+    </div>
 </body>
 </html>

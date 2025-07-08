@@ -27,7 +27,9 @@
   <input type="number" th:field="*{quantityInStock}" id="quantityInStock" min="0" required/>
 
   <label for="expiryDate">Hạn sử dụng</label>
-  <input type="date" th:field="*{expiryDate}" id="expiryDate" required/>
+  <input type="date" th:field="*{expiryDate}" id="expiryDate"
+         th:attr="min=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+         required/>
 
 
   <button type="submit">Lưu</button>

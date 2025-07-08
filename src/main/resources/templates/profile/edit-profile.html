@@ -25,7 +25,7 @@
     <input type="hidden" name="userId" th:value="${user.id}"/>
 
     <!-- Trường chung -->
-    <h3><strong> Vai trò: <span th:text="${user.role}"></span></strong></h3>
+<!--    <h3><strong> Vai trò: <span th:text="${user.role}"></span></strong></h3>-->
 
     <!-- Trường của ADMIN -->
     <div th:if="${user.role.name() == 'ADMIN'}">
@@ -58,7 +58,8 @@
         <input type="text" th:field="*{fullName}" required/><br/>
 
         <label>Năm kinh nghiệm:</label>
-        <input type="text" th:field="*{experience}" required/><br/>
+        <input type="number" th:field="*{experience}" min="0" step="1" required/><br/>
+
     </div>
 
     <br>

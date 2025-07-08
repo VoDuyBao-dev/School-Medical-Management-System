@@ -1,6 +1,8 @@
 package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.entities.MedicalSupply;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.repositories.MedicalSupplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class MedicalSupplyService {
 
     public MedicalSupply getSupplyById(Long id) {
         return medicalSupplyRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy vật tư với ID: " + id));
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEDICAL_SUPPLY_NOT_FOUND));
     }
 
     public List<MedicalSupply> getAllMedicalSupplies() {

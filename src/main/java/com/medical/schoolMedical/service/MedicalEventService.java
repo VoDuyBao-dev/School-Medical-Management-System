@@ -5,7 +5,10 @@ import com.medical.schoolMedical.dto.MedicalEventDTO;
 import com.medical.schoolMedical.dto.MedicineUsedDTO;
 import com.medical.schoolMedical.dto.SupplyUsedDTO;
 import com.medical.schoolMedical.entities.*;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.repositories.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +35,53 @@ public class MedicalEventService {
     private final MedicalSupplyRepository medicalSupplyRepository;
 
 
-    //Lưu và cập nhật sự kiện y tế
+    /*//Lưu và cập nhật sự kiện y tế
     public void saveMedicalEvent(MedicalEvent event) {
         medicalEventRepository.save(event);
+    }*/
+
+    @Transactional
+    public void saveMedicalEvent(MedicalEvent event) {
+        // Kiểm tra và trừ số lượng thuốc
+        for (MedicineUsed medUsed : event.getMedicineUsed()) {
+            Medicine medicine = medicineRepository.findById(medUsed.getMedicine().getId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy thuốc"));
+
+            int usedQty = medUsed.getQuantity();
+            int availableQty = medicine.getQuantityInStock();
+
+            if (usedQty > availableQty) {
+                throw new IllegalArgumentException("Số lượng thuốc '" + medicine.getName() +
+                        "' vượt quá tồn kho (" + availableQty + ")");
+            }
+
+            // Trừ tồn kho
+            medicine.setQuantityInStock(availableQty - usedQty);
+            medicineRepository.save(medicine);
+        }
+
+        // Kiểm tra và trừ số lượng vật tư y tế
+        for (SupplyUsed supUsed : event.getSupplyUsed()) {
+            MedicalSupply supply = medicalSupplyRepository.findById(supUsed.getMedicalSupply().getId())
+                    .orElseThrow(() -> new BusinessException(ErrorCode.MEDICAL_SUPPLY_NOT_FOUND));
+
+            int usedQty = supUsed.getQuantity();
+            int availableQty = supply.getQuantityInStock();
+
+            if (usedQty > availableQty) {
+                throw new IllegalArgumentException("Số lượng vật tư '" + supply.getName() +
+                        "' vượt quá tồn kho (" + availableQty + ")");
+            }
+
+            // Trừ tồn kho
+            supply.setQuantityInStock(availableQty - usedQty);
+            medicalSupplyRepository.save(supply);
+        }
+
+        // Lưu sự kiện y tế (sau khi trừ kho thành công)
+        medicalEventRepository.save(event);
     }
+
 
     //Lấy tất cả sự kiện y tế
     public List<MedicalEvent> getAllMedicalEvents() {
@@ -269,6 +315,11 @@ public class MedicalEventService {
 
         return event;
     }
+
+    public void deleteById(Long id) {
+        medicalEventRepository.deleteById(id);
+    }
+
 
 
 }

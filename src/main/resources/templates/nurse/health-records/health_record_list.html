@@ -52,6 +52,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr th:if="${#lists.isEmpty(records)}">
+        <td colspan="6">Không có bản ghi nào.</td>
+    </tr>
     <tr th:each="record, stat : ${records}">
         <td th:text="${stat.index + 1}">1</td>
         <td th:text="${record.student.fullName}">Nguyễn Văn A</td>

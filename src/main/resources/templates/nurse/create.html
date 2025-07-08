@@ -11,6 +11,10 @@
 </head>
 <body>
 <h2>Ghi nhận sự kiện y tế</h2>
+<div th:if="${error}" style="color: red; font-weight: bold; margin-top: 10px;">
+    <p th:text="${error}"></p>
+</div>
+
 
 <form th:action="@{/nurse/medical-events/save}" th:object="${eventDTO}" method="post">
     <label>Học sinh:</label>
@@ -29,7 +33,7 @@
     <label>Xử lý ban đầu:</label>
     <textarea th:field="*{initialTreatment}"></textarea>
 
-    <label>Điều trị cuối cùng:</label>
+    <label>Xử lý cuối cùng:</label>
     <textarea th:field="*{finalTreatment}"></textarea>
 
     <label>Ghi chú thêm:</label>

@@ -15,6 +15,5 @@ public interface SchoolNurseRepository extends JpaRepository<SchoolNurse,Long> {
 
     Optional<SchoolNurse> findByUser_Username(String username);
 
-
     long user(User user);
 }

@@ -33,6 +33,9 @@
   </tr>
   </thead>
   <tbody>
+  <tr th:if="${#lists.isEmpty(supplyList)}">
+    <td colspan="4">Không có bản ghi nào.</td>
+  </tr>
   <tr th:each="supply, iterStat : ${supplyList}">
     <td th:text="${iterStat.index + 1}"></td>
     <td th:text="${supply.name}"></td>

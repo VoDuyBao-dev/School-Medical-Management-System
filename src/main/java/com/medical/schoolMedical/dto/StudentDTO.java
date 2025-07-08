@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class StudentDTO {
-    private long id;
+    private Long id;
     private long healthCheck_recordId;
     private Parent parent;
     private String fullName;

@@ -39,13 +39,18 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="medicine : ${medicines}">
-    <td th:text="${medicine.id}"></td>
+  <tr th:if="${#lists.isEmpty(medicines)}">
+    <td colspan="7">Không có bản ghi nào.</td>
+  </tr>
+  <tr th:each="medicine, iterStat : ${medicines}">
+<!--    <td th:text="${medicine.id}"></td>-->
+    <td th:text="${iterStat.count}"></td>
     <td th:text="${medicine.name}"></td>
     <td th:text="${medicine.unit}"></td>
     <td th:text="${medicine.quantityInStock}"></td>
     <td th:text="${medicine.entryDate}"></td>
     <td th:text="${medicine.expiryDate}"></td>
+
     <td>
       <a th:href="@{'/nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
       <a th:href="@{'/nurse/medicines/delete/' + ${medicine.id}}"
