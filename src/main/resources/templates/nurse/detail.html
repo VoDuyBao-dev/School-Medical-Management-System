@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Chi tiết sự kiện y tế</title>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/eventMedical/detail.css}"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+
+  <title>Chi Tiết Sự Kiện Y Tế</title>
 </head>
 <body>
-<h2>Chi tiết sự kiện y tế</h2>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="container">
+  <h2>Chi Tiết Sự Kiện Y Tế</h2>
 
-<p><strong>Học sinh:</strong> <span th:text="${event.studentFullName}"></span></p>
-<p><strong>Thời gian:</strong> <span th:text="${#dates.format(event.eventTime, 'dd/MM/yyyy HH:mm')}"></span></p>
-<p><strong>Vị trí:</strong> <span th:text="${event.location}"></span></p>
-<p><strong>Mô tả:</strong> <span th:text="${event.description}"></span></p>
-<p><strong>Xử lý ban đầu:</strong> <span th:text="${event.initialTreatment}"></span></p>
-<p><strong>Xử lý sau cùng:</strong> <span th:text="${event.finalTreatment}"></span></p>
-<p><strong>Ghi chú:</strong> <span th:text="${event.notes}"></span></p>
-<p><strong>Người xử lý: </strong> <span th:text="${event.nurseFullName}"></span></p>
+  <div class="info-group"><strong>Học sinh:</strong> <span th:text="${event.studentFullName}"></span></div>
+  <div class="info-group"><strong>Thời gian:</strong> <span th:text="${#dates.format(event.eventTime, 'dd/MM/yyyy HH:mm')}"></span></div>
+  <div class="info-group"><strong>Vị trí:</strong> <span th:text="${event.location}"></span></div>
+  <div class="info-group"><strong>Mô tả:</strong> <span th:text="${event.description}"></span></div>
+  <div class="info-group"><strong>Xử lý ban đầu:</strong> <span th:text="${event.initialTreatment}"></span></div>
+  <div class="info-group"><strong>Xử lý sau cùng:</strong> <span th:text="${event.finalTreatment}"></span></div>
+  <div class="info-group"><strong>Ghi chú:</strong> <span th:text="${event.notes}"></span></div>
+  <div class="info-group"><strong>Người xử lý: </strong> <span th:text="${event.nurseFullName}"></span></div>
 
 <!-- Thuốc đã sử dụng -->
 <h3>Thuốc đã sử dụng</h3>
@@ -34,7 +42,7 @@
   </tr>
   </tbody>
 </table>
-<p th:if="${event.medicinesUsed == null || event.medicinesUsed.isEmpty()}"><em>Không sử dụng thuốc</em></p>
+<p class="empty-message" th:if="${event.medicinesUsed == null || event.medicinesUsed.isEmpty()}"><em>Không sử dụng thuốc</em></p>
 
 <!-- Vật tư y tế đã sử dụng -->
 <h3>Vật tư y tế đã sử dụng</h3>
@@ -54,9 +62,14 @@
   </tr>
   </tbody>
 </table>
-<p th:if="${event.suppliesUsed == null || event.suppliesUsed.isEmpty()}"><em>Không sử dụng vật tư</em></p>
+<p class="empty-message" th:if="${event.suppliesUsed == null || event.suppliesUsed.isEmpty()}"><em>Không sử dụng vật tư</em></p>
 
-<a th:href="@{'/nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
-<a th:href="@{/nurse/medical-events}"><button type="button">Quay lại</button></a>
+  <div class="buttons">
+    <a th:href="@{'/nurse/medical-events/' + ${event.id} + '/edit'}"><button>Chỉnh sửa sự kiện</button></a> |
+    <a th:href="@{/nurse/medical-events}"><button type="button">Quay lại</button></a>
+  </div>
+</div>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

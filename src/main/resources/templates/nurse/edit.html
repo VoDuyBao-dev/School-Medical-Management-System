@@ -1,44 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Cập nhật sự kiện y tế</title>
-  <style>
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, textarea, select { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 16px; padding: 8px 16px; }
-  </style>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/eventMedical/format.css}"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+
+  <title>Cập Nhật Sự Kiện Y Tế</title>
+
 </head>
 <body>
-<h2>Cập nhật sự kiện y tế</h2>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="container">
+  <h2>Cập Nhật Sự Kiện Y Tế</h2>
 
-<form th:action="@{/nurse/medical-events/update}" th:object="${event}" method="post">
+
+  <form th:action="@{/nurse/medical-events/update}" th:object="${event}" method="post">
   <input type="hidden" th:field="*{id}" />
-
-  <label>Học sinh:</label>
-  <select th:field="*{studentId}" required>
-    <option th:each="student : ${students}"
+    <div class="form-group">
+      <label>Học sinh:</label>
+      <select th:field="*{studentId}" required>
+        <option th:each="student : ${students}"
             th:value="${student.id}"
             th:text="${student.fullName}">Chọn học sinh</option>
-  </select>
+      </select>
+    </div>
 
-  <label>Vị trí xảy ra:</label>
-  <input type="text" th:field="*{location}" required/>
+    <div class="form-group">
+      <label>Vị trí xảy ra:</label>
+      <input type="text" th:field="*{location}" required/>
+    </div>
 
-  <label>Mô tả sự kiện:</label>
-  <textarea th:field="*{description}" required></textarea>
+    <div class="form-group">
+      <label>Mô tả sự kiện:</label>
+      <textarea th:field="*{description}" required></textarea>
+    </div>
 
-  <label>Xử lý ban đầu:</label>
-  <textarea th:field="*{initialTreatment}"></textarea>
+    <div class="form-group">
+      <label>Xử lý ban đầu:</label>
+      <textarea th:field="*{initialTreatment}"></textarea>
+    </div>
 
-  <label>Xử lý cuối cùng:</label>
-  <textarea th:field="*{finalTreatment}"></textarea>
+    <div class="form-group">
+      <label>Xử lý cuối cùng:</label>
+      <textarea th:field="*{finalTreatment}"></textarea>
+    </div>
 
-  <label>Ghi chú thêm:</label>
-  <textarea th:field="*{notes}"></textarea>
+    <div class="form-group">
+      <label>Ghi chú thêm:</label>
+      <textarea th:field="*{notes}"></textarea>
+    </div>
 
-  <h3>Thuốc được sử dụng</h3>
-  <div th:each="med, stat : *{medicinesUsed}">
+    <h3>Thuốc được sử dụng</h3>
+    <div class="form-group" th:each="med, stat : *{medicinesUsed}">
     <label>Tên thuốc:</label>
     <select th:field="*{medicinesUsed[__${stat.index}__].medicineId}">
       <option value="">-- Chọn thuốc --</option>
@@ -57,7 +73,7 @@
 
 
   <h3>Vật tư y tế được sử dụng</h3>
-  <div th:each="sup, stat : *{suppliesUsed}">
+  <div class="form-group" th:each="sup, stat : *{suppliesUsed}">
     <label>Tên vật tư:</label>
     <select th:field="*{suppliesUsed[__${stat.index}__].supplyId}">
       <option value="">-- Chọn vật tư --</option>
@@ -74,10 +90,15 @@
     <hr/>
   </div>
 
-  <button type="submit">Cập nhật</button>
-  <a th:href="@{/nurse/medical-events}">
-    <button type="button">Quay lại</button>
-  </a>
+    <div class="buttons">
+      <button type="submit">Cập nhật</button>
+      <a th:href="@{/nurse/medical-events}">
+        <button type="button">Quay lại</button>
+      </a>
+    </div>
 </form>
+</div>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -25,6 +25,14 @@
             <div th:if="${param.error}">
                 <p style="color:red">Tài khoản hoặc mật khẩu không đúng!</p>
             </div>
+            <div class="form-options">
+                <div class="remember-me-container"><input class="checkbox" type="checkbox" id="remember" name="remember" value="1">
+                    <label for="remember">Nhớ tài khoản</label>
+                </div>
+                <div class="forgot-password">
+                    <a th:href="@{/forgotpass}">Quên mật khẩu?</a>
+                </div>
+            </div>
             <div>
                 <button type="submit" class="btn-login" >Đăng nhập</button>
             </div>

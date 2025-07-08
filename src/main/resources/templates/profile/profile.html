@@ -1,19 +1,17 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Thông tin người dùng</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <style>
-        button {
-            margin-top: 16px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/parent/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Thông Tin Người Dùng</title>
 </head>
 <body>
-
-<h2>HỒ SƠ TÀI KHOẢN</h2>
+<div th:replace="fragments/header :: Header"></div>
+<div class="container">
+    <h2>Hồ Sơ Tài Khoản</h2>
 <p><strong>Tên đăng nhập:</strong> <span th:text="${user.username}"></span></p>
 <!--<p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>-->
 <p><strong>Ngày tạo tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
@@ -21,30 +19,30 @@
 <hr>
 
 <!-- Nếu là ADMIN -->
-<div th:if="${user.role.name() == 'ADMIN'}">
-    <h3>Thông tin Quản trị viên</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
+<div class="role-section" th:if="${user.role.name() == 'ADMIN'}">
+    <h2>Thông tin Quản trị viên</h2>
+    <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
 </div>
 
 <!-- Nếu là PARENT -->
-<div th:if="${user.role.name() == 'PARENT'}">
-    <h3>Thông tin Phụ huynh</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
-    <p><strong>Số điện thoại:</strong> <span th:text="${info.phoneNumber} ?: 'Chưa cập nhật'"></span></p>
-    <p><strong>Địa chỉ:</strong> <span th:text="${info.address} ?: 'Chưa cập nhật'"></span></p>
+<div class="role-section" th:if="${user.role.name() == 'PARENT'}">
+    <h2>Thông tin Phụ huynh</h2>
+    <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Số điện thoại:</strong> <span th:text="${info.phoneNumber} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Địa chỉ:</strong> <span th:text="${info.address} ?: 'Chưa cập nhật'"></span></div>
 
 </div>
 
 <!-- Nếu là MANAGER -->
-<div th:if="${user.role.name() == 'MANAGER'}">
-    <h3>Thông tin Quản lý</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
+<div class="role-section" th:if="${user.role.name() == 'MANAGER'}">
+    <h2>Thông tin Quản lý</h2>
+    <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
 
 </div>
 
 <!-- Nếu là SCHOOL_NURSE -->
-<div th:if="${user.role.name() == 'NURSE'}">
-    <h3>Thông tin Nhân viên y tế</h3>
+<div class="role-section" th:if="${user.role.name() == 'NURSE'}">
+    <h2>Thông tin Nhân viên y tế</h2>
 
     <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
     <p><strong>Kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></p>
@@ -52,10 +50,12 @@
 </div>
 
 <hr>
-<a th:href="@{${homeUrl}}"><button type="button">Quay lại trang chủ</button></a> |
-<a th:href="@{'/' + ${user.role.name().toLowerCase()} + '/edit-profile'}"><button type="button">Chỉnh sửa hồ sơ</button></a>
-
-
+    <div class="buttons">
+        <a th:href="@{${homeUrl}}"><button type="button">Quay lại trang chủ</button></a> |
+        <a th:href="@{'/' + ${user.role.name().toLowerCase()} + '/edit-profile'}"><button type="submit">Chỉnh sửa hồ sơ</button></a>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 
