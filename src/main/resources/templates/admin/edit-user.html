@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Chỉnh sửa người dùng</title>
-    <style>
-        label {
-            display: block;
-            margin-top: 12px;
-        }
-        input, textarea {
-            width: 300px;
-            padding: 6px;
-        }
-        button {
-            margin-top: 16px;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/admin/edit-user.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Quản Lý Người Dùng</title>
 </head>
 <body>
-
-<h2>Chỉnh sửa người dùng</h2>
-
-<form th:action="@{/admin/update-user}" method="post" th:object="${editUser}">
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Admin"></div>
+<div class="container">
+    <h2>Chỉnh sửa người dùng</h2>
+    <form th:action="@{/admin/update-user}" method="post" th:object="${editUser}">
     <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label>Tên đăng nhập:</label><br/>
+            <input type="text" th:field="*{username}" required/>
+        </div>
 
-    <label>Tên đăng nhập:</label><br/>
-    <input type="text" th:field="*{username}" required/><br/><br/>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Nhập email" required>
+        </div>
 
-    <label>Vai trò:</label><br/>
-    <select th:field="*{role}">
-        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
-    </select><br/><br/>
+        <div class="form-group">
+            <label>Vai trò:</label><br/>
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </div>
 
-    <button type="submit">Cập nhật</button>
-    <a th:href="@{/admin/manage-users}"><button type="button">Huỷ</button></a>
-</form>
-
+        <div class="buttons">
+            <button type="submit">Cập nhật</button>
+            <a th:href="@{/admin/manage-users}"><button type="button">Huỷ</button></a>
+        </div>
+    </form>
+</div>
+    <script th:src="@{/assets/js/fragments/header.js}"></script>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

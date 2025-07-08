@@ -17,3 +17,36 @@ backToTop.addEventListener('click', () => {
         behavior: 'smooth' // Smooth scrolling
     });
 });
+
+//print
+document.addEventListener('DOMContentLoaded', () => {
+    const printButton = document.querySelector('.print-button');
+    printButton.addEventListener('click', () => {
+        // Add a temporary style to hide everything except .container
+        const style = document.createElement('style');
+        style.id = 'print-style';
+        style.innerHTML = `
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+                .container, .container * {
+                    visibility: visible;
+                }
+                .container {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Trigger the print dialog
+        window.print();
+
+        // Remove the temporary style after printing
+        style.remove();
+    });
+});
