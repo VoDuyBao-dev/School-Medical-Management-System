@@ -1,0 +1,29 @@
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination a {
+    padding: 10px 15px;
+    background: linear-gradient(90deg, #ff4d88, #ff1a66);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.pagination a.current {
+    background: linear-gradient(90deg, #d81b60, #c2185b);
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.pagination a:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}

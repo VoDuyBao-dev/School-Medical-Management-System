@@ -1,68 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Phiếu khám sức khỏe</title>
-    <style>
-        .status {
-            font-weight: bold;
-            margin-bottom: 12px;
-            padding: 8px 12px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        .accepted {
-            color: #2e7d32;
-            background-color: #c8e6c9;
-        }
-
-        .declined {
-            color: #c62828;
-            background-color: #ffcdd2;
-        }
-
-        .unconfirmed {
-            color: #f57c00;
-            background-color: #ffe0b2;
-        }
-
-        .overdue {
-            color: #6d4c41;
-            background-color: #d7ccc8;
-        }
-
-        button {
-            padding: 8px 16px;
-            margin-right: 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        button.disabled {
-            background-color: #ccc !important;
-            cursor: not-allowed;
-        }
-
-        button.disagree {
-            background-color: #e53935;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/parent/confirmHealth.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Phiếu Khám Sức Khỏe</title>
 </head>
 <body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 
 <!-- Hiển thị lỗi nếu có -->
-<div th:if="${error}" class="error">
+<div th:if="${error}" class="error" style="display: none;">
     <p th:text="${error}" style="color: red"></p>
 </div>
 
-<div th:if="${healthCheckConsent != null}">
+<div class="container" th:if="${healthCheckConsent != null}">
     <h2>Phiếu khám sức khỏe của học sinh <span th:text="${healthCheckConsent.student.fullName}"></span></h2>
-    <p>Debug status:
+    <p>Trạng thái:
         <span th:text="${healthCheckConsent.status != null} ? ${healthCheckConsent.status} : 'Không có status'">?</span>
     </p>
 
@@ -76,37 +33,57 @@
 
 
     <div th:object="${healthCheckConsent}">
-        <p><strong>Ngày kiểm tra:</strong>
-            <span th:text="*{schedule.checkDate}"></span></p>
+        <div class="info-group"><strong>Ngày kiểm tra:</strong>
+            <span th:text="*{schedule.checkDate}"></span></div>
 
-        <p><strong>Nội dung:</strong></p>
-        <p th:text="*{schedule.content}"></p>
+        <div class="info-group"><strong>Nội dung:</strong>
+            <span th:text="*{schedule.content}"></span></div>
 
-        <p><strong>Ghi chú:</strong></p>
-        <p th:text="*{schedule.notes}"></p>
+        <div class="info-group"><strong>Ghi chú:</strong>
+            <Span th:text="*{schedule.notes}"></Span></div>
     </div>
 
     <!-- Form luôn hiển thị nhưng nút sẽ được vô hiệu hóa nếu không phải UNCONFIRMED -->
     <form th:action="@{/parent/confirm/confirm-health-check}" method="post">
         <input type="hidden" name="consentId" th:value="${healthCheckConsent.id}" />
 
-        <p>Bạn có đồng ý cho con em tham gia khám sức khỏe?</p>
-
+        <div class="question">Bạn có đồng ý cho con em tham gia khám sức khỏe?</div>
+        <div class="buttons">
         <!-- Nút Đồng ý -->
-        <button type="submit" name="response" value="agree"
-                th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? 'disabled'"
-                th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
-            Đồng ý
-        </button>
+            <button type="submit" name="response" value="agree"
+                    th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? 'disabled'"
+                    th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
+                Đồng ý
+            </button>
 
         <!-- Nút Không đồng ý -->
-        <button type="submit" name="response" value="disagree"
-                class="disagree"
-                th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? ' disabled'"
-                th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
-            Không đồng ý
-        </button>
+            <button type="submit" name="response" value="disagree"
+                    class="disagree"
+                    th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? ' disabled'"
+                    th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
+                Không đồng ý
+            </button>
+        </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Loại bỏ logic kiểm tra trạng thái và disabled vì không cần thiết
+        const consentForm = document.getElementById('consentForm');
+
+        // Xử lý submit form (có thể mở rộng)
+        consentForm.addEventListener('submit', (e) => {
+            // Logic xử lý submit nếu cần (hiện tại giữ nguyên hiển thị lỗi nếu muốn)
+            const errorDiv = document.querySelector('.error');
+            // if (errorCondition) {
+            //     e.preventDefault();
+            //     errorDiv.style.display = 'block';
+            // }
+        });
+    });
+</script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

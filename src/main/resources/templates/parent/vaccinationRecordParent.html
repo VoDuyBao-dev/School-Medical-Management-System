@@ -9,9 +9,12 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/assets/css/parent/vaccination-record.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="wrapper">
     <div class="container">
         <h2 class="text-center text-pink fw-bold mb-5">
@@ -50,6 +53,7 @@
         </div>
     </div>
 </div>
-
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
