@@ -131,7 +131,7 @@
     </div>
 
     <div th:each="appointment : ${appointmentDTOS}"
-         th:onclick="|window.location.href='@{/parent/confirm/confirm-health-check(idConsent=${appointment.id})}'|"
+         th:onclick="|window.location.href='@{/parent/consultationAppointment/confirmReview(appointmentId=${appointment.id})}'|"
          class="notification-item"
          th:classappend="${appointment.status.name() == 'UNCONFIRMED'} ? ' unconfirmed'">
 

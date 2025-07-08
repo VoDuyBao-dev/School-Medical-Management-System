@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/parent/confirmReview.css}"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
-    <title>Tạo Lịch Hẹn Tư Vấn</title>
+    <title>Xác nhận Lịch Hẹn Tư Vấn</title>
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
@@ -14,11 +14,30 @@
 <div class="container">
     <h2>Phiếu Xác Nhận Lịch Tư Vấn</h2>
 
-    <div class="info-group"><strong>Tên Học Sinh:</strong> <span>Nguyễn Văn A</span></div>
-    <div class="info-group"><strong>Y tá phụ trách:</strong> <span>Nguyễn Thị C</span></div>
-    <div class="info-group"><strong>Thời Gian Lịch Hẹn:</strong> <span>2025-07-02 14:00</span></div>
-    <div class="info-group"><strong>Ghi Chú Từ Trường:</strong> <span>Yêu cầu kiểm tra sức khỏe định kỳ.</span></div>
-    <div class="question">Bạn có đồng ý tham gia buổi hẹn tư vấn sức khỏe này không?</div>
+    <div class="info-group">
+        <strong>Tên Học Sinh:</strong>
+        <span th:text="${consultationAppointmentDTO.studentDTO != null ? consultationAppointmentDTO.studentDTO.fullName : '---'}">Nguyễn Văn A</span>
+    </div>
+
+    <div class="info-group">
+        <strong>Y tá phụ trách:</strong>
+        <span th:text="${consultationAppointmentDTO.schoolNurseDTO != null ? consultationAppointmentDTO.schoolNurseDTO.fullName : '---'}">Nguyễn Thị C</span>
+    </div>
+
+    <div class="info-group">
+        <strong>Thời Gian Lịch Hẹn:</strong>
+        <span th:text="${#temporals.format(consultationAppointmentDTO.scheduledTime, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</span>
+    </div>
+
+    <div class="info-group">
+        <strong>Nội dung lịch hẹn:</strong>
+        <span th:text="${consultationAppointmentDTO.content}">Yêu cầu kiểm tra sức khỏe định kỳ.</span>
+    </div>
+
+    <div class="question">
+        Bạn có đồng ý tham gia buổi hẹn tư vấn sức khỏe này không?
+    </div>
+
     <div class="buttons">
         <button class="print-button" onclick="printVoucher()">Đồng ý</button>
         <a th:href="@{/}" class="back-button">Không đồng ý</a>

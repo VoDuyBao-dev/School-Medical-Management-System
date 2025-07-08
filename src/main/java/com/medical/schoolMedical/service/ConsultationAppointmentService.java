@@ -114,4 +114,23 @@ public class ConsultationAppointmentService {
         return appointmentDTOS;
     }
 
+//    Lấy lịch hẹn tư vấn theo ID
+    private ConsultationAppointment getConsultationAppointmentById(long appointmentId) {
+        ConsultationAppointment appointment = consultationAppointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.CONSULTATION_APPOINTMENT_NOT_EXISTS));
+        return appointment;
+    }
+
+//    Lấy lịch hẹn tư vấn theo id và cập nhật nó là đã xemn từ phía phụ huynh
+    public ConsultationAppointmentDTO getAndUpdateViewedByParent_ConsultationAppointment(long appointmentId) {
+        ConsultationAppointment appointment = getConsultationAppointmentById(appointmentId);
+        appointment.setViewedByParent(true);
+        try {
+            return consultationAppointmentMapper.toConsultationAppointmentDTO(consultationAppointmentRepository.save(appointment)) ;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.SAVE_CONSULTATION_APPOINTMENT_FAILED);
+        }
+    }
+
+
 }

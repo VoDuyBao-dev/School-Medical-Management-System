@@ -41,7 +41,8 @@ public enum ErrorCode {
     STUDENT_NOT_EXISTS("ERR065", "Học sinh không tồn tại."),
 
 // lỗi CONSULTATION_APPOINTMENT
-    SAVE_CONSULTATION_APPOINTMENT_FAILED("ERR066", "Lưu lịch hẹn tư vấn thất bại.");
+    SAVE_CONSULTATION_APPOINTMENT_FAILED("ERR066", "Lưu lịch hẹn tư vấn thất bại."),
+    CONSULTATION_APPOINTMENT_NOT_EXISTS("ERR067", "lịch hẹn tư vấn không tồn tại.");
 
 
 

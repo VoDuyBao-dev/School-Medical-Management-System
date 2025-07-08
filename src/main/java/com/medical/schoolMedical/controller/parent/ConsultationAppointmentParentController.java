@@ -1,6 +1,7 @@
 package com.medical.schoolMedical.controller.parent;
 
 import com.medical.schoolMedical.dto.ConsultationAppointmentDTO;
+
 import com.medical.schoolMedical.security.CustomUserDetails;
 import com.medical.schoolMedical.service.ConsultationAppointmentService;
 import com.medical.schoolMedical.service.StudentService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
@@ -35,10 +37,16 @@ public class ConsultationAppointmentParentController {
         return "parent/listReview";
     }
 
-
-
     @GetMapping("/confirmReview")
-    public String confirmReview() {
+    public String confirmReview(@RequestParam(value = "appointmentId", required = false) Long appointmentId
+            , Model model
+            , RedirectAttributes redirectAttributes) {
+        if (appointmentId == null) {
+            redirectAttributes.addFlashAttribute("message", "Vui lòng chọn lịch tư vấn phù hợp để xác nhận");
+            return "redirect:/nurse/nurse-home";
+        }
+        ConsultationAppointmentDTO consultationAppointmentDTO = consultationAppointmentService.getAndUpdateViewedByParent_ConsultationAppointment(appointmentId);
+        model.addAttribute("consultationAppointmentDTO",consultationAppointmentDTO);
         return "parent/confirmReview";
     }
 }
