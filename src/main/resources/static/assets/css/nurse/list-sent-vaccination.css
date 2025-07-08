@@ -1,0 +1,50 @@
+.text-pink {
+    color: #e91e63;
+}
+
+.table-pink-header {
+    background-color: #e91e63;
+    color: white;
+}
+
+.table-pink-header th {
+    background-color: #e91e63;
+    color: white;
+    border: 1px solid #fff; /* tùy chọn */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn-outline-pink {
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    transition: background 0.3s ease;
+}
+
+.btn-outline-pink:hover {
+    background-color: #e91e63;
+    color: #fff;
+}
+
+.page-link-custom {
+    padding: 8px 14px;
+    margin: 0 5px;
+    border: 1px solid #e91e63;
+    color: #e91e63;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.page-link-custom:hover {
+    background-color: #e91e63;
+    color: white;
+}
+
+.current-page {
+    background-color: #e91e63;
+    color: white !important;
+    font-weight: bold;
+    border-color: #e91e63;
+}

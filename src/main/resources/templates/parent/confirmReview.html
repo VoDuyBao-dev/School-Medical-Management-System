@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/parent/confirmReview.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Tạo Lịch Hẹn Tư Vấn</title>
+</head>
+<body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
+<div class="container">
+    <h2>Phiếu Xác Nhận Lịch Tư Vấn</h2>
+
+    <div class="info-group"><strong>Tên Học Sinh:</strong> <span>Nguyễn Văn A</span></div>
+    <div class="info-group"><strong>Y tá phụ trách:</strong> <span>Nguyễn Thị C</span></div>
+    <div class="info-group"><strong>Thời Gian Lịch Hẹn:</strong> <span>2025-07-02 14:00</span></div>
+    <div class="info-group"><strong>Ghi Chú Từ Trường:</strong> <span>Yêu cầu kiểm tra sức khỏe định kỳ.</span></div>
+    <div class="question">Bạn có đồng ý tham gia buổi hẹn tư vấn sức khỏe này không?</div>
+    <div class="buttons">
+        <button class="print-button" onclick="printVoucher()">Đồng ý</button>
+        <a th:href="@{/}" class="back-button">Không đồng ý</a>
+    </div>
+</div>
+<script th:src="@{/assets/js/nurse/listReview.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

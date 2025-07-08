@@ -1,0 +1,70 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fce4ec;
+    padding:40px;
+}
+
+h2{
+    text-align:center;
+    color:#e91e63;
+    font-size:24px;
+    text-transform:uppercase;
+    margin-bottom:16px;
+}
+
+/* ===== nút chung ===== */
+.btn{
+    background:#e91e63;
+    color:#fff;
+    padding:10px 16px;
+    border:none;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    transition:background .3s;
+}
+.btn:hover{ background:#d81b60; }
+.btn i{ margin-right:6px; }
+
+/* ===== hàng nút trên ===== */
+.top-buttons{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+/* ===== bảng ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff0f5;
+    border-radius:8px;
+    overflow:hidden;
+}
+th,td{
+    padding:12px 14px;
+    border:1px solid #f8bbd0;
+    text-align:center;
+}
+th{
+    background:#e91e63;
+    color:#fff;
+}
+tr:nth-child(even){ background:#fce4ec; }
+
+/* ===== thông báo & không dữ liệu ===== */
+.notice-success{
+    color:green;
+    text-align:center;
+}
+.no-data{
+    text-align:center;
+    color:#999;
+    padding:20px;
+    font-size:16px;
+    font-style:italic;
+}
