@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -69,7 +70,7 @@ public class ConsultationAppointmentService {
 
 //    Danh sách các lịch hẹn tư vấn đã tạo
     public Page<ConsultationAppointmentDTO> getAllConsultationAppointments(int page) {
-        int size = 20;
+        int size = 10;
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAll(PageRequest.of(page, size));
 
         //        CHuyển qua Page<ConsultationAppointmentDTO>
@@ -80,7 +81,7 @@ public class ConsultationAppointmentService {
 
     //    Danh sách các lịch hẹn tư vấn đã được phụ huynh xác nhận, giao diện phía nurse
     public Page<ConsultationAppointmentDTO> getAllAppointmentAccepted(int page) {
-        int size = 1;
+        int size = 10;
         Pageable pageable = PageRequest.of(page, size);
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findByStatus(ConsentStatus.ACCEPTED, pageable);
 
@@ -92,7 +93,7 @@ public class ConsultationAppointmentService {
 
     //    Danh sách các lịch hẹn tư vấn cần thông báo của phía giao diện parent
     public Page<ConsultationAppointmentDTO> getAllAppointment_parent(long userId,int page) {
-        int size = 1;
+        int size = 10;
         Pageable pageable = PageRequest.of(page, size);
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAppointmentsByParentUserId(userId, pageable);
 
@@ -123,13 +124,43 @@ public class ConsultationAppointmentService {
 
 //    Lấy lịch hẹn tư vấn theo id và cập nhật nó là đã xemn từ phía phụ huynh
     public ConsultationAppointmentDTO getAndUpdateViewedByParent_ConsultationAppointment(long appointmentId) {
-        ConsultationAppointment appointment = getConsultationAppointmentById(appointmentId);
+        ConsultationAppointment appointment = null;
+        try{
+            appointment = getConsultationAppointmentById(appointmentId);
+        }catch (BusinessException e){
+            throw new BusinessException(e.getErrorCode());
+        }
         appointment.setViewedByParent(true);
         try {
             return consultationAppointmentMapper.toConsultationAppointmentDTO(consultationAppointmentRepository.save(appointment)) ;
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.SAVE_CONSULTATION_APPOINTMENT_FAILED);
         }
+    }
+
+    //    Xử lí trạng thái lịch hẹn tư vấn khi người dùng đồng ý hoặc không
+    public void confirmAppointment(Long appointmentId, String response) {
+        ConsultationAppointment appointment = null;
+        try{
+            appointment = getConsultationAppointmentById(appointmentId);
+        }catch (BusinessException e){
+            throw new BusinessException(e.getErrorCode());
+        }
+
+        if(appointment.getScheduledTime().isBefore(LocalDateTime.now()) || "OVERDUE".equals(appointment.getStatus().name())){
+            throw new BusinessException(ErrorCode.SURVEY_EXPIRED);
+        }
+        if("agree".equals(response)){
+            appointment.setStatus(ConsentStatus.ACCEPTED);
+        }else if("disagree".equals(response)){
+            appointment.setStatus(ConsentStatus.DECLINED);
+        }
+        try{
+            consultationAppointmentRepository.save(appointment);
+        }catch (Exception e){
+            throw new BusinessException(ErrorCode.SAVE_CONSULTATION_APPOINTMENT_FAILED);
+        }
+
     }
 
 

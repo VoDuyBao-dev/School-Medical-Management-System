@@ -26,8 +26,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="appointment, iterStat : ${appointmentDTOS}"
-        th:class="${appointment.status == 'UNCONFIRMED'} ? 'past' : (${appointment.status == 'CONFIRMED'} ? 'upcoming' : 'past')">
+    <tr th:each="appointment, iterStat : ${appointmentDTOS}">
 
       <td th:text="${iterStat.index + 1}">1</td>
       <td th:text="${appointment.studentDTO != null ? appointment.studentDTO.fullName : '---'}">Tên Học Sinh</td>

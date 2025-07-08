@@ -19,7 +19,9 @@
     <option value="">Tất cả trạng thái</option>
     <option value="Chờ xác nhận">Chờ xác nhận</option>
     <option value="Đã xác nhận">Đã xác nhận</option>
-    <option value="Đã hủy">Đã hủy</option>
+    <option value="Đã từ chối">Đã từ chối</option>
+    <option value="Đã hết hạn">Đã hết hạn</option>
+
   </select>
   </div>
 
@@ -41,8 +43,8 @@
       <td th:text="${iterStat.index + 1}">1</td>
       <td th:text="${appointment.studentDTO != null ? appointment.studentDTO.fullName : '---'}">Tên Học Sinh</td>
       <td th:text="${appointment.studentDTO != null && appointment.studentDTO.parent != null ? appointment.studentDTO.parent.fullName : '---'}">Tên Phụ Huynh</td>
-      <td th:text="${#temporals.format(appointment.scheduledTime, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</td>
-      <td th:text="${#temporals.format(appointment.createdAt, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</td>
+      <td th:text="${#temporals.format(appointment.scheduledTime, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</td>
+      <td th:text="${#temporals.format(appointment.createdAt, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</td>
       <td>
         <span th:switch="${appointment.status.name()}">
           <span th:case="'ACCEPTED'" class="status accepted">Đã xác nhận</span>

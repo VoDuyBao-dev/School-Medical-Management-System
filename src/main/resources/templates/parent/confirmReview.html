@@ -7,12 +7,20 @@
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
     <title>Xác nhận Lịch Hẹn Tư Vấn</title>
+
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="container">
     <h2>Phiếu Xác Nhận Lịch Tư Vấn</h2>
+    <!-- Hiển thị trạng thái -->
+    <div th:switch="${consultationAppointmentDTO.status.name()}">
+        <span th:case="'ACCEPTED'" class="status accepted">Đã đồng ý</span>
+        <span th:case="'DECLINED'" class="status declined">Đã từ chối</span>
+        <span th:case="'OVERDUE'" class="status overdue">Đã hết hạn</span>
+        <span th:case="*" class="status unconfirmed">Chưa xác nhận</span>
+    </div>
 
     <div class="info-group">
         <strong>Tên Học Sinh:</strong>
@@ -26,7 +34,7 @@
 
     <div class="info-group">
         <strong>Thời Gian Lịch Hẹn:</strong>
-        <span th:text="${#temporals.format(consultationAppointmentDTO.scheduledTime, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</span>
+        <span th:text="${#temporals.format(consultationAppointmentDTO.scheduledTime, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</span>
     </div>
 
     <div class="info-group">
@@ -34,14 +42,34 @@
         <span th:text="${consultationAppointmentDTO.content}">Yêu cầu kiểm tra sức khỏe định kỳ.</span>
     </div>
 
-    <div class="question">
-        Bạn có đồng ý tham gia buổi hẹn tư vấn sức khỏe này không?
+    <div th:if="${consultationAppointmentDTO.status.name() == 'UNCONFIRMED'}">
+        <div class="question">
+            Bạn có đồng ý tham gia buổi hẹn tư vấn sức khỏe này không?
+        </div>
+
+        <div class="buttons">
+            <!-- Form luôn hiển thị nhưng nút sẽ được vô hiệu hóa nếu không phải UNCONFIRMED -->
+            <form th:action="@{/parent/consultationAppointment/confirmReview}" method="post">
+                <input type="hidden" name="appointmentId" th:value="${consultationAppointmentDTO.id}" />
+
+                <!-- Nút Đồng ý -->
+                <button class="print-button" onclick="printVoucher()" type="submit" name="response" value="agree"
+                        th:classappend="${consultationAppointmentDTO.status.name() != 'UNCONFIRMED'} ? 'disabled'"
+                        th:disabled="${consultationAppointmentDTO.status.name() != 'UNCONFIRMED'}">
+                    Đồng ý
+                </button>
+
+                <!-- Nút Không đồng ý -->
+                <button class="back-button" type="submit" name="response" value="disagree">
+                    Không đồng ý
+                </button>
+            </form>
+        </div>
+
     </div>
 
-    <div class="buttons">
-        <button class="print-button" onclick="printVoucher()">Đồng ý</button>
-        <a th:href="@{/}" class="back-button">Không đồng ý</a>
-    </div>
+
+
 </div>
 <script th:src="@{/assets/js/nurse/listReview.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>

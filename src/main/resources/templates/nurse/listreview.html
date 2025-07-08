@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Danh Sách Lịch Tư Vấn</title>
   <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
-  <link rel="stylesheet" th:href="@{/assets/css/parent/listReview.css}"/>
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/listCreatedReview.css}"/>
   <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
   <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
@@ -26,13 +26,12 @@
     </thead>
 
     <tbody>
-    <tr th:each="appointment, iterStat : ${appointmentDTOS}"
-        th:class="${appointment.status == 'UNCONFIRMED'} ? 'past' : (${appointment.status == 'CONFIRMED'} ? 'upcoming' : 'past')">
+    <tr th:each="appointment, iterStat : ${appointmentDTOS}">
 
       <td th:text="${iterStat.index + 1}">1</td>
       <td th:text="${appointment.studentDTO != null ? appointment.studentDTO.fullName : '---'}">Tên Học Sinh</td>
       <td th:text="${appointment.studentDTO != null && appointment.studentDTO.parent != null ? appointment.studentDTO.parent.fullName : '---'}">Tên Phụ Huynh</td>
-      <td th:text="${#temporals.format(appointment.scheduledTime, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</td>
+      <td th:text="${#temporals.format(appointment.scheduledTime, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</td>
 
       <td>
         <a href="#" class="details-link"
