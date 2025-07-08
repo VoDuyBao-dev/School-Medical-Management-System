@@ -18,6 +18,7 @@
             <p th:text="${success}"></p>
         </div>
         <form th:action="@{/doLogin}" method="post" th:object="${user}">
+            <input type="hidden" name="source" value="user" />
             <div class="form-group">
                 <label for="username">Số điện thoại:</label>
                 <input type="text" id="username" th:field="*{username}" required />

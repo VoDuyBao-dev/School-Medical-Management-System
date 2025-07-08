@@ -5,6 +5,7 @@ import com.medical.schoolMedical.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class StudentDTO {
     private long id;
     private long healthCheck_recordId;
+    @ToString.Exclude
     private Parent parent;
     private String fullName;
     private Gender gender;

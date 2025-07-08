@@ -25,7 +25,7 @@ public enum ErrorCode {
     PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
 
 //    Lỗi health check schedule
-SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
+    SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
     HEALTH_CHECK_SCHEDULE_NOT_EXISTS("ERR059", "lịch kiểm tra sức khỏe không tồn tại."),
     // Lỗi hệ thống
     INTERNAL_ERROR("ERR999", "Lỗi hệ thống. Vui lòng thử lại sau."),
@@ -35,7 +35,17 @@ SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe
     VACCINATION_CONSENT_NOT_EXISTS("ERR061", "Phiếu xác nhận tiêm chủng không tồn tại."),
     SAVE_VACCINATION_CONSENT_FAILED("ERR062", "Lưu phiếu xác nhận tiêm chủng thất bại."),
     SAVE_VACCINATION_RECORD_FAILED("ERR063", "Lưu kết quả sau tiêm chủng thất bại."),
-    VACCINATION_RECORD_NOT_EXISTS("ERR064", "Bản ghi kết quả tiêm chủng không tồn tại.");
+    VACCINATION_RECORD_NOT_EXISTS("ERR064", "Bản ghi kết quả tiêm chủng không tồn tại."),
+
+//    lỗi của student
+    STUDENT_NOT_EXISTS("ERR065", "Học sinh không tồn tại."),
+
+// lỗi CONSULTATION_APPOINTMENT
+    SAVE_CONSULTATION_APPOINTMENT_FAILED("ERR066", "Lưu lịch hẹn tư vấn thất bại.");
+
+
+
+
 
     private final String code;
     private final String message;

@@ -3,60 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Danh sách lịch khám đã gửi</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
 
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-    }
+  <title>Danh sách lịch khám đã gửi</title>
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/LichKhamDaGui.css}">
 
-    th {
-      background-color: #17a2b8;
-      color: white;
-    }
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-      gap: 10px;
-    }
-
-    .pagination a {
-      text-decoration: none;
-      color: blue;
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-
-    .pagination a:hover {
-      background-color: #f0f0f0;
-    }
-
-    .pagination a.current {
-      background-color: #4CAF50;
-      color: white;
-      font-weight: bold;
-      border-color: #4CAF50;
-    }
-  </style>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
 <h2>Danh sách các lịch khám đã gửi</h2>
-<div th:if="${success}" class="alert-success" style="color: green;">
+
+
+<div th:if="${success}" class="alert-success">
   <p th:text="${success}"></p>
 </div>
-<div th:if="${error}" class="alert-success" style="color: green;">
+<div th:if="${error}" class="alert-success">
   <p th:text="${error}"></p>
 </div>
+
 <table>
   <thead>
   <tr>
@@ -96,6 +63,8 @@
      th:text="${i + 1}"
      th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>
-
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<script th:src="@{/assets/js/phanTrang.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

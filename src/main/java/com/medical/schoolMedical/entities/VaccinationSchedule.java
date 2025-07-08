@@ -34,9 +34,12 @@ public class VaccinationSchedule {
     @Column(name = "injection_date", nullable = false)
     private LocalDateTime injectionDate;
 
-    @Column(name = "sent_date", nullable = false)
-    @CreationTimestamp
+    @Column(name = "sent_date")
     private LocalDate sentDate;
+
+    @Column(name = "create_date", nullable = false)
+    @CreationTimestamp
+    private LocalDate createDate;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;

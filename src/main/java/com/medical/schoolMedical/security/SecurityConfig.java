@@ -44,6 +44,9 @@ public class SecurityConfig {
                         .requestMatchers("/admin/login").permitAll()
                         .anyRequest().hasRole("ADMIN")
                 )
+                .exceptionHandling(e -> e
+                        .accessDeniedPage("/access-denied")  // Khi không đủ quyền
+                )
                 .formLogin(form -> form
                         .loginPage("/admin/login")
                         .loginProcessingUrl("/admin/doLogin")
@@ -69,7 +72,7 @@ public class SecurityConfig {
                         // trang cần đăng nhập
                         .requestMatchers("/parent/**").hasRole("PARENT")
                         .requestMatchers("/manager/**").hasRole("MANAGER")
-                        .requestMatchers("/school_nurse/**").hasRole("SCHOOL_NURSE")
+                        .requestMatchers("/nurse/**").hasRole("NURSE")
 
                         .anyRequest().permitAll() // mặc định: cho phép
                 )

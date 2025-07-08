@@ -19,6 +19,12 @@
     <div>
         <a th:href="@{/parent/notification/VaccinationRecords}">Danh sách thông báo kết quả tiêm chủng</a>
     </div>
+    <div>
+        <a th:href="@{/parent/notification/ConsultationAppointments}">Danh sách thông báo xác nhận lịch tư vấn</a>
+    </div>
+    <div>
+        <a th:href="@{/parent/consultationAppointment/listReview}">Danh sách lịch tư vấn sức khỏe của bạn</a>
+    </div>
 
     <div style="position: relative;">
         <button id="notificationBtn" style="background: none; border: none; font-size: 20px;">
@@ -43,7 +49,11 @@
             </ul>
         </div>
 
-    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>  |
+    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
+    <br>
+    <!-- Điều hướng đến trang chọn học sinh để khai báo hồ sơ -->
+    <a th:href="@{/parent/health-record/select-student}"><button type="button">Khai báo hồ sơ sức khỏe học sinh</button></a>
+    <br>
     <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
     <br>
 

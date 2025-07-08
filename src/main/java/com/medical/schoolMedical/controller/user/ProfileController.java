@@ -31,7 +31,7 @@ public class ProfileController {
 
 
     //Trang thông tin chung
-    @GetMapping({"/admin/profile", "/parent/profile", "/manager/profile", "/school_nurse/profile"})
+    @GetMapping({"/admin/profile", "/parent/profile", "/manager/profile", "/nurse/profile"})
     public String viewProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                               Model model) {
 
@@ -47,7 +47,7 @@ public class ProfileController {
             case ADMIN -> "/admin/dashboard";
             case PARENT -> "/parent/parent-home";
             case MANAGER -> "/manager/manager-home";
-            case SCHOOL_NURSE -> "/school_nurse/nurse-home";
+            case NURSE -> "/nurse/nurse-home";
         };
         model.addAttribute("homeUrl", homeUrl);
 
@@ -65,7 +65,7 @@ public class ProfileController {
                 Manager manager = userService.findManagerByUsername(username);
                 model.addAttribute("info", manager);
             }
-            case SCHOOL_NURSE -> {
+            case NURSE -> {
                 SchoolNurse nurse = userService.findNurseByUsername(username);
                 model.addAttribute("info", nurse);
             }
@@ -75,7 +75,7 @@ public class ProfileController {
     }
 
 
-    @GetMapping({"/admin/edit-profile", "/parent/edit-profile", "/manager/edit-profile", "/school_nurse/edit-profile"})
+    @GetMapping({"/admin/edit-profile", "/parent/edit-profile", "/manager/edit-profile", "/nurse/edit-profile"})
     public String showEditProfile(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   Model model) {
         User user = customUserDetails.getUser();
@@ -87,14 +87,14 @@ public class ProfileController {
             case ADMIN -> model.addAttribute("info", userService.findAdminByUsername(user.getUsername()));
             case PARENT -> model.addAttribute("info", userService.findParentByUsername(user.getUsername()));
             case MANAGER -> model.addAttribute("info", userService.findManagerByUsername(user.getUsername()));
-            case SCHOOL_NURSE -> model.addAttribute("info", userService.findNurseByUsername(user.getUsername()));
+            case NURSE -> model.addAttribute("info", userService.findNurseByUsername(user.getUsername()));
         }
 
         return "profile/edit-profile";
     }
 
 
-    @PostMapping({"/admin/update-profile", "/parent/update-profile", "/manager/update-profile", "/school_nurse/update-profile"})
+    @PostMapping({"/admin/update-profile", "/parent/update-profile", "/manager/update-profile", "/nurse/update-profile"})
     public String updateProfile(@RequestParam long userId,
                                 @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                 HttpServletRequest request,
@@ -136,7 +136,7 @@ public class ProfileController {
                 userService.saveManager(manager);
             }
 
-            case SCHOOL_NURSE -> {
+            case NURSE -> {
                 SchoolNurse nurse = userService.findNurseByUsername(user.getUsername());
                 if (nurse == null) {
                     nurse = new SchoolNurse();

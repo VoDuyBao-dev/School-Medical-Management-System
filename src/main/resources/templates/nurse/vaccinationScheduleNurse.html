@@ -16,13 +16,13 @@
             <div class="text-danger" th:if="${#fields.hasErrors('vaccineType')}" th:errors="*{vaccineType}">Lỗi</div>
         </div>
 
-        <!-- Recommended Age in Months -->
+
         <div class="mb-3">
             <label for="recommendedAge" class="form-label">Độ tuổi khuyến nghị</label>
             <input type="text" class="form-control" id="recommendedAge" th:field="*{recommendedAgeMonths}">
         </div>
 
-        <!-- Injection Date with Time -->
+
         <div class="mb-3">
             <label for="injectionDate" class="form-label">Ngày và giờ tiêm <span class="text-danger">*</span></label>
             <input type="datetime-local" class="form-control" id="injectionDate" th:field="*{injectionDate}" required>

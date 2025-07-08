@@ -36,7 +36,7 @@ public class HealthCheckSchedule {
     @Column(name = "check_date",nullable = false)
     private LocalDateTime checkDate;
 
-    @Column(name = "sent_date", nullable = false)
+    @Column(name = "sent_date")
     private LocalDate sentDate;
 
     @Column(name = "create_date", nullable = false)

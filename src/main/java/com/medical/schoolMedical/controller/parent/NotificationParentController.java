@@ -1,15 +1,9 @@
 package com.medical.schoolMedical.controller.parent;
 
-import com.medical.schoolMedical.dto.HealthCheckConsentDTO;
-import com.medical.schoolMedical.dto.HealthCheckRecordDTO;
-import com.medical.schoolMedical.dto.VaccinationConsentDTO;
-import com.medical.schoolMedical.dto.VaccinationRecordDTO;
+import com.medical.schoolMedical.dto.*;
 import com.medical.schoolMedical.entities.VaccinationRecord;
 import com.medical.schoolMedical.security.CustomUserDetails;
-import com.medical.schoolMedical.service.HealthCheckConsentService;
-import com.medical.schoolMedical.service.HealthCheckRecordService;
-import com.medical.schoolMedical.service.VaccinationConsentService;
-import com.medical.schoolMedical.service.VaccinationRecordService;
+import com.medical.schoolMedical.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +26,8 @@ public class NotificationParentController {
     private VaccinationConsentService vaccinationConsentService;
     @Autowired
     private VaccinationRecordService vaccinationRecordService;
+    @Autowired
+    private ConsultationAppointmentService consultationAppointmentService;
 
 // health check
     @GetMapping("/HealthCheckConsents")
@@ -39,7 +35,7 @@ public class NotificationParentController {
                                          @RequestParam(defaultValue = "0") int page,
                                          Model model) {
         Long userId = customUserDetails.getUser().getId();
-        log.info("parentId: {}", userId);
+//        log.info("userId: {}", userId);
 
         Page<HealthCheckConsentDTO> listConsent = healthCheckConsentService.getHealthCheckConsentByParentId(userId, page);
 
@@ -57,7 +53,7 @@ public class NotificationParentController {
                                          @RequestParam(defaultValue = "0") int page,
                                          Model model) {
         Long userId = customUserDetails.getUser().getId();
-        log.info("parentId: {}", userId);
+//        log.info("userId: {}", userId);
 
         Page<HealthCheckRecordDTO> listRecord = healthCheckRecordService.getSentRecordsToParents(userId, page);
 
@@ -74,7 +70,7 @@ public class NotificationParentController {
                                          @RequestParam(defaultValue = "0") int page,
                                          Model model) {
         Long userId = customUserDetails.getUser().getId();
-        log.info("parentId: {}", userId);
+//        log.info("userId: {}", userId);
 
         Page<VaccinationConsentDTO> listConsent = vaccinationConsentService.getVaccinationConsentByParentId(userId, page);
 
@@ -90,7 +86,7 @@ public class NotificationParentController {
                                         @RequestParam(defaultValue = "0") int page,
                                         Model model) {
         Long userId = customUserDetails.getUser().getId();
-        log.info("parentId: {}", userId);
+//        log.info("userId: {}", userId);
 
         Page<VaccinationRecordDTO> listRecord = vaccinationRecordService.getSentRecordsToParents(userId, page);
 
@@ -100,4 +96,20 @@ public class NotificationParentController {
         return "parent/listVaccinationRecord";
 
     }
+
+    @GetMapping("/ConsultationAppointments")
+    public String listConsultationAppointment(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              Model model) {
+        Long userId = customUserDetails.getUser().getId();
+
+        Page<ConsultationAppointmentDTO> appointmentDTOS = consultationAppointmentService.getAllAppointment_parent(userId, page);
+
+        model.addAttribute("appointmentDTOS", appointmentDTOS.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", appointmentDTOS.getTotalPages());
+        return "parent/ListAppointmentNotification";
+
+    }
+
 }

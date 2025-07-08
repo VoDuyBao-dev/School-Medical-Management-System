@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,8 +57,6 @@ public class UserService {
             //            Bắt các lỗi ngoài ý muốn
             throw new BusinessException(ErrorCode.INTERNAL_ERROR);
         }
-
-
     }
 
     public void validateUserInput(UserDTO userDTO) {
@@ -78,7 +78,7 @@ public class UserService {
                     manager.setUser(user);
                     managerRepository.save(manager);
                     break;
-                case SCHOOL_NURSE:
+                case NURSE:
                     SchoolNurse schoolNurse = new SchoolNurse();
                     schoolNurse.setUser(user);
                     schoolNurseRepository.save(schoolNurse);
@@ -106,22 +106,57 @@ public class UserService {
 
     @PostConstruct
     public void initAdmin() {
-        if (userRepository.findByUsername("admin") == null) {
+        try {
+            if (userRepository.findByUsername("admin") == null) {
 //
-            User adminUser = new User();
-            adminUser.setUsername("admin");
-            adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
-            adminUser.setRole(Role.ADMIN);
-            adminUser.setEmail("admin123@gmail.com");
-            userRepository.save(adminUser);
+                User adminUser = new User();
+                adminUser.setUsername("admin");
+                adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
+                adminUser.setEmail("admin123@gmail.com");
+                adminUser.setRole(Role.ADMIN);
+                userRepository.save(adminUser);
 
-            // Tạo và lưu admin vào bảng admins
-            Admin admin = new Admin();
-            admin.setUser(adminUser);
-            admin.setFullName("Admin");
-            adminRepository.save(admin);
+                // Tạo và lưu admin vào bảng admins
+                Admin admin = new Admin();
+                admin.setUser(adminUser);
+                admin.setFullName("Admin");
+                adminRepository.save(admin);
 
+            }
+            // 2. Tài khoản nurse
+            if (userRepository.findByUsername("nurse") == null) {
+                User nurseUser = new User();
+                nurseUser.setUsername("nurse");
+                nurseUser.setPassword(passwordEncoder.encode("nurse"));
+                nurseUser.setEmail("nurse123@gmail.com");
+                nurseUser.setRole(Role.NURSE);
+                userRepository.save(nurseUser);
+
+                SchoolNurse nurse = new SchoolNurse();
+                nurse.setUser(nurseUser);
+                nurse.setFullName("Y tá trưởng");
+                schoolNurseRepository.save(nurse);
+            }
+
+            // 3. Tài khoản parent
+            if (userRepository.findByUsername("parent") == null) {
+                User parentUser = new User();
+                parentUser.setUsername("parent");
+                parentUser.setPassword(passwordEncoder.encode("parent"));
+                parentUser.setRole(Role.PARENT);
+                userRepository.save(parentUser);
+
+                Parent parent = new Parent();
+                parent.setUser(parentUser);
+                parent.setFullName("Phụ huynh A");
+                parentRepositoty.save(parent);
+            }
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi khởi tạo admin: " + e.getMessage(), e);
+        }
+
     }
 
 
@@ -196,6 +231,34 @@ public class UserService {
     public Student findStudentById(long id) {
         return studentRepository.findById(id).orElse(null);
     }
+
+    // Lấy Parent hiện đang đăng nhập từ Spring Security
+    public Parent getCurrentParent() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();  // hoặc username nếu không dùng email
+
+        return parentRepositoty.findByUser_Username(username)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy phụ huynh với username: " + username));
+    }
+
+
+
+    // Lấy danh sách học sinh theo phụ huynh
+    public List<Student> getStudentsByParent(Parent parent) {
+        return studentRepository.findByParent(parent);
+    }
+
+    // Lấy danh sách học sinh theo id phụ huynh
+    public List<Student> getStudentsByParentId(Long parentId) {
+        return studentRepository.findByParent_Id(parentId);
+    }
+
+    public List<Student> getStudentsByParent() {
+        Parent parent = getCurrentParent(); // lấy đúng parent entity
+        return studentRepository.findByParent_Id(parent.getId()); // dùng parent_id
+    }
+
+
 
     public boolean existsUserByEmail(String email) {
         return userRepository.existsByEmail(email);

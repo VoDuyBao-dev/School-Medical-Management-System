@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xem hồ sơ sức khỏe</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        h2 { color: #2c3e50; }
+        .record-section { margin-bottom: 20px; }
+        label { font-weight: bold; display: inline-block; width: 150px; vertical-align: top; }
+        p { margin: 4px 0; }
+        .back-btn { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>Hồ sơ sức khỏe của học sinh</h2>
+
+<div class="record-section">
+    <p><label>Họ tên:</label> <span th:text="${record.student.fullName}">Nguyễn Văn A</span></p>
+    <p><label>Lớp:</label> <span th:text="${record.student.className}">10A1</span></p>
+    <p><label>Phụ huynh:</label> <span th:text="${record.parent.fullName}">Nguyễn Văn B</span></p>
+</div>
+
+<div class="record-section">
+    <p><label>Dị ứng:</label> <span th:text="${record.allergies}">Không</span></p>
+    <p><label>Bệnh mãn tính:</label> <span th:text="${record.chronicDisease}">Không</span></p>
+    <p><label>Tiền sử điều trị:</label> <span th:text="${record.treatmentHistory}">Không có</span></p>
+    <p><label>Thị lực:</label> <span th:text="${record.vision}">10/10</span></p>
+    <p><label>Thính lực:</label> <span th:text="${record.hearing}">Bình thường</span></p>
+    <p><label>Tiêm chủng:</label> <span th:text="${record.vaccination}">Đầy đủ</span></p>
+    <p><label>Thông tin khác:</label> <span th:text="${record.other_health_info}">Không</span></p>
+</div>
+
+<div class="back-btn">
+    <a th:href="@{/nurse/health-record}">
+        <button>Quay lại danh sách</button>
+    </a>
+</div>
+
+</body>
+</html>

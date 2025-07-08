@@ -12,7 +12,7 @@
 <body>
 <h2>Ghi nhận sự kiện y tế</h2>
 
-<form th:action="@{/school_nurse/medical-events/save}" th:object="${eventDTO}" method="post">
+<form th:action="@{/nurse/medical-events/save}" th:object="${eventDTO}" method="post">
     <label>Học sinh:</label>
     <select th:field="*{studentId}" required>
         <option th:each="student : ${students}"
@@ -75,7 +75,7 @@
     </div>
 
     <button type="submit">Lưu sự kiện</button>
-    <a th:href="@{/school_nurse/medical-events}"><button type="button">Quay lại</button></a>
+    <a th:href="@{/nurse/medical-events}"><button type="button">Quay lại</button></a>
 </form>
 </body>
 </html>

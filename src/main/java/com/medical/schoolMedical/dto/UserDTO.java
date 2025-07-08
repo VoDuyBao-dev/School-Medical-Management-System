@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserDTO {
-    private long id;
+    private Long id;
     @NotBlank(message = "số điện thoại không được bỏ trống")
     @Pattern(regexp = "^0\\d{9,10}$", message = "số điện thoại bắt đầu từ 0 và chỉ chứa số và độ dài từ 10-11")
     private String username;
-    @NotBlank(message = "email không được bỏ trống")
+//    @NotBlank(message = "email không được bỏ trống")
     private String email;
     @NotBlank(message = "password không được bỏ trống")
     @Size(min = 5, max = 30, message = "Mật khẩu có tối thiểu 5 kí tự và tối đa 30")

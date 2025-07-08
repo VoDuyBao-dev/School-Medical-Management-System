@@ -17,4 +17,8 @@ public class SchoolNurseController {
         return "nurse/nurse-home"; // templates/nurse/home.html
     }
 
+
+
+
+
 }

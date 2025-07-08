@@ -45,22 +45,6 @@ public class AdminController {
         return "admin/manage-users";
     }
 
-    /*@GetMapping("/add-user")
-    public String showAddUserForm(Model model) {
-        model.addAttribute("newUser", new User());
-        model.addAttribute("roles", Role.values());
-        return "admin/add-user";
-    }
-
-
-    @PostMapping("/add-user")
-    public String addUser(@ModelAttribute("newUser") User user, RedirectAttributes redirectAttributes ) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // mã hóa mật khẩu
-        userService.saveUser(user);
-
-        redirectAttributes.addFlashAttribute("success", "Thêm người dùng thành công!");
-        return "redirect:/admin/manage-users";
-    }*/
 
     @GetMapping("/edit-user/{id}")
     public String editUser(@PathVariable int id, Model model) {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Lịch Tư Vấn</title>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/parent/listReview.css}"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
+<div class="container">
+  <h2>Danh Sách Lịch Tư Vấn</h2>
+
+  <table id="appointmentsTable">
+    <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên Học Sinh</th>
+      <th>Nhân viên y tế phụ trách</th>
+      <th>Thời Gian Hẹn</th>
+
+      <th>Chi Tiết</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="appointment, iterStat : ${appointmentDTOS}"
+        th:class="${appointment.status == 'UNCONFIRMED'} ? 'past' : (${appointment.status == 'CONFIRMED'} ? 'upcoming' : 'past')">
+
+      <td th:text="${iterStat.index + 1}">1</td>
+      <td th:text="${appointment.studentDTO != null ? appointment.studentDTO.fullName : '---'}">Tên Học Sinh</td>
+      <td th:text="${appointment.schoolNurseDTO != null ? appointment.schoolNurseDTO.fullName : '---'}">Tên Y Tá</td>
+      <td th:text="${#temporals.format(appointment.scheduledTime, 'yyyy-MM-dd HH:mm')}">2025-07-02 14:00</td>
+
+      <td>
+        <a href="#" class="details-link"
+           th:attr="data-content=${appointment.content}"
+           onclick="showModal(this); return false;">Xem chi tiết</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal sửa lại để hiển thị động -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      <h3 id="modal-title">Lịch Hẹn</h3>
+      <p><strong>Nội dung lịch hẹn tư vấn:</strong> <span id="modal-content"></span></p>
+    </div>
+  </div>
+  <!-- Phân trang -->
+  <div class="pagination" th:if="${totalPages > 1}">
+    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+       th:href="@{/parent/consultationAppointment/listReview(page=${i})}"
+       th:text="${i + 1}"
+       th:classappend="${i == currentPage} ? ' current'">1</a>
+  </div>
+
+  <a th:href="@{/}" class="back-button">Quay Lại</a>
+</div>
+<script th:src="@{/assets/js/nurse/listReview.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<script>
+  function showModal(link) {
+    document.getElementById('modal-content').textContent = link.getAttribute('data-content');
+    document.getElementById('modal').style.display = 'block';
+  }
+
+</script>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
