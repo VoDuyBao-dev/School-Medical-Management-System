@@ -15,7 +15,7 @@ function filterAppointments() {
     const rows = document.querySelectorAll('#appointmentsTable tbody tr');
 
     rows.forEach(row => {
-        const status = row.cells[4].textContent.toLowerCase(); // Cột trạng thái (index 4)
+        const status = row.cells[5].innerText.trim().toLowerCase();
         if (filterValue === '' || status === filterValue) {
             row.style.display = '';
         } else {

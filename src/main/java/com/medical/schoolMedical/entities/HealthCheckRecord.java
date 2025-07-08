@@ -35,6 +35,18 @@ public class HealthCheckRecord {
     @Column(name = "hearing_result", nullable = false)
     private String hearingResult;
 
+    @Column(name = "bloodPressure")
+    private String bloodPressure ;
+
+    @Column(name = "heartrate")
+    private int heartrate;
+
+    @Column(name = "height")
+    private double height;
+
+    @Column(name = "weight")
+    private double weight;
+
     @Column(name = "other_result")
     private String otherResult;
 

@@ -80,26 +80,26 @@ public class SignupController {
     public String addUser(@ModelAttribute ("user") @Valid UserDTO user,
                           BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
-        if(bindingResult.hasErrors()){
-            return "admin/add-user";
-        }
-//       kiem tra dữ liệu đầu vào
-        try{
-            userService.validateUserInput(user);
-        }catch(BusinessException ex){
-            bindingResult.rejectValue("password", null, ex.getMessage());
+            if(bindingResult.hasErrors()){
+                return "admin/add-user";
+            }
+    //       kiem tra dữ liệu đầu vào
+            try{
+                userService.validateUserInput(user);
+            }catch(BusinessException ex){
+                bindingResult.rejectValue("password", null, ex.getMessage());
 
-            return "admin/add-user";
-        }
-//       Lưu user
-        try {
-            userService.signUp(user);
-            redirectAttributes.addFlashAttribute ("success","Đăng kí người dùng thành công");
-            return "redirect:/admin/manage-users";
-        }catch(BusinessException ex){
-            bindingResult.rejectValue("password", null, ex.getMessage());
-            return "admin/add-user";
-        }
+                return "admin/add-user";
+            }
+    //       Lưu user
+            try {
+                userService.signUp(user);
+                redirectAttributes.addFlashAttribute ("success","Đăng kí người dùng thành công");
+                return "redirect:/admin/manage-users";
+            }catch(BusinessException ex){
+                bindingResult.rejectValue("password", null, ex.getMessage());
+                return "admin/add-user";
+            }
 
+        }
     }
-}

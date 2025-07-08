@@ -3,7 +3,9 @@ package com.medical.schoolMedical.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -25,5 +27,9 @@ public class MedicalSupply {
 
     @Column(name = "quantity_in_stock", nullable = false)
     private int quantityInStock;
+
+    @Column(name = "entry_date", nullable = false)
+    @CreationTimestamp
+    private LocalDate entryDate;
 
 }

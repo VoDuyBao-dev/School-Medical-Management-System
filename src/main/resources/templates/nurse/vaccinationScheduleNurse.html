@@ -26,6 +26,7 @@
             </label>
             <input type="text" class="form-control" id="vaccineType"
                    th:field="*{vaccineType}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('vaccineType')}" th:errors="*{vaccineType}">Lỗi</div>
         </div>
 
         <!-- Recommended Age -->
@@ -35,13 +36,14 @@
                    th:field="*{recommendedAgeMonths}">
         </div>
 
-        <!-- Injection Date -->
+        <!-- Injection Date with Time -->
         <div class="mb-3">
             <label for="injectionDate" class="form-label">
                 Ngày và giờ tiêm <span class="text-danger">*</span>
             </label>
             <input type="datetime-local" class="form-control" id="injectionDate"
                    th:field="*{injectionDate}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}">Lỗi</div>
         </div>
 
         <!-- Notes -->

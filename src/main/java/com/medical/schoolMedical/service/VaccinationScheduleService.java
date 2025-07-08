@@ -48,10 +48,22 @@ public class VaccinationScheduleService {
     }
 
     //    Lấy các lịch tiêm chủng đã gửi
-    public Page<VaccinationScheduleDTO> getAllVaccinationSchedule(int page) {
+    public Page<VaccinationScheduleDTO> getAllVaccinationSchedule_sent(int page) {
         Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+        boolean isSentToParent = true;
 
-        Page<VaccinationSchedule> vaccinationSchedules = vaccinationScheduleRepository.findAll(pageable);
+        Page<VaccinationSchedule> vaccinationSchedules = vaccinationScheduleRepository.findBySentToParent(isSentToParent,pageable);
+        Page<VaccinationScheduleDTO> vaccinationSchedulesDTOPage = vaccinationSchedules.map(vaccinationScheduleMapper::toVaccinationScheduleDTO);
+        log.info("vaccinationSchedulesDTOPage in getAllVaccinationSchedule: {}", vaccinationSchedulesDTOPage.getContent());
+        return vaccinationSchedulesDTOPage;
+    }
+
+    //    Lấy các lịch tiêm chủng đã tạo nhưng chưa gửi
+    public Page<VaccinationScheduleDTO> getAllVaccinationSchedule_drafts(int page) {
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+        boolean isSentToParent = false;
+
+        Page<VaccinationSchedule> vaccinationSchedules = vaccinationScheduleRepository.findBySentToParent(isSentToParent,pageable);
         Page<VaccinationScheduleDTO> vaccinationSchedulesDTOPage = vaccinationSchedules.map(vaccinationScheduleMapper::toVaccinationScheduleDTO);
         log.info("vaccinationSchedulesDTOPage in getAllVaccinationSchedule: {}", vaccinationSchedulesDTOPage.getContent());
         return vaccinationSchedulesDTOPage;

@@ -31,20 +31,22 @@
             </span>
         </div>
 
-        <div th:object="${vaccinationConsent}" class="mb-4">
+        <div class="mb-4">
             <p><strong>Ngày tiêm:</strong>
-                <span th:text="*{#temporals.format(schedule.injectionDate, 'dd/MM/yyyy')}"></span></p>
+                <span th:text="${#temporals.format(vaccinationConsent.schedule.injectionDate, 'HH:mm - dd/MM/yyyy')}"></span>
+            </p>
 
-            <p><strong>Loại vaccine:</strong>
-                <span th:text="*{schedule.vaccineType}"></span></p>
+            <p><strong>Loại vaccine:</strong></p>
+            <p th:text="${vaccinationConsent.schedule.vaccineType}"></p>
 
-            <p><strong>Độ tuổi khuyến nghị:</strong>
-                <span th:text="*{schedule.recommendedAgeMonths}"></span> tháng</p>
+            <p><strong>Độ tuổi khuyến nghị:</strong></p>
+            <p th:text="${vaccinationConsent.schedule.recommendedAgeMonths}"></p>
 
-            <p><strong>Ghi chú:</strong>
-                <span th:text="*{schedule.notes} ?: 'Không có ghi chú.'"></span></p>
+            <p><strong>Ghi chú:</strong></p>
+            <p th:text="${vaccinationConsent.schedule.notes}"></p>
         </div>
 
+        <div th:if="${vaccinationConsent.status.name() == 'UNCONFIRMED'}">
         <!-- Form xác nhận -->
         <form th:action="@{/parent/confirm/confirm-vaccination}" method="post">
             <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinationConsent.id}" />
@@ -56,8 +58,6 @@
                 <button type="submit"
                         name="response"
                         value="agree"
-                        th:classappend="${vaccinationConsent.status.name() != 'UNCONFIRMED'} ? ' disabled'"
-                        th:disabled="${vaccinationConsent.status.name() != 'UNCONFIRMED'}"
                         class="btn btn-pink">
                     Đồng ý
                 </button>
@@ -66,13 +66,12 @@
                 <button type="submit"
                         name="response"
                         value="disagree"
-                        th:classappend="${vaccinationConsent.status.name() != 'UNCONFIRMED'} ? ' disabled'"
-                        th:disabled="${vaccinationConsent.status.name() != 'UNCONFIRMED'}"
                         class="btn btn-outline-danger">
                     Không đồng ý
                 </button>
             </div>
         </form>
+        </div>
     </div>
 </div>
 

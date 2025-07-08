@@ -16,7 +16,7 @@
     <div class="header-list">
         <div class="logo"><i class="fa-solid fa-heart-pulse"></i></div>
         <h2>Danh Sách Học Sinh Khám Khỏe </h2>
-        <h3>Thời gian: 26/06/2025</h3>
+
     </div>
 
     <div class="search-bar-list">
@@ -34,7 +34,7 @@
 <div th:if="${notification}" class="notification" style="color: orange;">
     <p th:text="${notification}"></p>
 </div>
-<h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
+
 
     <form th:action="@{/nurse/healthCheckRecord/sendRecordsToParents}" method="post">
         <table id="confirmedTable" class="active" aria-label="Danh sách học sinh xác nhận kiểm tra sức khỏe định kỳ">

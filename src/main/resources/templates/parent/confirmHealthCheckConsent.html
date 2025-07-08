@@ -19,9 +19,6 @@
 
 <div class="container" th:if="${healthCheckConsent != null}">
     <h2>Phiếu khám sức khỏe của học sinh <span th:text="${healthCheckConsent.student.fullName}"></span></h2>
-    <p>Trạng thái:
-        <span th:text="${healthCheckConsent.status != null} ? ${healthCheckConsent.status} : 'Không có status'">?</span>
-    </p>
 
     <!-- Hiển thị trạng thái -->
     <div th:switch="${healthCheckConsent.status.name()}">
@@ -32,39 +29,39 @@
     </div>
 
 
-    <div th:object="${healthCheckConsent}">
+    <div>
         <div class="info-group"><strong>Ngày kiểm tra:</strong>
-            <span th:text="*{schedule.checkDate}"></span></div>
+            <span th:text="${#temporals.format(healthCheckConsent.schedule.checkDate, 'HH:mm - dd/MM/yyyy')}"></span></div>
 
         <div class="info-group"><strong>Nội dung:</strong>
-            <span th:text="*{schedule.content}"></span></div>
+            <span th:text="${healthCheckConsent.schedule.content}"></span></div>
 
         <div class="info-group"><strong>Ghi chú:</strong>
-            <Span th:text="*{schedule.notes}"></Span></div>
+            <Span th:text="${healthCheckConsent.schedule.notes}"></Span></div>
     </div>
 
-    <!-- Form luôn hiển thị nhưng nút sẽ được vô hiệu hóa nếu không phải UNCONFIRMED -->
-    <form th:action="@{/parent/confirm/confirm-health-check}" method="post">
-        <input type="hidden" name="consentId" th:value="${healthCheckConsent.id}" />
+    <div th:if="${healthCheckConsent.status.name() == 'UNCONFIRMED'}">
+        <form th:action="@{/parent/confirm/confirm-health-check}" method="post">
+            <input type="hidden" name="consentId" th:value="${healthCheckConsent.id}" />
 
-        <div class="question">Bạn có đồng ý cho con em tham gia khám sức khỏe?</div>
-        <div class="buttons">
-        <!-- Nút Đồng ý -->
-            <button type="submit" name="response" value="agree"
-                    th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? 'disabled'"
-                    th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
+            <div class="question">Bạn có đồng ý cho con em tham gia khám sức khỏe?</div>
+            <div class="buttons">
+            <!-- Nút Đồng ý -->
+            <button type="submit" name="response" value="agree">
                 Đồng ý
             </button>
 
-        <!-- Nút Không đồng ý -->
+            <!-- Nút Không đồng ý -->
             <button type="submit" name="response" value="disagree"
-                    class="disagree"
-                    th:classappend="${healthCheckConsent.status.name() != 'UNCONFIRMED'} ? ' disabled'"
-                    th:disabled="${healthCheckConsent.status.name() != 'UNCONFIRMED'}">
+                    class="disagree">
                 Không đồng ý
             </button>
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
+
+
+
 </div>
 
 <script>

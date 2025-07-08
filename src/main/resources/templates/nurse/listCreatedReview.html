@@ -12,14 +12,16 @@
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Nurse"></div>
 <div class="container">
-  <h2>Danh Sách Lịch Tư Vấn</h2>
+  <h2>Danh Sách Lịch Tư Vấn Đã Tạo</h2>
 
   <div class="filter-section">
     <label for="filterStatus"></label><select id="filterStatus" onchange="filterAppointments()">
     <option value="">Tất cả trạng thái</option>
     <option value="Chờ xác nhận">Chờ xác nhận</option>
     <option value="Đã xác nhận">Đã xác nhận</option>
-    <option value="Đã hủy">Đã hủy</option>
+    <option value="Đã từ chối">Đã từ chối</option>
+    <option value="Đã hết hạn">Đã hết hạn</option>
+
   </select>
   </div>
 
@@ -32,52 +34,61 @@
       <th>Thời Gian Hẹn</th>
       <th>Thời Gian Tạo</th>
       <th>Trạng Thái</th>
-      <th>Chi Tiết</th>
+      <th>Nội dung</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>Nguyễn Văn A</td>
-      <td>Trần Thị B</td>
-      <td>2025-07-02 14:00</td>
-      <td>2025-07-02 10:00</td>
-      <td>Đã xác nhận</td>
-      <td><a th:href="@{#}" class="details-link" onclick="showModal(); return false;">Xem chi tiết</a></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Nguyễn Văn B</td>
-      <td>Trần Thị C</td>
-      <td>2025-07-03 09:30</td>
-      <td>2025-07-02 11:00</td>
-      <td>Chờ xác nhận</td>
-      <td><a th:href="@{#}" class="details-link" onclick="showModal(); return false;">Xem chi tiết</a></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Nguyễn Văn C</td>
-      <td>Trần Thị D</td>
-      <td>2025-07-01 15:00</td>
-      <td>2025-07-01 13:00</td>
-      <td>Đã hủy</td>
-      <td><a th:href="@{#}" class="details-link" onclick="showModal(); return false;">Xem chi tiết</a></td>
+    <tr th:each="appointment, iterStat : ${appointmentDTOS}">
+
+      <td th:text="${iterStat.index + 1}">1</td>
+      <td th:text="${appointment.studentDTO != null ? appointment.studentDTO.fullName : '---'}">Tên Học Sinh</td>
+      <td th:text="${appointment.studentDTO != null && appointment.studentDTO.parent != null ? appointment.studentDTO.parent.fullName : '---'}">Tên Phụ Huynh</td>
+      <td th:text="${#temporals.format(appointment.scheduledTime, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</td>
+      <td th:text="${#temporals.format(appointment.createdAt, 'HH:mm - dd/MM/yyyy')}">2025-07-02 14:00</td>
+      <td>
+        <span th:switch="${appointment.status.name()}">
+          <span th:case="'ACCEPTED'" class="status accepted">Đã xác nhận</span>
+          <span th:case="'DECLINED'" class="status declined">Đã từ chối</span>
+          <span th:case="'OVERDUE'" class="status overdue">Đã hết hạn</span>
+          <span th:case="'UNCONFIRMED'" class="status unconfirmed">Chờ xác nhận</span>
+        </span>
+      </td>
+      <td>
+        <a href="#" class="details-link"
+           th:attr="data-content=${appointment.content}"
+           onclick="showModal(this); return false;">Xem chi tiết</a>
+      </td>
     </tr>
     </tbody>
   </table>
 
+  <!-- Modal sửa lại để hiển thị động -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
-      <h3 id="modal-title">Chi Tiết Lịch Hẹn #1</h3>
-      <p><strong>Ghi chú từ trường:</strong> Yêu cầu kiểm tra sức khỏe định kỳ.</p>
+      <h3 id="modal-title">Lịch Hẹn</h3>
+      <p><strong>Nội dung lịch hẹn tư vấn:</strong> <span id="modal-content"></span></p>
     </div>
   </div>
+  <!-- Phân trang -->
+  <div class="pagination" th:if="${totalPages > 1}">
+    <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+       th:href="@{/nurse/consultationAppointment/listCreatedReview(page=${i})}"
+       th:text="${i + 1}"
+       th:classappend="${i == currentPage} ? ' current'">1</a>
+  </div>
 
-  <a th:href="@{/}"  class="back-button">Quay Lại</a>
+  <a th:href="@{/nurse/nurse-home}"  class="back-button">Quay Lại</a>
 </div>
 <script th:src="@{/assets/js/nurse/listReview.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
+<script>
+  function showModal(link) {
+    document.getElementById('modal-content').textContent = link.getAttribute('data-content');
+    document.getElementById('modal').style.display = 'block';
+  }
+
+</script>
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

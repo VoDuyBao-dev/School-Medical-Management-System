@@ -1,7 +1,11 @@
 package com.medical.schoolMedical.service;
 
+import com.medical.schoolMedical.dto.StudentDTO;
 import com.medical.schoolMedical.entities.Parent;
 import com.medical.schoolMedical.entities.Student;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
+import com.medical.schoolMedical.mapper.StudentMapper;
 import com.medical.schoolMedical.enums.Gender;
 import com.medical.schoolMedical.exceptions.BusinessException;
 import com.medical.schoolMedical.exceptions.ErrorCode;
@@ -19,14 +23,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
 public class StudentService {
-
     StudentRepository studentRepository;
+    StudentMapper studentMapper;
 
     ParentRepositoty parentRepositoty;
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+    public List<StudentDTO> getAllStudentsDTO() {
+        return studentMapper.toStudentDTOs(studentRepository.findAll());
+    }
+
+
 
     public List<Student> getByParentId(Long parentId) {
         return studentRepository.findByParent_Id(parentId);
