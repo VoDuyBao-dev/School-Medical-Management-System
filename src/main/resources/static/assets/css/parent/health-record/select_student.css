@@ -1,0 +1,53 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fff0f5;
+}
+.text-pink { color:#e91e63; }
+
+.table-pink th{
+    background:#e91e63;
+    color:#fff;
+}
+
+/* STT căn giữa toàn bộ */
+.table tbody td:first-child,
+.table thead th:first-child{
+    text-align:center;
+}
+
+/* ===== Nút hồng viền ngoài (mặc định trắng) ===== */
+.btn-pink {
+    background: #fff;
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    transition: all .25s;
+}
+.btn-pink:hover {
+    background: #e91e63;
+    color: #fff;
+}
+
+/* ===== Bo tròn toàn bảng ===== */
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Giữ phần đầu bảng bo tròn phía trên */
+.table-rounded thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.table-rounded thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Giữ phần cuối bảng bo tròn phía dưới */
+.table-rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.table-rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}

@@ -1,0 +1,25 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fff0f5;
+}
+.text-pink { color:#e91e63; }
+
+.table-pink th {
+    background:#e91e63;
+    color:#fff;
+}
+
+.btn-outline-pink {
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.btn-outline-pink:hover {
+    background-color: #e91e63;
+    color: #fff;
+}
+
+.search-box { max-width:320px; }
+.search-box input { padding-left:2.25rem; }

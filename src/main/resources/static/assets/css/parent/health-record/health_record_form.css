@@ -1,0 +1,30 @@
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#fff0f5;
+}
+.form-container {
+  max-width: 800px;
+    margin: 40px auto
+}
+
+.text-pink {
+    color: #e91e63;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+h3 {
+    color: #e91e63;
+}
+.btn-pink {
+    background-color: #e91e63;
+    border-color:   #e91e63;
+    color: #fff;
+}
+
+.btn-pink:hover,
+.btn-pink:focus {
+    background-color: #d81b60;
+    color: #fff;
+}
