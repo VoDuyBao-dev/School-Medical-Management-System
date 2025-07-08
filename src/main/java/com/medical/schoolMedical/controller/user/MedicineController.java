@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,12 @@ public class MedicineController {
         // Kiểm tra trùng tên (bỏ qua khoảng trắng và chữ hoa)
         String normalizedName = medicine.getName().trim();
 
+        // Kiểm tra hạn sử dụng không được trong quá khứ
+        if (medicine.getExpiryDate() != null && medicine.getExpiryDate().isBefore(LocalDate.now())) {
+            redirectAttributes.addFlashAttribute("error", "Hạn sử dụng không được là ngày trong quá khứ.");
+            return isNew ? "redirect:/nurse/medicines/new" : "redirect:/nurse/medicines/edit/" + medicine.getId();
+        }
+
         if (isNew) {
             // Kiểm tra trùng tên khi thêm mới
             if (medicineService.existsByName(normalizedName)) {
@@ -54,6 +61,9 @@ public class MedicineController {
                 redirectAttributes.addFlashAttribute("error", "Tên thuốc \"" + normalizedName + "\" đã được sử dụng bởi một thuốc khác.");
                 return "redirect:/nurse/medicines/edit/" + medicine.getId();
             }
+
+            Medicine existing = medicineService.getMedicineById(medicine.getId());
+            medicine.setEntryDate(existing.getEntryDate());
         }
 
         // Nếu là cập nhật (đã có ID), giữ nguyên entryDate cũ
@@ -61,6 +71,8 @@ public class MedicineController {
             Medicine existing = medicineService.getMedicineById(medicine.getId());
             medicine.setEntryDate(existing.getEntryDate());
         }
+
+
 
         medicine.setName(normalizedName);
         medicineService.saveMedicine(medicine); // sử dụng service để lưu luôn

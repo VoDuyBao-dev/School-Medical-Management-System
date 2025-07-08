@@ -2,6 +2,8 @@ package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.entities.HealthRecord;
 import com.medical.schoolMedical.entities.Student;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.repositories.HealthRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class HealthRecordService {
     // Lấy hồ sơ sức khỏe theo ID
     public HealthRecord getById(Long id) {
         return healthRecordRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy hồ sơ sức khỏe với ID: " + id));
+                .orElseThrow(() -> new BusinessException(ErrorCode.HEALTH_RECORD_NOT_FOUND));
     }
 
     // Lấy hồ sơ theo học sinh (nếu có)

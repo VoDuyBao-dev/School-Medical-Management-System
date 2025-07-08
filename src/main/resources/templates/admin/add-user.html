@@ -23,7 +23,7 @@
 
 <form th:action="@{/admin/add-user}" th:object="${user}" method="post">
     <label for="username">Tên đăng nhập:</label>
-    <input type="text" th:field="*{username}" id="username" required />
+    <input type="text" th:field="*{username}" id="username" value="Nhập SDT để đăng nhập" required />
     <br/>
 
     <label for="password">Mật khẩu:</label>

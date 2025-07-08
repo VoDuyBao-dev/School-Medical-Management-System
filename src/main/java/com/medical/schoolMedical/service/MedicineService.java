@@ -2,6 +2,8 @@ package com.medical.schoolMedical.service;
 
 
 import com.medical.schoolMedical.entities.Medicine;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.repositories.MedicineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +24,12 @@ public class MedicineService {
 
     public Medicine getMedicineById(Long id) {
         return medicineRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy thuốc với ID: " + id));
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEDICINE_NOT_FOUND));
     }
 
     public void saveMedicine(Medicine medicine) {
         medicineRepository.save(medicine);
     }
-/*
-    public Medicine saveMedicine(Medicine medicine) {
-        return medicineRepository.save(medicine);
-    }*/
-
 
 
     public void deleteMedicine(Long id) {

@@ -61,13 +61,21 @@ public class HealthRecordController {
     // Lưu hoặc cập nhật hồ sơ sức khỏe
     @PostMapping("/save")
     public String saveRecord(@ModelAttribute("record") HealthRecord record,
-                             RedirectAttributes redirectAttributes) {
+                             RedirectAttributes redirectAttributes,
+                             Model model) {
 
         Student student = userService.findStudentById(record.getStudent().getId());
 
         if (!userService.getCurrentParent().getStudents().contains(student)) {
             redirectAttributes.addFlashAttribute("error", "Bạn không có quyền lưu hồ sơ cho học sinh này.");
             return "redirect:/parent/health-record/select-student";
+        }
+
+        // Ràng buộc thị lực (vision) phải từ 0 đến 10
+        if (record.getVision() < 0 || record.getVision() > 10) {
+            model.addAttribute("error", "Giá trị thị lực phải từ 0 đến 10.");
+            model.addAttribute("record", record);
+            return "parent/health_record_form";
         }
 
         record.setParent(userService.getCurrentParent());
