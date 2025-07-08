@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff0f5;
+    padding: 40px;
+    margin: 0;
+}
+
+/* ===== Tiêu đề ===== */
+h2 {
+    text-align: center;
+    color: #e91e63;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* ===== Thông báo lỗi ===== */
+.error-msg {
+    color: red;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* ===== Nhãn và input ===== */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+input {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+input:focus {
+    outline: none;
+    border-color: #e91e63;
+    box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.15);
+}
+
+/* ===== Nhóm nút ===== */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+button[type="submit"],
+.back-btn {
+    background: #e91e63;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+button[type="submit"]:hover,
+.back-btn:hover {
+    background: #d81b60;
+}
+.back-btn i {
+    margin-right: 6px;
+}
+form {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(233, 30, 99, 0.2);
+    box-sizing: border-box; /* QUAN TRỌNG */
+}
+
+input, label {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}

@@ -21,6 +21,10 @@ public class HealthCheckRecordDTO {
     private int visionResult ;
     @NotBlank(message = "Không được để trống kết quả đo thính giác")
     private String hearingResult;
+    private String bloodPressure ;
+    private int heartrate;
+    private double height;
+    private double weight;
     private String otherResult;
     private String assessment;
     private boolean needsConsultation = false;

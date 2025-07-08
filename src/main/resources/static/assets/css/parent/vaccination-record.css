@@ -1,0 +1,66 @@
+/* Đặt font và nền trang */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff0f5;
+    margin: 0;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Khung chính bao toàn bộ nội dung */
+.wrapper {
+    background: #ffffff;
+    padding: 40px 32px;
+    border-radius: 16px;
+    max-width: 720px;
+    width: 100%;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+h2.text-pink {
+    color: #e91e63;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+}
+
+/* Mục thông tin học sinh, y tá, ngày tiêm */
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+/* Khung thông tin sức khỏe */
+.health-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #e91e63;
+}
+
+.field-label {
+    font-weight: 600;
+    color: #e91e63;
+}
+
+.field-value {
+    color: #333;
+}
+
+/* Responsive mobile */
+@media (max-width: 576px) {
+    .wrapper {
+        padding: 24px 16px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+}

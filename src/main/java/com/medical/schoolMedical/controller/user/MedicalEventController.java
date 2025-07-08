@@ -42,6 +42,9 @@ public class MedicalEventController {
     @Autowired
     private MedicineUsedService medicineUsedService;
 
+    @Autowired
+    private StudentService studentService;
+
 
     // Danh sách sự kiện y tế
     @GetMapping
@@ -87,19 +90,32 @@ public class MedicalEventController {
     @PostMapping("/save")
     public String saveMedicalEvent(@ModelAttribute("eventDTO") MedicalEventDTO dto,
                                    @AuthenticationPrincipal CustomUserDetails currentUser,
-                                   RedirectAttributes redirectAttributes) {
-        // Tìm user và nurse đang login
-        SchoolNurse nurse = userService.findNurseByUsername(currentUser.getUsername());
-        User createdBy = userService.findByUsername(currentUser.getUsername());
+                                   RedirectAttributes redirectAttributes,
+                                   Model model) {
+        try {
+            // Tìm user và nurse đang login
+            SchoolNurse nurse = userService.findNurseByUsername(currentUser.getUsername());
+            User createdBy = userService.findByUsername(currentUser.getUsername());
 
-        // Chuyển từ DTO sang Entity đầy đủ
-        MedicalEvent event = medicalEventService.convertFromDto(dto, createdBy, nurse);
+            // Chuyển từ DTO sang Entity đầy đủ
+            MedicalEvent event = medicalEventService.convertFromDto(dto, createdBy, nurse);
 
-        // Lưu cả event và các thuốc/vật tư đi kèm
-        medicalEventService.saveMedicalEvent(event);
+            // Lưu cả event và các thuốc/vật tư đi kèm
+            medicalEventService.saveMedicalEvent(event);
 
-        redirectAttributes.addFlashAttribute("success", "Ghi nhận sự kiện thành công!");
-        return "redirect:/nurse/medical-events";
+            redirectAttributes.addFlashAttribute("success", "Ghi nhận sự kiện thành công!");
+            return "redirect:/nurse/medical-events";
+        } catch (IllegalArgumentException e) {
+            // Nếu xảy ra lỗi → trả lại form kèm lỗi và dữ liệu
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("eventDTO", dto);
+            model.addAttribute("students", studentService.getAllStudents());
+            model.addAttribute("medicines", medicineService.getAllMedicines());
+            model.addAttribute("supplies", medicalSupplyService.getAllMedicalSupplies());
+
+            return "nurse/create";  // Trả về lại giao diện form để sửa
+        }
+
     }
 
 
@@ -157,5 +173,18 @@ public class MedicalEventController {
     public ResponseEntity<List<MedicineUsedDTO>> getUsedMedicines(@PathVariable Long eventId) {
         return ResponseEntity.ok(medicineUsedService.getUsedMedicinesByEvent(eventId));
     }
+
+    @PostMapping("/delete/{id}")
+    public String deleteMedicalEvent(@PathVariable Long id,
+                                     RedirectAttributes redirectAttributes) {
+        try {
+            medicalEventService.deleteById(id);
+            redirectAttributes.addFlashAttribute("success", "Đã xóa sự kiện thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Không thể xóa sự kiện!");
+        }
+        return "redirect:/nurse/medical-events";
+    }
+
 
 }

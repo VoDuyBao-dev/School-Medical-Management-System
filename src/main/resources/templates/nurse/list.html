@@ -6,6 +6,13 @@
 </head>
 <body>
 <h2>Danh sách sự kiện y tế</h2>
+<div th:if="${success}" style="color: green;">
+    <p th:text="${success}"></p>
+</div>
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
 
 <a th:href="@{/nurse/medical-events/create}">
     <button>Ghi nhận sự kiện mới</button>
@@ -20,6 +27,7 @@
         <th>Vị trí</th>
         <th>Mô tả</th>
         <th>Chi tiết</th>
+        <th>Xóa</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +38,12 @@
         <td th:text="${event.location}"></td>
         <td th:text="${event.description}"></td>
         <td><a th:href="@{'/nurse/medical-events/' + ${event.id}}">Xem chi tiết sự kiện</a></td>
+        <td>
+            <form th:action="@{'/nurse/medical-events/delete/' + ${event.id}}" method="post"
+                  onsubmit="return confirm('Bạn có chắc muốn xóa sự kiện này không?');">
+                <button type="submit">Xóa</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

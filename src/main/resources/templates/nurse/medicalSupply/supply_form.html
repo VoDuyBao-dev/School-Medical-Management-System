@@ -1,41 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Thêm / Sửa Vật tư y tế</title>
-  <style>
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, select { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 16px; padding: 8px 16px; }
-    .form-container { max-width: 500px; margin: auto; }
-  </style>
+  <title th:text="${supply.id == null} ? 'Thêm vật tư y tế mới' : 'Cập nhật vật tư y tế'">Form Vật tư</title>
+
+  <!-- FontAwesome cho icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- CSS tuỳ chỉnh -->
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicalSupply/supply_form.css}">
 </head>
 <body>
+
 <div class="form-container">
+
+  <!-- Tiêu đề -->
   <h2 th:text="${supply.id == null} ? 'Thêm vật tư y tế mới' : 'Cập nhật vật tư y tế'"></h2>
+
   <!-- Thông báo lỗi -->
-  <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+  <p th:if="${error}" th:text="${error}" class="error-msg"></p>
 
-
-
-
-  <form th:action="@{/nurse/medical-supplies/save}" th:object="${supply}" method="post">
+  <!-- Form -->
+  <form th:action="@{/nurse/medical-supplies/save}" th:object="${supply}" method="post" id="supplyForm">
     <input type="hidden" th:field="*{id}" />
 
+    <!-- Tên vật tư -->
     <label for="name">Tên vật tư</label>
     <input type="text" id="name" th:field="*{name}" required />
 
-
+    <!-- Số lượng -->
     <label for="quantityInStock">Số lượng trong kho</label>
     <input type="number" id="quantityInStock" th:field="*{quantityInStock}" min="0" required />
 
-    <button type="submit">Lưu</button>
-    <a th:href="@{/nurse/medical-supplies}">
-      <button type="button">Quay lại danh sách</button>
-    </a>
-
+    <!-- Nút -->
+    <div class="button-group">
+      <button type="submit">Lưu</button>
+      <a th:href="@{/nurse/medical-supplies}" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Quay lại
+      </a>
+    </div>
   </form>
 
 </div>
+
+<!-- (Tùy chọn) JS kiểm tra -->
+<script th:src="@{/assets/js/nurse/medicalSupply/supply_form.js}"></script>
 </body>
 </html>

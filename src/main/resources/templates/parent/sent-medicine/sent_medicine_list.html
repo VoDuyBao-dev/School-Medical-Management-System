@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách thuốc đã gửi</title>
+</head>
+<body>
+<h2>Danh sách thuốc đã gửi</h2>
+
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Học sinh</th>
+    <th>Ngày gửi</th>
+    <th>Thuốc</th>
+    <th>Hướng dẫn sử dụng</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${#lists.isEmpty(sentList)}">
+    <td colspan="5">Không có bản ghi nào.</td>
+  </tr>
+  <tr th:each="medicine, iter : ${sentList}">
+    <td th:text="${iter.count}">1</td>
+    <td th:text="${medicine.student.fullName}">Tên học sinh</td>
+    <td th:text="${medicine.sentDate}">2025-07-06</td>
+    <td th:text="${medicine.medicineList}">Paracetamol</td>
+    <td th:text="${medicine.usageInstructions}">Uống sau ăn</td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/parent/parent-home}">
+  <button type="button">Quay lại trang chủ</button>
+</a>|
+<a th:href="@{/parent/sentMedicine/form}"><button type="button">Gửi thuốc cho học sinh</button></a>
+<br>
+
+</body>
+</html>

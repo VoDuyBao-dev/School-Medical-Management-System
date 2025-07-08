@@ -8,6 +8,7 @@ public enum ErrorCode {
     USERNAME_EXISTS("ERR003", "Tên đăng nhập đã tồn tại."),
     CONTAINS_WHITESPACE("ERR004", "Tên đăng nhập không được chứa khoảng trắng."),
     USER_NOT_EXISTS("ERR005", "Người dùng không tồn tại."),
+    USERNAME_NOT_FOUND("ERR006", "Người dùng không tồn tại"),
 
 //    INTERNAL_ERROR,
 //health check consent
@@ -24,7 +25,10 @@ public enum ErrorCode {
 //Lỗi tìm kiếm role:
     PARENT_NOT_EXISTS("ERR056", "Parent không tồn tại."),
 
-//    Lỗi health check schedule
+    // Lỗi phía student
+    STUDENT_NOT_FOUND("ERR057", "Học sinh không tồn tại."),
+
+    //    Lỗi health check schedule
     SAVE_HEALTH_CHECK_SCHEDULE_FAILED("ERR058", "Lưu lịch kiểm tra sức khỏe thất bại."),
     HEALTH_CHECK_SCHEDULE_NOT_EXISTS("ERR059", "lịch kiểm tra sức khỏe không tồn tại."),
     // Lỗi hệ thống
@@ -36,13 +40,32 @@ public enum ErrorCode {
     SAVE_VACCINATION_CONSENT_FAILED("ERR062", "Lưu phiếu xác nhận tiêm chủng thất bại."),
     SAVE_VACCINATION_RECORD_FAILED("ERR063", "Lưu kết quả sau tiêm chủng thất bại."),
     VACCINATION_RECORD_NOT_EXISTS("ERR064", "Bản ghi kết quả tiêm chủng không tồn tại."),
+    VACCINATION_SCHEDULE_NOT_EXISTS("ERR059", "lịch tiêm chủng không tồn tại."),
 
 //    lỗi của student
     STUDENT_NOT_EXISTS("ERR065", "Học sinh không tồn tại."),
 
 // lỗi CONSULTATION_APPOINTMENT
     SAVE_CONSULTATION_APPOINTMENT_FAILED("ERR066", "Lưu lịch hẹn tư vấn thất bại."),
-    CONSULTATION_APPOINTMENT_NOT_EXISTS("ERR067", "lịch hẹn tư vấn không tồn tại.");
+    CONSULTATION_APPOINTMENT_NOT_EXISTS("ERR067", "lịch hẹn tư vấn không tồn tại."),
+
+
+
+    // Lỗi ở medicine
+
+    MEDICAL_SUPPLY_NOT_FOUND("ERR070", "Vật tư y tế không tồn tại."),
+    MEDICINE_NOT_FOUND("ERR071", "Thuốc không tồn tại."),
+
+    MEDICAL_EVENT_NOT_FOUND("ERR072", "Sự kiện y tế không tồn tại."),
+
+
+    // Hồ sơ sức khỏe
+    HEALTH_RECORD_NOT_FOUND("ERR073", "Không tìm thấy hồ sơ sức khỏe."),
+
+    SENT_MEDICINE_NOT_FOUND("ERR075", "Không tìm thấy bản ghi gửi thuốc.");
+
+
+
 
 
 

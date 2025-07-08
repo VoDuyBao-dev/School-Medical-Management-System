@@ -1,6 +1,8 @@
 package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.entities.User;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.repositories.UserRepository;
 import com.medical.schoolMedical.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
 
         if(user == null) {
-            throw new UsernameNotFoundException("Không tìm thấy người dùng: " + username);
+            throw new BusinessException(ErrorCode.STUDENT_NOT_FOUND);
         }
 
         return new CustomUserDetails(user);

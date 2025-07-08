@@ -44,6 +44,9 @@ public class VaccinationSchedule {
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
+    @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean sentToParent = false;
+
 
 }
 

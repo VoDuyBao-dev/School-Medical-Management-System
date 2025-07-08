@@ -1,0 +1,41 @@
+/* Nền hồng nhẹ */
+.bg-pink { background: #fff0f5; }
+
+/* Khung trắng */
+.schedule-card {
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+
+/* Màu hồng chủ đạo */
+.text-pink { color:#e91e63; }
+.btn-pink {
+    background:#e91e63;
+    color:#fff;
+    border:none;
+    padding:8px 20px;
+    font-weight:600;
+    border-radius:6px;
+    transition:.3s;
+}
+.btn-pink:hover { background:#d81b60; }
+
+.btn-outline-pink {
+    color:#e91e63;
+    border:1px solid #e91e63;
+    font-weight:500;
+    transition:.3s;
+}
+.btn-outline-pink:hover {
+    background:#e91e63;
+    color:#fff;
+}
+
+/* Header bảng */
+.table-pink { background:#e91e63 !important; }
+
+/* Giãn dòng, kẻ nhẹ */
+table tr { border-bottom:1px solid #eee; }
+table tr:last-child { border:none; }
+table tr:hover { background:#fff5f9; }

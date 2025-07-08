@@ -76,9 +76,9 @@ public class SignupController {
         return "redirect:/admin/manage-users";
     }*/
 
-        @PostMapping("/add-user")
-        public String addUser(@ModelAttribute ("user") @Valid UserDTO user,
-                             BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping("/add-user")
+    public String addUser(@ModelAttribute ("user") @Valid UserDTO user,
+                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
             if(bindingResult.hasErrors()){
                 return "admin/add-user";

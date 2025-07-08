@@ -14,17 +14,49 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,  makeFinal = true)
 public class ParentService {
 
     ParentRepositoty parentRepositoty;
-    UserMapper userMapper;
     ParentMapper parentMapper;
 
     public ParentDTO getParentbyId(Long userId) {
         Parent parent = parentRepositoty.findByUser_Id(userId).orElseThrow(() -> new BusinessException(ErrorCode.PARENT_NOT_EXISTS));
         return parentMapper.toParentDTO(parent);
     }
+
+    // Lấy parent bằng userId
+    public Parent getByUserId(Long userId) {
+        return parentRepositoty.findByUser_Id(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PARENT_NOT_EXISTS));
+    }
+
+    // Lấy parent bằng username
+    public Parent getByUsername(String username) {
+        return parentRepositoty.findByUser_Username(username)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PARENT_NOT_EXISTS));
+    }
+
+    /*// Lấy parent bằng userId
+    public Parent getByUserId(Long userId) {
+        return parentRepositoty.findByUser_Id(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PARENT_USERID_NOT_FOUND));
+    }
+
+    // Lấy parent bằng username
+    public Parent getByUsername(String username) {
+        return parentRepositoty.findByUser_Username(username)
+                .orElseThrow(() -> new BusinessException(ErrorCode.PARENT_USERNAME_NOT_FOUND));
+    }*/
+
+
+    //lấy danh sách parent
+    public List<Parent> getAllParents() {
+        return parentRepositoty.findAll();
+    }
+
 }

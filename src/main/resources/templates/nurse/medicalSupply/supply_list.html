@@ -1,55 +1,92 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Danh sách vật tư y tế</title>
-  <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        border: 1px solid #ccc;
-        padding: 10px;
-    }
-    th {
-        background-color: #eee;
-    }
-  </style>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- CSS tuỳ chỉnh -->
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicalSupply/supply_list.css}">
 </head>
 <body>
-<h2>Danh sách vật tư y tế</h2>
 
-<button><a th:href="@{/nurse/medical-supplies/new}">Thêm vật tư</a></button>
+  <div class="alert-container position-relative">
+    <p th:if="${success}" th:text="${success}" class="alert alert-success position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+    <p th:if="${error}" th:text="${error}" class="alert alert-danger position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+  </div>
 
-<table>
-  <thead>
-  <tr>
-    <th>STT</th>
-    <th>Tên vật tư</th>
-    <th>Số lượng</th>
-    <th>Thao tác</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="supply, iterStat : ${supplyList}">
-    <td th:text="${iterStat.index + 1}"></td>
-    <td th:text="${supply.name}"></td>
-    <td th:text="${supply.quantityInStock}"
-        th:classappend="${supply.quantityInStock < 10} ? 'danger' : ''">
-    </td>
-    <td>
-      <a th:href="@{'/nurse/medical-supplies/edit/' + ${supply.id}}" class="button"><button>Sửa</button></a> |
-      <a th:href="@{'/nurse/medical-supplies/delete/' + ${supply.id}}"
-         onclick="return confirm('Bạn có chắc muốn xóa vật tư này?')" class="button danger"><button>Xóa</button></a>
-    </td>
+<div class="container py-5">
+  <!-- Tiêu đề -->
+  <h3 class="text-center text-uppercase fw-bold text-pink mb-4">
+    Danh sách vật tư y tế
+  </h3>
 
-  </tr>
-  </tbody>
-</table>
-<a th:href="@{/nurse/nurse-home}">
-  <button type="button">Quay lại</button>
-</a>
+  <!-- Header: Quay lại – Tìm kiếm – Thêm vật tư -->
+  <div class="row align-items-center mb-4">
+    <div class="col-4">
+      <a th:href="@{/nurse/nurse-home}"
+         class="btn btn-outline-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i> Quay lại
+      </a>
+    </div>
+
+    <div class="col-4 text-center">
+      <div class="search-box position-relative mx-auto">
+        <input type="text" id="searchInput"
+               class="form-control ps-5 rounded-pill"
+               placeholder="Tìm theo tên vật tư…">
+        <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+      </div>
+    </div>
+
+    <div class="col-4 text-end">
+      <a th:href="@{/nurse/medical-supplies/new}"
+         class="btn btn-pink rounded-pill">
+        <i class="fas fa-plus me-1"></i> Thêm vật tư
+      </a>
+    </div>
+  </div>
+
+  <!-- Bảng -->
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead class="table-pink">
+      <tr>
+        <th>STT</th>
+        <th>Tên vật tư</th>
+        <th>Số lượng</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody id="supplyTable">
+      <tr th:each="supply, iterStat : ${supplyList}">
+        <td th:text="${iterStat.index + 1}">1</td>
+        <td th:text="${supply.name}">Gạc y tế</td>
+        <td th:text="${supply.quantityInStock}"
+            th:classappend="${supply.quantityInStock < 10} ? 'danger' : ''">5</td>
+        <td>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{'/nurse/medical-supplies/edit/' + ${supply.id}}"
+               class="btn btn-sm btn-outline-pink">
+              <i class="fas fa-pen"></i> Sửa
+            </a>
+            <a th:href="@{'/nurse/medical-supplies/delete/' + ${supply.id}}"
+               onclick="return confirm('Bạn có chắc muốn xóa vật tư này?')"
+               class="btn btn-sm btn-outline-danger">
+              <i class="fas fa-trash"></i> Xóa
+            </a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- JS -->
+<script th:src="@{/assets/js/nurse/medicalSupply/supply_list.js}"></script>
 </body>
 </html>

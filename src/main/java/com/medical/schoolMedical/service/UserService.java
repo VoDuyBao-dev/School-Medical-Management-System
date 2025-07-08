@@ -238,7 +238,7 @@ public class UserService {
         String username = auth.getName();  // hoặc username nếu không dùng email
 
         return parentRepositoty.findByUser_Username(username)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy phụ huynh với username: " + username));
+                .orElseThrow(() -> new BusinessException(ErrorCode.PARENT_NOT_EXISTS));
     }
 
 

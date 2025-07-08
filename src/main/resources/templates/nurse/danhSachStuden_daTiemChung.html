@@ -2,87 +2,29 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>danh sách hs đã tiêm chủng</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f8f9fa;
-            padding: 30px;
-        }
+    <title>Danh sách học sinh đã tiêm chủng</title>
 
-        h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #dee2e6;
-            text-align: left;
-        }
-
-        th {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .no-data {
-            text-align: center;
-            font-style: italic;
-            color: #888;
-            padding: 20px;
-        }
-
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .pagination a {
-            margin: 0 5px;
-            padding: 8px 12px;
-            background-color: #17a2b8;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .pagination a.current {
-            background-color: #138496;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/nurse/vaccination-list.css}">
 </head>
 <body>
 
 <h2>Danh sách học sinh đã được tiêm chủng và ghi nhận kết quả</h2>
-<a th:href="@{/nurse/vaccinationConsent/list-student-vaccination(vaccinatonScheduleId=${idSchedule})}"
-   style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white;
-          text-decoration: none; border-radius: 5px;">
+
+<a th:href="@{/nurse/vaccinationConsent/list-student-vaccination(vaccinatonScheduleId=${idSchedule})}" class="link-button">
     → Xem danh sách học sinh chưa được tiêm
 </a>
-<!--Thành công và thất bại của sửa check health record-->
-<div th:if="${success}" class="alert-success" style="color: green;">
+
+<div th:if="${success}" class="alert-success">
     <p th:text="${success}"></p>
 </div>
-<div th:if="${error}" class="error" style="color: red;">
+<div th:if="${error}" class="alert-error">
     <p th:text="${error}"></p>
 </div>
-<div th:if="${notification}" class="notification" style="color: orange;">
+<div th:if="${notification}" class="alert-warning">
     <p th:text="${notification}"></p>
 </div>
-<h3>thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span> </h3>
+
+
 <form th:action="@{/nurse/vaccinationRecord/sendRecordsToParents}" method="post">
     <table>
         <thead>
@@ -91,9 +33,13 @@
             <th>Lớp</th>
             <th>Ngày sinh</th>
             <th>Giới tính</th>
-            <th>Địa chỉ</th>
             <th>Thao tác</th>
-            <th><input type="checkbox" id="selectAll"/></th>
+            <th>
+                <label style="display: flex; align-items: center; gap: 6px;">
+                    <input type="checkbox" id="selectAll"/>
+                    <span>Chọn tất cả</span>
+                </label>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -105,42 +51,32 @@
             <td>
                 <a th:href="@{/nurse/vaccinationRecord/updateForm(vaccinatonScheduleId=${idSchedule},
                vaccinatonConsentId=${consent.id})}"
-
-                   class="btn">Sửa kết quả khám</a>
+                   class="btn-edit">Sửa kết quả khám</a>
             </td>
             <td>
                 <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>
             </td>
         </tr>
-
         <tr th:if="${#lists.isEmpty(consentPage.content)}">
-            <td colspan="4" class="no-data">Chưa có học sinh nào được ghi nhận kết quả khám.</td>
+            <td colspan="6" class="no-data">Chưa có học sinh nào được ghi nhận kết quả khám.</td>
         </tr>
         </tbody>
     </table>
+
     <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
-    <!-- Nút gửi -->
-    <div style="margin-top: 20px; text-align: right;">
-        <button type="submit"
-                style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
-            Gửi kết quả đến phụ huynh
-        </button>
+
+    <div class="send-button">
+        <button type="submit">Gửi kết quả đến phụ huynh</button>
     </div>
 </form>
 
-<!-- Phân trang -->
 <div class="pagination" th:if="${totalPages > 0}">
     <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
        th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule}, page=${i})}"
        th:text="${i + 1}"
        th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>
-
-<script>
-    document.getElementById('selectAll').addEventListener('change', function () {
-        const checkboxes = document.querySelectorAll('.studentCheckbox');
-        checkboxes.forEach(cb => cb.checked = this.checked);
-    });
-</script>
+<div id="toast-container" class="toast-container"></div>
+<script th:src="@{/assets/js/nurse/vaccination-list.js}"></script>
 </body>
 </html>

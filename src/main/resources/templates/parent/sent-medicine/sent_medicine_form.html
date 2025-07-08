@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gửi thuốc cho học sinh</title>
+</head>
+<body>
+<h2>Gửi thuốc cho học sinh</h2>
+
+
+<form th:action="@{/parent/sentMedicine/submit}" method="post" th:object="${sentMedicineDTO}">
+  <label for="student">Chọn học sinh:</label>
+  <select th:field="*{studentId}" id="student" required>
+    <option th:each="s : ${studentList}" th:value="${s.id}" th:text="${s.fullName}">Chọn học sinh</option>
+  </select>
+  <br><br>
+
+  <label for="medicineList">Danh sách thuốc:</label><br>
+  <textarea th:field="*{medicineList}" id="medicineList" rows="3" required></textarea>
+  <br><br>
+
+  <label for="usageInstructions">Hướng dẫn sử dụng:</label><br>
+  <textarea th:field="*{usageInstructions}" id="usageInstructions" rows="4" required></textarea>
+  <br><br>
+
+  <button type="submit">Gửi thuốc</button>
+</form>
+<a th:href="@{/parent/sentMedicine/list}"><button type="button">Hủy</button></a>
+<br>
+</body>
+</html>

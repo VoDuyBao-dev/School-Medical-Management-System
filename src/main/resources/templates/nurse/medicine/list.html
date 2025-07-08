@@ -1,61 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Danh sách thuốc trong kho</title>
-  <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-    th, td {
-        border: 1px solid #ccc;
-        padding: 10px;
-    }
-    th {
-        background-color: #eee;
-    }
-
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/list.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<h2>Danh sách thuốc trong kho</h2>
 
-<button><a th:href="@{/nurse/medicines/new}">Thêm thuốc mới</a></button>
+  <div class="alert-container position-relative">
+    <p th:if="${success}" th:text="${success}" class="alert alert-success position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+    <p th:if="${error}" th:text="${error}" class="alert alert-danger position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+  </div>
 
-<p th:if="${success}" th:text="${success}" style="color: green;"></p>
+<div class="container py-5">
+  <h3 class="fw-bold text-center text-uppercase text-pink mb-4">Danh sách thuốc trong kho</h3>
 
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Tên thuốc</th>
-    <th>Đơn vị</th>
-    <th>Số lượng</th>
-    <th>Ngày nhập</th>
-    <th>Hạn sử dụng</th>
-    <th>Thao tác</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="medicine : ${medicines}">
-    <td th:text="${medicine.id}"></td>
-    <td th:text="${medicine.name}"></td>
-    <td th:text="${medicine.unit}"></td>
-    <td th:text="${medicine.quantityInStock}"></td>
-    <td th:text="${medicine.entryDate}"></td>
-    <td th:text="${medicine.expiryDate}"></td>
-    <td>
-      <a th:href="@{'/nurse/medicines/edit/' + ${medicine.id}}"><button>Sửa</button></a> |
-      <a th:href="@{'/nurse/medicines/delete/' + ${medicine.id}}"
-         onclick="return confirm('Bạn có chắc chắn muốn xóa?')"><button>Xóa</button></a>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<a th:href="@{/nurse/nurse-home}">
-  <button type="button">Quay lại</button>
-</a>
+  <!-- layout 3 cột -->
+  <div class="row align-items-center mb-4">
+    <div class="col-4">
+      <a th:href="@{/nurse/nurse-home}" class="btn btn-outline-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i> Quay lại
+      </a>
+    </div>
+
+    <div class="col-4 text-center">
+      <div class="search-box position-relative mx-auto" style="max-width: 320px;">
+        <input type="text" id="searchInput" class="form-control ps-5 rounded-pill" placeholder="Tìm theo tên thuốc...">
+        <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+      </div>
+    </div>
+
+    <div class="col-4 text-end">
+      <a th:href="@{/nurse/medicines/new}" class="btn btn-pink rounded-pill">
+        <i class="fas fa-plus me-1"></i> Thêm thuốc mới
+      </a>
+    </div>
+  </div>
+
+  <div class="table-responsive mt-2">
+    <table class="table table-bordered align-middle text-center">
+      <thead class="table-pink">
+      <tr>
+        <th>STT</th>
+        <th>Tên thuốc</th>
+        <th>Đơn vị</th>
+        <th>Số lượng</th>
+        <th>Ngày nhập</th>
+        <th>Hạn sử dụng</th>
+        <th>Thao tác</th>
+      </tr>
+      </thead>
+      <tbody id="medicineTable">
+      <tr th:if="${#lists.isEmpty(medicines)}">
+        <td colspan="7">Không có bản ghi nào.</td>
+      </tr>
+      <tr th:each="medicine, iterStat : ${medicines}">
+        <td th:text="${iterStat.count}">1</td>
+        <td th:text="${medicine.name}"></td>
+        <td th:text="${medicine.unit}"></td>
+        <td th:text="${medicine.quantityInStock}"></td>
+        <td th:text="${medicine.entryDate}"></td>
+        <td th:text="${medicine.expiryDate}"></td>
+        <td>
+          <div class="d-flex justify-content-center gap-2">
+            <a th:href="@{'/nurse/medicines/edit/' + ${medicine.id}}"
+               class="btn btn-sm btn-outline-pink">
+              <i class="fas fa-pen"></i> Sửa
+            </a>
+            <a th:href="@{'/nurse/medicines/delete/' + ${medicine.id}}"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
+               class="btn btn-sm btn-outline-danger">
+              <i class="fas fa-trash"></i> Xóa
+            </a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script th:src="@{/assets/js/nurse/medicine/list.js}"></script>
 </body>
 </html>
+
+
+

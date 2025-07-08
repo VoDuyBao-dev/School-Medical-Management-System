@@ -36,7 +36,10 @@
         <a th:href="@{/nurse/vaccinationSchedule}">trang tạo lịch tiêm chủng</a>
     </div>
     <div>
-        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules}">trang các vaccination schedule đã gửi</a>
+        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/drafts}">trang các vaccination schedule đã tạo nhưng chưa gửi đến parent</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/sent}">trang các vaccination schedule đã gửi</a>
     </div>
 
     <div>
@@ -59,6 +62,8 @@
     <a th:href="@{/nurse/medicines} "><button type="button">Quản lý Thuốc</button></a>
     <br>
     <a th:href="@{/nurse/medical-supplies} "><button type="button">Quản lý Vật tư y tế</button></a>
+    <br>
+    <a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Danh sách thuốc phụ huynh đã gửi</button></a>
     <br>
     <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
 

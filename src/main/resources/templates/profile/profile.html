@@ -15,7 +15,7 @@
 
 <h2>HỒ SƠ TÀI KHOẢN</h2>
 <p><strong>Tên đăng nhập:</strong> <span th:text="${user.username}"></span></p>
-<p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>
+<!--<p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>-->
 <p><strong>Ngày tạo tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
 
 <hr>
@@ -29,22 +29,26 @@
 <!-- Nếu là PARENT -->
 <div th:if="${user.role.name() == 'PARENT'}">
     <h3>Thông tin Phụ huynh</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName}"></span></p>
-    <p><strong>Số điện thoại:</strong> <span th:text="${info.phoneNumber}"></span></p>
-    <p><strong>Địa chỉ:</strong> <span th:text="${info.address}"></span></p>
+    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
+    <p><strong>Số điện thoại:</strong> <span th:text="${info.phoneNumber} ?: 'Chưa cập nhật'"></span></p>
+    <p><strong>Địa chỉ:</strong> <span th:text="${info.address} ?: 'Chưa cập nhật'"></span></p>
+
 </div>
 
 <!-- Nếu là MANAGER -->
 <div th:if="${user.role.name() == 'MANAGER'}">
     <h3>Thông tin Quản lý</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName}"></span></p>
+    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
+
 </div>
 
 <!-- Nếu là SCHOOL_NURSE -->
 <div th:if="${user.role.name() == 'NURSE'}">
     <h3>Thông tin Nhân viên y tế</h3>
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName}"></span></p>
-    <p><strong>Kinh nghiệm:</strong> <span th:text="${info.experience}"></span></p>
+
+    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
+    <p><strong>Kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></p>
+
 </div>
 
 <hr>

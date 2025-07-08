@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử sử dụng thuốc</title>
+</head>
+<body>
+<h2>Lịch sử các liều thuốc đã cho học sinh uống</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Học sinh</th>
+        <th>Thuốc</th>
+        <th>Liều dùng</th>
+        <th>Thời gian</th>
+        <th>Y tá</th>
+        <th>Ghi chú</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usage, iter : ${usageList}">
+        <td th:text="${iter.count}">1</td>
+        <td th:text="${usage.sentMedicine.student.fullName}">Nguyễn Văn A</td>
+        <td th:text="${usage.medicineName}">Paracetamol</td>
+        <td th:text="${usage.dosage}">1 viên</td>
+        <td th:text="${usage.usageTime}">2025-07-06</td>
+        <td th:text="${usage.schoolNurse.fullName}">Y tá A</td>
+        <td th:text="${usage.notes}">Không phản ứng phụ</td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Quay lại</button></a>
+<br>
+</body>
+</html>

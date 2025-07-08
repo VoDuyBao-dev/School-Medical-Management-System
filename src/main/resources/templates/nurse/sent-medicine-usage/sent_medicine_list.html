@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Thuốc phụ huynh đã gửi</title>
+</head>
+<body>
+<h2>Danh sách thuốc phụ huynh đã gửi</h2>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Học sinh</th>
+    <th>Ngày gửi</th>
+    <th>Danh sách thuốc</th>
+    <th>Hướng dẫn sử dụng</th>
+    <th>Thao tác</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${#lists.isEmpty(sentList)}">
+    <td colspan="6">Không có bản ghi nào.</td>
+  </tr>
+  <tr th:each="medicine, iter : ${sentList}">
+    <td th:text="${iter.count}">1</td>
+    <td th:text="${medicine.student.fullName}">Nguyễn Văn A</td>
+    <td th:text="${medicine.sentDate}">2025-07-06</td>
+    <td th:text="${medicine.medicineList}">Paracetamol</td>
+    <td th:text="${medicine.usageInstructions}">Uống sau ăn</td>
+    <td>
+      <a th:href="@{'/nurse/sentMedicineUsage/use/' + ${medicine.id}}">Ghi nhận liều dùng</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/nurse/sentMedicineUsage/usage-history} "><button type="button">Lịch sử sử dụng thuốc</button></a>
+<br>
+<a th:href="@{/nurse/nurse-home}">
+  <button type="button">Quay lại</button>
+</a>
+
+</body>
+</html>

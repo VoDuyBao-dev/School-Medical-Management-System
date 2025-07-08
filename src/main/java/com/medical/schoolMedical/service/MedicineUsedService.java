@@ -4,6 +4,8 @@ import com.medical.schoolMedical.dto.MedicineUsedDTO;
 import com.medical.schoolMedical.entities.MedicalEvent;
 import com.medical.schoolMedical.entities.Medicine;
 import com.medical.schoolMedical.entities.MedicineUsed;
+import com.medical.schoolMedical.exceptions.BusinessException;
+import com.medical.schoolMedical.exceptions.ErrorCode;
 import com.medical.schoolMedical.mapper.MedicineUsedMapper;
 import com.medical.schoolMedical.repositories.MedicalEventRepository;
 import com.medical.schoolMedical.repositories.MedicineRepository;
@@ -23,14 +25,14 @@ public class MedicineUsedService {
 
     public void useMedicine(Long eventId, Long medicineId, int quantity, String note) {
         Medicine medicine = medicineRepository.findById(medicineId)
-                .orElseThrow(() -> new RuntimeException("Thuốc không tồn tại"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEDICINE_NOT_FOUND));
 
         if (medicine.getQuantityInStock() < quantity) {
             throw new RuntimeException("Không đủ thuốc");
         }
 
         MedicalEvent event = medicalEventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Sự kiện y tế không tồn tại"));
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEDICAL_EVENT_NOT_FOUND));
 
         // Trừ thuốc
         medicine.setQuantityInStock(medicine.getQuantityInStock() - quantity);
