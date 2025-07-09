@@ -56,10 +56,11 @@
             <td>
                 <a th:href="@{/nurse/vaccinationRecord/updateForm(vaccinatonScheduleId=${idSchedule},
                vaccinatonConsentId=${consent.id})}"
+                   th:classappend="${consent.sentToParent} ? ' disabled' : ''"
                    class="btn-edit">Sửa kết quả khám</a>
             </td>
             <td>
-                <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>
+                <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox" th:if="${!consent.sentToParent}"/>
             </td>
         </tr>
         <tr th:if="${#lists.isEmpty(consentPage.content)}">

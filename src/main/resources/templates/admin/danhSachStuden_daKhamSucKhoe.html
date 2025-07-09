@@ -24,6 +24,7 @@
         <button class="clear-btn" id="clearSearch" aria-label="Xóa tìm kiếm">×</button>
     </div>
     <a th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule})}" class="action-link">→ Xem danh sách học sinh chưa được khám</a>
+    <a th:href="@{/nurse/healthCheckConsent/list-student-health-check/checked-health/needsConsultation(idSchedule=${idSchedule})}" class="action-link">→ Xem danh sách học sinh cần tạo lịch tư vấn sức khỏe</a>
 <!--Thành công và thất bại của sửa check health record-->
 <div th:if="${success}" class="alert-success" style="color: green;">
     <p th:text="${success}"></p>
@@ -45,6 +46,9 @@
                 <th>Ngày Sinh</th>
                 <th>Giới Tính</th>
                 <th>Thao Tác</th>
+                <th>
+                    <input type="checkbox" id="selectAllCheckbox" aria-label="Chọn tất cả">
+                </th>
             </tr>
             </thead>
         <tbody>
@@ -60,12 +64,16 @@
             <td>
                 <a th:href="@{/nurse/healthCheckRecord/updateForm(idSchedule=${idSchedule},
                    idConsent=${consent.id})}"
-
+                   th:classappend="${consent.sentToParent} ? ' disabled' : ''"
                    class="btn">Sửa kết quả khám</a>
+                <a th:href="@{/nurse/healthCheckRecord/viewHealthCheckRecord(idSchedule=${idSchedule},
+                   idConsent=${consent.id})}"
+                   class="btn">Xem kết quả khám</a>
             </td>
             <td>
-                <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox"/>
+                <input type="checkbox" name="selectedRecordIds" th:value="${consent.id}" class="studentCheckbox" th:if="${!consent.sentToParent}"/>
             </td>
+
         </tr>
 
         <tr th:if="${#lists.isEmpty(consentPage.content)}">
@@ -94,5 +102,15 @@
 <div th:replace="fragments/footer :: footer"></div>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
 <script th:src="@{/assets/js/nurse/HSCheckLichKham.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+        const checkboxes = document.querySelectorAll(".studentCheckbox");
+
+        selectAllCheckbox.addEventListener("change", function() {
+            checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+        });
+    });
+</script>
 </body>
 </html>

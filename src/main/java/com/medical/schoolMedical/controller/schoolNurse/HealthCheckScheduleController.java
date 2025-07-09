@@ -108,7 +108,7 @@ public class HealthCheckScheduleController {
 //                    Gửi lịch đến phụ huynh:
             healthCheckConsentService.sendCheckSchedule_toParent(healthCheckScheduleDTO);
             redirectAttributes.addFlashAttribute("success", "Gửi lịch khám sức khỏe đến parent thành công");
-            return "redirect:/nurse/nurse-home";
+            return "redirect:/nurse/healthCheckSchedule/healthCheckSchedules/drafts";
         }catch (BusinessException e){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
             return "redirect:/nurse/nurse-home";

@@ -39,7 +39,7 @@ public class HealthCheckRecord {
     private String bloodPressure ;
 
     @Column(name = "heartrate")
-    private int heartrate;
+    private int heartRate;
 
     @Column(name = "height")
     private double height;

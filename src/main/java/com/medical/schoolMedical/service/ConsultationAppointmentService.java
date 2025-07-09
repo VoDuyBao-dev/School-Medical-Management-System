@@ -2,6 +2,7 @@ package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.dto.ConsultationAppointmentDTO;
 import com.medical.schoolMedical.entities.ConsultationAppointment;
+import com.medical.schoolMedical.entities.HealthCheckConsent;
 import com.medical.schoolMedical.entities.SchoolNurse;
 import com.medical.schoolMedical.entities.Student;
 import com.medical.schoolMedical.enums.ConsentStatus;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -161,6 +164,21 @@ public class ConsultationAppointmentService {
         }catch (Exception e){
             throw new BusinessException(ErrorCode.SAVE_CONSULTATION_APPOINTMENT_FAILED);
         }
+
+    }
+
+    //    Hàm tự động cập nhật trạng thái lịch hẹn hết hạn nếu quá ngày
+
+    public void update_SurveyExpired_Appointment() {
+        List<ConsultationAppointment> unconfirms = consultationAppointmentRepository.findByStatus(ConsentStatus.UNCONFIRMED);
+        List<ConsultationAppointment> toUpdate = new ArrayList<>();
+        for(ConsultationAppointment consultationAppointment : unconfirms){
+            if(consultationAppointment.getScheduledTime().isBefore(LocalDateTime.now())){
+                consultationAppointment.setStatus(ConsentStatus.OVERDUE);
+                toUpdate.add(consultationAppointment);
+            }
+        }
+        consultationAppointmentRepository.saveAll(toUpdate);
 
     }
 

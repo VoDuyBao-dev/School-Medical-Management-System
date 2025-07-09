@@ -174,3 +174,8 @@ th label {
 .toast-success{background:#4caf50;}
 .toast-error  {background:#f44336;}
 
+a.disabled {
+    pointer-events: none;
+    opacity: 0.6; /* cho mờ đi */
+    cursor: not-allowed;
+}

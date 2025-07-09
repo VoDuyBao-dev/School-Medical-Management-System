@@ -238,11 +238,32 @@ public class HealthCheckConsentService {
         return  healthCheck;
     }
 
-//    Lấy health check consent theo id
-//    public HealthCheckConsentDTO getHealthCheckConsentByID(Long id) {
-//        HealthCheckConsent result = healthCheckConsentRepository.findById(id)
-//                .orElseThrow(()-> new BusinessException(ErrorCode.HEALTH_CHECK_CONSENT_NOT_FOUND,
-//                        "Không tìm thấy bản ghi phù hợp của khảo sát khám sức khỏe có id " + id));
-//        return healthCheckConsentMapper.toHealthCheckConsentDTO(result);
-//    }
+    //    Lấy toàn bộ học sinh đã được accepted theo ngày kiểm tra sức khỏe đã khám và cần đặt lịch tư vấn sức khỏe
+    public Page<HealthCheckConsentDTO> getStudentsHealthCheck_needsConsultation(Long scheduleId, int page, boolean is_checked_health) {
+
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+
+//        Lấy lịch phù hợp với scheduleId
+        HealthCheckSchedule schedule =  null;
+        try{
+            HealthCheckScheduleDTO scheduleDTO = healthCheckScheduleService.getHealthCheckScheduleById(scheduleId);
+            schedule = healthCheckScheduleMapper.toHealthCheckSchedule(scheduleDTO);
+        }catch (BusinessException e){
+            throw new BusinessException(e.getErrorCode());
+        }
+        log.info("schedule in getStudentsHealthCheck_needsConsultation: {}", schedule);
+
+
+//        Lấy danh sách student theo consent, dùng consent để truy suất student tương ứng
+        Page<HealthCheckConsent> listConsent = healthCheckConsentRepository
+                .findByScheduleStatusCheckStateWithConsultation(schedule, ConsentStatus.ACCEPTED,is_checked_health, pageable);
+
+        log.info("listConsent in getStudentsHealthCheck: {}", listConsent.getContent());
+
+//        CHuyển qua Page<HealthCheckConsentDTO>
+        Page<HealthCheckConsentDTO> consentDTOPage = listConsent.map(healthCheckConsentMapper::toDTO);
+        return consentDTOPage;
+    }
+
 }
+

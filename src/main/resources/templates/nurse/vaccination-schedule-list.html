@@ -27,6 +27,14 @@
             <a th:href="@{/nurse/vaccinationSchedule}" class="btn btn-pink">Tạo lịch tiêm chủng</a>
         </div>
 
+        <div class="d-flex justify-content-end mb-3">
+            <a th:href="@{/nurse/nurse-home}" class="btn btn-pink">Quay lại</a>
+        </div>
+
+        <div th:if="${success}" class="send_parent">
+            <p th:text="${success}"></p>
+        </div>
+
         <!-- Bảng danh sách -->
         <div class="table-responsive">
             <table class="table align-middle mb-0">

@@ -60,4 +60,12 @@ public class StudentService {
 
         studentRepository.save(student);
     }
+
+    public StudentDTO getStudentById_DTO(Long id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.STUDENT_NOT_FOUND));
+
+        return studentMapper.toStudentDTO(student);
+
+    }
 }
