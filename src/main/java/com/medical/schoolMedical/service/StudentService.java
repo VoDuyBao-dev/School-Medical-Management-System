@@ -35,8 +35,6 @@ public class StudentService {
         return studentMapper.toStudentDTOs(studentRepository.findAll());
     }
 
-
-
     public List<Student> getByParentId(Long parentId) {
         return studentRepository.findByParent_Id(parentId);
     }

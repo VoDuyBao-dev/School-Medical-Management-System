@@ -1,4 +1,4 @@
-<header class="header" th:fragment="Header">
+<header class="header" th:fragment="Header" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="logo">School Medical</div>
     <div class="search-bar">
         <label>
@@ -10,12 +10,17 @@
         <div class="hotline"><i class="fas fa-phone"></i> Hotline: 1900 6750</div>
     </div>
     <div class="user">
-        <!--        <button class="login-btn">Đăng nhập</button>-->
-        <i class="fas fa-user" id="userIcon"></i>
-        <p>Xin Chào, !</p>
-        <div class="dropdown-user" id="dropdownUser">
-            <a th:href="@{/}">Thông tin cá nhân</a>
-            <a th:href="@{/}">Đăng xuất</a>
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" class="login-btn">Đăng nhập</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <i class="fas fa-user" id="userIcon"></i>
+            <p>Xin chào, <span sec:authentication="name"></span>!</p>
+            <div class="dropdown-user" id="dropdownUser">
+                <a th:href="@{/profile}">Thông tin cá nhân</a>
+                <a th:href="@{/logout}">Đăng xuất</a>
+            </div>
         </div>
     </div>
 

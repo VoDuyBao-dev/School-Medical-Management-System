@@ -33,6 +33,9 @@ public class HealthCheckSchedule {
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "className", columnDefinition = "TEXT")
+    private int className;
+
     @Column(name = "check_date",nullable = false)
     private LocalDateTime checkDate;
 

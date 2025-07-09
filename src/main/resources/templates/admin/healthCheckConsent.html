@@ -28,20 +28,20 @@
     <p th:text="${error}"></p>
 </div>
 
-<form th:action="@{/nurse/healthCheckSchedule/createSchedule-sendParent}" method="post" th:object="${healthCheckSchedule}" id="checkupForm">
+<form th:action="@{/nurse/healthCheckSchedule/createSchedule}" method="post" th:object="${healthCheckSchedule}" id="checkupForm">
 
     <div class="form-group">
         <label for="classId">Lớp:</label>
-        <input type="text" id="classId" name="class" required>
+        <input type="number" id="classId" th:field="*{className}" required>
     </div>
 
     <div class="form-group">
-        <label for="date">Ngày khám:</label>
-        <input type="text" id="date" name="date" readonly>
+        <label th:for="*{date}">Ngày khám:</label>
+        <input type="text" th:field="*{date}" readonly>
     </div>
     <div class="form-group">
-        <label for="time">Giờ khám:</label>
-        <select id="time" name="time" required>
+        <label th:for="*{time}">Giờ khám:</label>
+        <select th:field="*{time}" required>
             <option value="">Chọn giờ</option>
             <option value="08:00">08:00</option>
             <option value="09:00">09:00</option>
@@ -52,7 +52,19 @@
         </select>
     </div>
 
-    <button type="submit" class="btn">📨 Gửi phiếu</button>
+    <div class="mb-3">
+        <label for="notes" class="form-label">Nội dung</label>
+        <textarea class="form-control" id="content" rows="4"
+                  th:field="*{content}"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="notes" class="form-label">Ghi chú</label>
+        <textarea class="form-control" id="notes" rows="4"
+                  th:field="*{notes}"></textarea>
+    </div>
+
+    <button type="submit" class="btn">Lưu phiếu</button>
 </form>
 </div>
     <script th:src="@{/assets/js/nurse/heath-chekup-calendar.js}"></script>

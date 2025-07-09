@@ -24,6 +24,7 @@ public class HealthCheckScheduleDTO {
     @ToString.Exclude
     private List<HealthCheckConsent> healthCheckConsent;
     private String content;
+    private int className;
     private LocalDateTime checkDate;
     private LocalDate sentDate;
     private String notes;
@@ -33,6 +34,7 @@ public class HealthCheckScheduleDTO {
 // ngày và giờ để ghép lại thành LocalDateTime checkDate; phù hợp
     private String date;
     private String time;
+
 
 
 
