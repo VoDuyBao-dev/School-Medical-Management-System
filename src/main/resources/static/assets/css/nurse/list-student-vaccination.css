@@ -1,3 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
 .text-pink {
     color: #e91e63;
 }
@@ -45,4 +60,76 @@
     background: #e91e63;
     color: white !important;
     font-weight: 700;
+}
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-rounded thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table-rounded thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.table-rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.table-rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #ddd !important;
+}
+.table-responsive {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    width: 95%;
+}
+.ellipsis-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    padding: 10px;
+}
+
+/* Tiêu đề */
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.row.action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.row.action-row .btn-back {
+    order: 1;
+    margin-right: 1rem;
+}
+
+.row.action-row .search-box {
+    order: 2;
 }

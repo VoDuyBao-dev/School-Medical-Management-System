@@ -5,14 +5,16 @@
     <title>Xem hồ sơ sức khỏe</title>
 
     <!-- Bootstrap + FontAwesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap/5.3.0/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
     <!-- CSS tuỳ chỉnh -->
     <link rel="stylesheet" th:href="@{/assets/css/nurse/health-record/health_record_view.css}">
 </head>
 <body>
-
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav}"></div>
 <div class="container py-5">
     <!-- Tiêu đề -->
     <h3 class="text-center text-uppercase fw-bold text-pink mb-4">
@@ -49,5 +51,7 @@
 
 <!-- JS -->
 <script th:src="@{/assets/js/nurse/health-record/health_record_view.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

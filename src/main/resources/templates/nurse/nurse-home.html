@@ -36,18 +36,21 @@
         <a th:href="@{/nurse/vaccinationSchedule}">trang tạo lịch tiêm chủng</a>
     </div>
     <div>
-        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules}">trang các vaccination schedule đã gửi</a>
+        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/drafts}">trang các vaccination schedule đã tạo nhưng chưa gửi đến parent</a>
+    </div>
+    <div>
+        <a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/sent}">trang các vaccination schedule đã gửi</a>
     </div>
 
     <div>
-        <a th:href="@{/nurse/listCreatedReview.html}">Danh sách lịch hẹn đã tạo</a>
+        <a th:href="@{/nurse/consultationAppointment/listReview}">Danh sách lịch tư vấn</a>
     </div>
 
     <div>
-        <a th:href="@{/nurse/listReview.html}">Danh sách lịch hẹn </a>
+        <a th:href="@{/nurse/consultationAppointment/listCreatedReview}">Danh sách lịch tư vấn đã tạo</a>
     </div>
     <div>
-        <a th:href="@{/nurse/createReview.html}">Tạo lịch hẹn</a>
+        <a th:href="@{/nurse/consultationAppointment/consultation-appointment}">Tạo lịch hẹn</a>
     </div>
 
     <a th:href="@{/nurse/profile}"><button type="button">Xem thông tin hồ sơ</button></a>

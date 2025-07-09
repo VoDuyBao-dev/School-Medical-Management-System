@@ -1,39 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý người dùng</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-        }
-        th, td {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-        .actions a {
-            margin-right: 8px;
-        }
-        .message {
-            color: green;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/admin/listUser.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Quản Lý Người Dùng</title>
+
 </head>
 <body>
-
-<h2>Quản lý người dùng</h2>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Admin"></div>
+<div class="container">
+    <h2>Quản lý người dùng</h2>
 
 <!-- Thông báo thành công -->
 <div th:if="${success}" class="message" th:text="${success}"></div>
 
 <a th:href="@{/admin/add-user}">
-    <button type="button">➕ Thêm người dùng</button>
+    <button type="button" class="add-button" >➕ Thêm người dùng</button>
 </a>
 
 <table>
@@ -41,6 +27,7 @@
     <tr>
         <th>STT</th>
         <th>Tên đăng nhập</th>
+        <th>Email</th>
         <th>Vai trò</th>
         <th>Hành động</th>
     </tr>
@@ -52,6 +39,7 @@
     <tr th:each="user : ${users}">
         <td th:text="${user.id}">1</td>
         <td th:text="${user.username}">example</td>
+        <td>example</td>
         <td th:text="${user.role}">ROLE_PARENT</td>
         <td class="actions">
             <a th:href="@{'/admin/edit-user/' + ${user.id}}">Sửa</a>
@@ -62,7 +50,10 @@
     </tbody>
 </table>
     <br>
-    <a th:href="@{/admin/dashboard}">← Quay về trang chính</a>
+    <a th:href="@{/admin/dashboard}" class="back-link">← Quay về trang chính</a>
+</div>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 

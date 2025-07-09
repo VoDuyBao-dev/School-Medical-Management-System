@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface VaccinationConsentRepository extends JpaRepository<VaccinationConsent, Long> {
     //    Lấy các vaccinationConsent của parent tươnhg ưnhgs
     Page<VaccinationConsent> findByParent_User_IdOrderByIdDesc(Long userId, Pageable pageable);
@@ -29,4 +31,7 @@ public interface VaccinationConsentRepository extends JpaRepository<VaccinationC
             @Param("is_vaccinated") boolean is_vaccinated,
             Pageable pageable
     );
+
+    @Query("SELECT v FROM VaccinationConsent v JOIN FETCH v.schedule WHERE v.status = :status")
+    List<VaccinationConsent> findByStatusWithSchedule(@Param("status") ConsentStatus status);
 }

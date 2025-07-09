@@ -1,14 +1,18 @@
 package com.medical.schoolMedical.entities;
 
+import com.medical.schoolMedical.enums.ConsentStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@Builder
 @Table(name = "consultation_appointment")
 public class ConsultationAppointment {
 
@@ -19,33 +23,36 @@ public class ConsultationAppointment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id", nullable = false)
+    @ToString.Exclude
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
-    private Parent parent;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_nurse_id", referencedColumnName = "school_nurse_id", nullable = false)
+    @ToString.Exclude
     private SchoolNurse schoolNurse;
 
-    @Column(name = "scheduled_time")
+    @Column(name = "scheduled_time", nullable = false)
     private LocalDateTime scheduledTime;
 
     @Column(name = "createdAt")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "status")
-//    private AppointmentStatus status;
+    @Column(name = "sent_date")
+    private LocalDate sentDate;
 
-    @Column(name = "noteFromSchool",columnDefinition = "TEXT")
-    private String noteFromSchool;
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'UNCONFIRMED'")
+    @Enumerated(EnumType.STRING)
+    private ConsentStatus status;
 
-    @Column(name = "noteFromParent",columnDefinition = "TEXT")
-    private String noteFromParent;
+    @Column(name = "content",columnDefinition = "TEXT")
+    private String content;
 
+    @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean sentToParent = false;
 
+    @Column(name = "is_viewed_by_parent ",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    private boolean viewedByParent  = false;
 
 }
 

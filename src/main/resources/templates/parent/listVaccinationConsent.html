@@ -12,9 +12,13 @@
 
     <!-- CSS tuỳ chỉnh -->
     <link rel="stylesheet" th:href="@{/assets/css/parent/notification-consent.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/pages/phanTrang.css}"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="notification-panel">
     <!-- Tiêu đề -->
     <div class="notification-header">
@@ -43,7 +47,7 @@
                 <strong th:text="${#temporals.format(consent.schedule.injectionDate,'dd/MM/yyyy HH:mm')}">01/07/2025</strong>.
             </p>
             <p class="time"
-               th:text="${#temporals.format(consent.schedule.sentDate,'dd/MM/yyyy HH:mm')}">
+               th:text="${#temporals.format(consent.schedule.sentDate,'dd/MM/yyyy')}">
                 23/06/2025 09:00
             </p>
         </div>
@@ -65,6 +69,9 @@
 </div>
 
 <!-- JS tuỳ chỉnh -->
+<script th:src="@{/asset/js/phanTrang}"></script>
 <script th:src="@{/assets/js/parent/notification-consent.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -18,7 +18,7 @@ public class ConfirmHealthCheck {
     @Autowired
     private HealthCheckConsentService healthCheckConsentService;
     @GetMapping
-    public String confirmHealthCheck(@RequestParam("idConsent") Long consentId, Model model) {
+    public String confirmHealthCheck(@RequestParam("idConsent") Long consentId, Model model, RedirectAttributes redirectAttributes) {
 
         try{
             HealthCheckConsentDTO healthCheck = healthCheckConsentService.getHealthCheckConsentById(consentId);
@@ -26,8 +26,8 @@ public class ConfirmHealthCheck {
             model.addAttribute("healthCheckConsent", healthCheck);
             return "parent/confirmHealthCheckConsent";
         }catch(BusinessException e){
-            model.addAttribute("error",e.getMessage());
-            return "parent/confirmHealthCheckConsent";
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            return "redirect:/parent/notification/HealthCheckConsents";
         }
     }
 

@@ -5,14 +5,20 @@
     <title>Danh sách học sinh đã tiêm chủng</title>
 
     <link rel="stylesheet" th:href="@{/assets/css/nurse/vaccination-list.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/pages/phanTrang.css}"/>
 </head>
 <body>
 
 <h2>Danh sách học sinh đã được tiêm chủng và ghi nhận kết quả</h2>
 
-<a th:href="@{/nurse/vaccinationConsent/list-student-vaccination(vaccinatonScheduleId=${idSchedule})}" class="link-button">
-    → Xem danh sách học sinh chưa được tiêm
-</a>
+<div class="table-responsive mb-3">
+    <div class="table" style="width: 95%; text-align: left;">
+        <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination(vaccinatonScheduleId=${idSchedule})}"
+           class="btn-green">
+            → Xem danh sách học sinh chưa được tiêm
+        </a>
+    </div>
+</div>
 
 <div th:if="${success}" class="alert-success">
     <p th:text="${success}"></p>
@@ -24,10 +30,9 @@
     <p th:text="${notification}"></p>
 </div>
 
-<h3>Thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span></h3>
 
 <form th:action="@{/nurse/vaccinationRecord/sendRecordsToParents}" method="post">
-    <table>
+    <table class="table table-rounded table-bordered table-hover align-middle text-center shadow-sm">
         <thead>
         <tr>
             <th>Họ và tên</th>

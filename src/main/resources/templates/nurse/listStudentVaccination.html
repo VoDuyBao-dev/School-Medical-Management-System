@@ -19,27 +19,28 @@
     </h2>
 
     <!-- Link sang danh sách học sinh đã tiêm -->
-    <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule})}"
-       class="btn btn-success mb-3">
-        → Xem danh sách học sinh đã tiêm
-    </a>
+    <div class="table-responsive mb-3">
+        <div class="table" style="width: 95%; text-align: left;">
+            <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule})}"
+               class="btn btn-success">
+                → Xem danh sách học sinh đã tiêm
+            </a>
+        </div>
+    </div>
 
     <!-- Thông báo -->
     <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
     <div th:if="${notification}" class="alert alert-warning" th:text="${notification}"></div>
 
-    <!-- Ngày tiêm -->
-    <h5 class="mb-3">
-        Thời gian: <span th:text="${#temporals.format(injectionDate, 'dd/MM/yyyy')}"></span>
-    </h5>
+
 
     <!-- BẢNG -->
     <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center shadow-sm">
+        <table class="table table-rounded table-bordered table-hover align-middle text-center shadow-sm">
             <thead class="table-pink-header">
             <tr>
-                <th>Họ và&nbsp;tên</th>
+                <th>Họ và tên</th>
                 <th>Lớp</th>
                 <th>Ngày&nbsp;sinh</th>
                 <th>Giới&nbsp;tính</th>

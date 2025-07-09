@@ -15,9 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
 @EnableWebSecurity
+@EnableAsync
 public class SecurityConfig {
 
     @Autowired

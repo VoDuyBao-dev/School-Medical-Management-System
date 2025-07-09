@@ -3,53 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách hồ sơ sức khỏe</title>
-
-    <!-- Bootstrap + FontAwesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- CSS tuỳ chỉnh -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap/5.3.0/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/nurse/health-record/health_record_list.css}">
 </head>
 <body>
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav-Nurse}"></div>
 
-<!-- Thông báo -->
 <div class="alert-container position-relative">
-    <p th:if="${success}" th:text="${success}"
-       class="alert alert-success position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
-    <p th:if="${error}" th:text="${error}"
-       class="alert alert-danger position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+    <p th:if="${success}" th:text="${success}" class="alert alert-success position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
+    <p th:if="${error}" th:text="${error}" class="alert alert-danger position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
 </div>
 
 <div class="container py-5">
-    <h3 class="text-center text-uppercase fw-bold text-pink mb-4">
-        Danh sách hồ sơ sức khỏe học sinh
-    </h3>
+    <h3 class="fw-bold text-pink mb-4">Danh sách hồ sơ sức khỏe học sinh</h3>
 
-    <!-- Header -->
     <div class="row align-items-center mb-4">
         <div class="col-4">
-            <a th:href="@{/nurse/nurse-home}" class="btn btn-outline-secondary rounded-pill">
+            <a th:href="@{/nurse/nurse-home}" class="btn btn-outline-pink rounded-pill">
                 <i class="fas fa-arrow-left me-1"></i> Quay lại
             </a>
         </div>
-
         <div class="col-4 text-center">
             <form th:action="@{/nurse/health-record}" method="get">
                 <div class="search-box position-relative mx-auto">
-                    <input type="text" name="keyword" id="searchInput"
-                           class="form-control ps-5 rounded-pill"
-                           placeholder="Tìm học sinh…" th:value="${keyword}">
+                    <input type="text" name="keyword" id="searchInput" class="form-control ps-5 rounded-pill" placeholder="Tìm học sinh…" th:value="${keyword}">
                     <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Bảng -->
     <div class="table-responsive">
-        <table class="table table-bordered align-middle text-center table-rounded">
-            <thead class="table-pink">
+        <table class="table table-bordered align-middle text-center table-rounded table-pink">
+            <thead>
             <tr>
                 <th>STT</th>
                 <th>Họ tên học sinh</th>
@@ -64,22 +54,10 @@
                 <td th:text="${stat.index + 1}">1</td>
                 <td th:text="${record.student.fullName}">Nguyễn Văn A</td>
                 <td th:text="${record.student.className}">10A1</td>
-<!--                <td th:text="${record.allergies}">Không</td>-->
-<!--                <td th:text="${record.chronicDisease}">Không</td>-->
-                <td class="ellipsis-cell"
-                    th:title="${record.allergies}"
-                th:text="${record.allergies}">
-                Dị ứng nhiều, hãy ấn xem chi tiết.
-                </td>
-
-                <td class="ellipsis-cell"
-                    th:title="${record.chronicDisease}"
-                    th:text="${record.chronicDisease}">
-                    Bệnh nhiều hãy nhấn xem chi tiết.
-                </td>
+                <td class="ellipsis-cell" th:title="${record.allergies}" th:text="${record.allergies}">Dị ứng nhiều, hãy ấn xem chi tiết.</td>
+                <td class="ellipsis-cell" th:title="${record.chronicDisease}" th:text="${record.chronicDisease}">Bệnh nhiều hãy nhấn xem chi tiết.</td>
                 <td>
-                    <a th:href="@{'/nurse/health-record/view/' + ${record.id}}"
-                       class="btn btn-sm btn-outline-pink rounded-pill">
+                    <a th:href="@{'/nurse/health-record/view/' + ${record.id}}" class="btn btn-sm btn-outline-pink rounded-pill">
                         <i class="fas fa-eye"></i> Xem chi tiết
                     </a>
                 </td>
@@ -92,7 +70,9 @@
     </div>
 </div>
 
-<!-- JS -->
 <script th:src="@{/assets/js/nurse/health-record/health_record_list.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
+

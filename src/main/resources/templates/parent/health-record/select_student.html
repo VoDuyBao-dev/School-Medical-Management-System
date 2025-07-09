@@ -10,9 +10,12 @@
 
   <!-- CSS tuỳ chỉnh -->
   <link rel="stylesheet" th:href="@{/assets/css/parent/health-record/select_student.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="container py-5">
   <h2 class="text-center text-uppercase fw-bold text-pink mb-4">
     Chọn học sinh để khai báo hồ sơ sức khỏe
@@ -55,6 +58,8 @@
 </div>
 
 <script th:src="@{/assets/js/parent/health-record/select_student.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 

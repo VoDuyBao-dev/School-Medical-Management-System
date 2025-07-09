@@ -1,54 +1,17 @@
-/* Khung bao ngoài – card ở giữa trang */
-.vs-card {
-    max-width: 600px;
-    margin: 40px auto;           /* căn giữa */
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 14px rgba(0,0,0,.12);
-    border-top: 6px solid #e91e63;   /* viền hồng chủ đạo */
-    background-color: #ffffff;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
 }
 
-/* Tiêu đề */
-.vs-card h2 {
-    text-align: center;
-    text-transform: uppercase;   /* CAP LOCK */
-    color: #e91e63;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-}
-
-/* Nhãn & nút */
-.vs-card .form-label {
-    font-weight: 600;
-    color: #444;
-}
-.vs-card .btn-primary {
-    background-color: #e91e63;
-    border-color: #e91e63;
-}
-.vs-card .btn-primary:hover {
-    background-color: #d21759;
-    border-color: #d21759;
-}
-
-/* Textarea cố định kích thước, không cho resize */
-.vs-card textarea {
-    resize: none;
-}
-
-/* Hiển thị lỗi tùy chỉnh (JS sẽ thêm class .is-invalid) */
-.is-invalid {
-    border-color: #dc3545 !important;
-}
-.invalid-feedback {
-    color: #dc3545;
-    font-size: .875rem;
-}
 body {
-    background-color: #fff0f5;
-    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 /* Khung chính */
@@ -57,9 +20,10 @@ body {
     margin: 40px auto;
     padding: 30px 40px;
     border-radius: 16px;
-    background-color: #ffffff;
+    background-color: #fff;
     box-shadow: 0 8px 30px rgba(233, 30, 99, 0.2);
     border-top: 6px solid #e91e63;
+    overflow: auto;
 }
 
 /* Tiêu đề */
@@ -71,39 +35,64 @@ body {
     margin-bottom: 30px;
 }
 
-/* Label và input */
-.form-label {
-    font-weight: 600;
-    color: #333;
-}
-.form-control {
-    border-radius: 12px;
-    border: 1px solid #ccc;
-    box-shadow: none;
-}
-textarea.form-control {
-    resize: none;
+/* Ô nhập */
+.form-group {
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Nút lưu */
+.form-label {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.form-control {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 12px 15px;
+    transition: border-color 0.2s;
+    font-size: 15px;
+    background-color: #fafafa;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #e91e63;
+    background-color: #fff;
+}
+
+/* Textarea */
+textarea.form-control {
+    resize: none;
+    min-height: 100px;
+}
+
+/* Nút */
 .btn-primary {
     width: 100%;
     background: linear-gradient(to right, #e91e63, #ff6090);
     border: none;
     font-weight: 600;
     border-radius: 12px;
-    padding: 10px;
+    padding: 12px;
+    margin-top: 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
 }
+
 .btn-primary:hover {
     background: linear-gradient(to right, #d81b60, #f06292);
 }
 
 /* Lỗi */
-.is-invalid {
-    border-color: #dc3545 !important;
-}
-.invalid-feedback {
+.text-danger {
     color: #dc3545;
     font-size: 0.875rem;
-    margin-top: 5px;
+    margin-top: 6px;
 }
+
