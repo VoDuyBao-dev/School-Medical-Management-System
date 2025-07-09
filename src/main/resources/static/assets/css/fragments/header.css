@@ -27,7 +27,7 @@
 }
 
 .search-bar input {
-    width: 190%; /* Corrected from 190% to 100% to fit container */
+    width: 430px; /* Corrected from 190% to 100% to fit container */
     padding: 10px 40px 10px 15px; /* Adjusted padding */
     border: 1px solid #ddd;
     border-radius: 25px;
@@ -48,7 +48,8 @@
 
 .search-btn {
     position: absolute;
-    right: 10px;
+    right: 16%;
+    bottom: 12%;
     background: none;
     border: none;
     cursor: pointer;
@@ -60,6 +61,7 @@
 .search-btn:hover {
     color: #c0392b;
 }
+
 
 .contact-login {
     display: flex;

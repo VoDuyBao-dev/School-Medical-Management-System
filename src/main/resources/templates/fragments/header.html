@@ -62,28 +62,32 @@
 <nav class="nav" th:fragment="Nav-Nurse">
     <ul class="nav-list">
         <li class="nav-item"><a th:href="@{/nurse/nurse-home}">Trang chủ</a></li>
-        <li class="nav-item"><a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">Lịch khám đã gửi</a></li>
-        <li class="nav-item"><a th:href="@{/#}">Tiêm chủng</a>
+        <li class="nav-item"><a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/drafts}">Tiêm chủng</a>
             <ul class="submenu">
                 <li><a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/drafts}">Đã tạo</a></li>
                 <li><a th:href="@{/nurse/vaccinationSchedule/vaccinationSchedules/sent}">Đã gửi</a></li>
             </ul>
         </li>
-        <li class="nav-item"><a th:href="@{/nurse/medicines}">Thuốc </a></li>
-        <li class="nav-item"><a th:href="@{/nurse/medical-supplies}">Vật tư</a></li>
-        <li class="nav-item"><a th:href="@{/#}">Tạo lịch</a>
+        <li class="nav-item"><a th:href="@{/nurse/medicines}">Y tế </a>
+            <ul class="submenu">
+                <li><a th:href="@{/nurse/medicines}">Thuốc </a></li>
+                <li><a th:href="@{/nurse/medical-supplies}">Vật tư</a></li>
+            </ul>
+        </li>
+        <li class="nav-item"><a th:href="@{/nurse/healthCheckSchedule}">Tạo lịch</a>
             <ul class="submenu">
                 <li><a th:href="@{/nurse/healthCheckSchedule}">Lịch khám</a></li>
                 <li><a th:href="@{/nurse/vaccinationSchedule}">Lịch tiêm</a></li>
                 <li><a th:href="@{/nurse/consultationAppointment/consultation-appointment}">Lịch tư vấn</a></li>
             </ul>
         </li>
-        <li class="nav-item"><a th:href="@{/#}">Danh sách</a>
+        <li class="nav-item"><a th:href="@{/nurse/health-record}">Danh sách</a>
             <ul class="submenu">
                 <li><a th:href="@{/nurse/health-record}">Hồ sơ sức khỏe HS </a></li>
                 <li><a th:href="@{/nurse/sentMedicineUsage/sent}">Thuốc PH gửi</a></li>
                 <li><a th:href="@{/nurse/medical-events}">Sự kiện y tế</a></li>
                 <li><a th:href="@{/nurse/consultationAppointment/listCreatedReview}">Lịch tư vấn đã tạo</a></li>
+                <li><a th:href="@{/nurse/healthCheckSchedule/list-healthCheckSchedule}">Lịch khám đã gửi</a></li>
             </ul>
         </li>
         <li class="nav-item"><a th:href="@{/nurse/consultationAppointment/listReview}">Tư vấn</a></li>

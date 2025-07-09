@@ -1,12 +1,39 @@
-body{
-    font-family:'Segoe UI',sans-serif;
-    background:#fff0f5;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
 }
-.text-pink { color:#e91e63; }
+
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+/* Container */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.text-pink {
+    color: #e91e63;
+}
 
 .table-pink th {
-    background:#e91e63;
-    color:#fff;
+    background: #e91e63;
+    color: #fff;
 }
 
 .btn-outline-pink {
@@ -21,5 +48,94 @@ body{
     color: #fff;
 }
 
-.search-box { max-width:320px; }
-.search-box input { padding-left:2.25rem; }
+.search-box-list {
+    max-width: 320px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.search-box-list input {
+    padding-left: 2.25rem;
+    border-radius: 25px;
+}
+
+.search-box-list .fa-search {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-rounded thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.table-rounded thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.table-rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+.table-rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.table-bordered td,
+.table-bordered th {
+    border: 1px solid #ddd !important;
+}
+.table-responsive {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    width: 85%;
+}
+.ellipsis-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    padding: 10px;
+}
+
+/* Tiêu đề */
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.row.action-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.row.action-row .btn-back {
+    order: 1;
+    margin-right: 1rem;
+}
+
+.row.action-row .search-box {
+    order: 2;
+}
