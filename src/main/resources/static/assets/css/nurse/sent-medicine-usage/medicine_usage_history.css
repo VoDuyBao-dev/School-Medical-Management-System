@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff0f5;
+    padding: 40px;
+}
+
+h2{
+    text-transform: uppercase;
+    text-align: center;
+    color: #e91e63;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    color: #e91e63;
+}
+
+.title {
+    text-align: center;
+    color: #e91e63;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: center;
+}
+
+thead {
+    background-color: #e91e63;
+    color: white;
+    font-weight: bold;
+}
+
+.table-rounded thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.table-rounded thead th:last-child {
+    border-top-right-radius: 8px;
+}
+.table-rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.table-rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+/* === Nút quay lại chuẩn hệ thống === */
+.back-button {
+    margin-top: 30px;          /* khoảng cách so với bảng */
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+.back-button button {
+    padding: 10px 20px;
+    background-color: #757575; /* xám trung tính */
+    color: #fff;
+    border: none;
+    border-radius: 6px;        /* bo góc */
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.25s ease;
+}
+
+.back-button button:hover {
+    background-color: #5c5c5c; /* xám đậm khi hover */
+}
+

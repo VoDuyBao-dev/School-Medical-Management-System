@@ -9,8 +9,8 @@
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-<div th:replace="fragments/header :: Header"></div>
-<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav-Nurse}"></div>
 <div class="vs-card">
     <h2>Nhập thông tin tiêm chủng</h2>
 
@@ -20,7 +20,7 @@
           method="post">
 
         <!-- Vaccine Type -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="vaccineType" class="form-label">
                 Loại vắc xin <span class="text-danger">*</span>
             </label>
@@ -30,14 +30,14 @@
         </div>
 
         <!-- Recommended Age -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="recommendedAge" class="form-label">Độ tuổi khuyến nghị</label>
             <input type="text" class="form-control" id="recommendedAge"
                    th:field="*{recommendedAgeMonths}">
         </div>
 
         <!-- Injection Date with Time -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="injectionDate" class="form-label">
                 Ngày và giờ tiêm <span class="text-danger">*</span>
             </label>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Notes -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="notes" class="form-label">Ghi chú</label>
             <textarea class="form-control" id="notes" rows="4"
                       th:field="*{notes}"></textarea>
@@ -63,6 +63,6 @@
 <!-- JS tùy chỉnh -->
 <script th:src="@{/assets/js/nurse/vaccination-schedule-form.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

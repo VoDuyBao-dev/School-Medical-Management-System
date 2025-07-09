@@ -5,14 +5,14 @@
   <title>Danh sách thuốc trong kho</title>
   <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
   <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/list.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
 
   <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
   <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-<div th:replace="fragments/header :: Header"></div>
-<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav-Nurse}"></div>
   <div class="alert-container position-relative">
     <p th:if="${success}" th:text="${success}" class="alert alert-success position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
     <p th:if="${error}" th:text="${error}" class="alert alert-danger position-absolute top-0 end-0 me-2 mt-2 rounded-pill px-4 py-2 fw-semibold"></p>
@@ -44,7 +44,7 @@
   </div>
 
   <div class="table-responsive mt-2">
-    <table class="table table-bordered align-middle text-center">
+    <table class="table table-bordered align-middle text-center table-rounded">
       <thead class="table-pink">
       <tr>
         <th>STT</th>
@@ -58,7 +58,7 @@
       </thead>
       <tbody id="medicineTable">
       <tr th:if="${#lists.isEmpty(medicines)}">
-        <td colspan="7">Không có bản ghi nào.</td>
+        <td colspan="7">Hiện không có thuốc nào.</td>
       </tr>
       <tr th:each="medicine, iterStat : ${medicines}">
         <td th:text="${iterStat.count}">1</td>
@@ -87,7 +87,7 @@
 </div>
 <script th:src="@{/assets/js/nurse/medicine/list.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
 
