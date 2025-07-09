@@ -1,83 +1,187 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Parent Home</title></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trường Học Khỏe Mạnh</title>
+    <link rel="stylesheet" th:href="@{/assets/css/index.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+</head>
 <body>
-    <h1>Welcome, <span th:text="${username}">Parent</span>!</h1>
-    <p>This is your dashboard.</p>
-    <div th:if="${error}" class="error">
-        <p th:text="${error}"></p>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
+<section id="home" class="hero">
+    <div class="hero-content">
+        <h1>Chăm Sóc Sức Khỏe Học Đường</h1>
+        <p>Hỗ trợ sức khỏe toàn diện cho học sinh và giáo viên.</p>
+        <button class="cta-btn">Khám Phá Ngay</button>
     </div>
-    <div>
-        <a th:href="@{/parent/notification/HealthCheckConsents}">Danh sách thông báo xác nhận khám sưcs khỏe</a>
-    </div>
-    <div>
-        <a th:href="@{/parent/notification/HealthCheckRecords}">Danh sách thông báo kết quả khám sưcs khỏe</a>
-    </div>
-    <div>
-        <a th:href="@{/parent/notification/vaccinationConsents}">Danh sách thông báo xác nhận tiêm chủng</a>
-    </div>
-    <div>
-        <a th:href="@{/parent/notification/VaccinationRecords}">Danh sách thông báo kết quả tiêm chủng</a>
-    </div>
-    <div>
-        <a th:href="@{/parent/notification/ConsultationAppointments}">Danh sách thông báo xác nhận lịch tư vấn</a>
-    </div>
-    <div>
-        <a th:href="@{/parent/consultationAppointment/listReview}">Danh sách lịch tư vấn sức khỏe của bạn</a>
-    </div>
+</section>
 
-    <div style="position: relative;">
-        <button id="notificationBtn" style="background: none; border: none; font-size: 20px;">
-            🔔
-        </button>
+<section id="about" class="about">
+    <h2>Giới Thiệu Về Trường</h2>
+    <p>Trường Học Khỏe Mạnh là nơi cung cấp môi trường học tập an toàn, hỗ trợ sức khỏe tinh thần và thể chất cho học sinh. Chúng tôi cam kết xây dựng một cộng đồng học đường lành mạnh.</p>
+</section>
 
-        <div id="notificationDropdown" style="display: none; position: absolute; right: 0; background: white; border: 1px solid #ccc; border-radius: 5px; width: 250px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <ul style="list-style: none; padding: 10px;">
-                <li th:if="${notifications.hasNewConsent}">
-                    <a th:href="@{/parent/health-check-consents}" style="text-decoration: none; color: #333;">
-                        ✔️ Bạn có phiếu khám sức khỏe mới cần xác nhận
-                    </a>
-                </li>
-                <li th:if="${notifications.hasNewRecord}">
-                    <a th:href="@{/parent/health-check-records}" style="text-decoration: none; color: #333;">
-                        📄 Trường đã gửi kết quả khám sức khỏe
-                    </a>
-                </li>
-                <li th:if="${!notifications.hasNewConsent and !notifications.hasNewRecord}">
-                    <span style="color: #888;">Không có thông báo mới</span>
-                </li>
-            </ul>
+<section id="resources" class="resources">
+    <h2>Tài Liệu Sức Khỏe Học Đường</h2>
+    <div class="accordion">
+        <div class="accordion-item">
+            <button class="accordion-title">Hướng Dẫn Kiểm Tra Sức Khỏe <i class="fas fa-plus"></i></button>
+            <div class="accordion-content">
+                <ul>
+                    <li>Bước 1: Chuẩn bị hồ sơ sức khỏe cá nhân.</li>
+                    <li>Bước 2: Đến phòng y tế theo lịch hẹn.</li>
+                    <li>Bước 3: Thực hiện các bài kiểm tra (cân nặng, chiều cao, thị lực).</li>
+                    <li>Bước 4: Nhận kết quả và tư vấn từ bác sĩ.</li>
+                </ul>
+            </div>
         </div>
-
-    <a th:href="@{/parent/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
-    <br>
-    <!-- Điều hướng đến trang chọn học sinh để khai báo hồ sơ -->
-    <a th:href="@{/parent/health-record/select-student}"><button type="button">Khai báo hồ sơ sức khỏe học sinh</button></a>
-    <br>
-    <a th:href="@{/parent/sentMedicine/list}"><button type="button">Danh sách thuốc đã gửi</button></a>
-    <br>
-    <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
-    <br>
-
-    <p>showNotification: <span th:text="${showNotification}"></span></p>
-    <!-- Popup thông báo -->
-    <div id="overlay" th:if="${showNotification}" ></div>
-    <div id="healthCheckNotification" th:if="${showNotification}" >
-        <p>Bạn có phiếu khám sức khỏe định kỳ mới!</p>
-
-        <br>
-
-        <a th:href="@{/user/healthCheckConsent/list}" onclick="dismissNotification()">Xem phiếu khảo sát</a>
-        <br><br>
-        <button onclick="dismissNotification()">Bỏ qua</button>
+        <div class="accordion-item">
+            <button class="accordion-title">Dinh Dưỡng Cho Học Sinh <i class="fas fa-plus"></i></button>
+            <div class="accordion-content">
+                <ul>
+                    <li>Uống đủ 1.5-2 lít nước mỗi ngày.</li>
+                    <li>Ăn nhiều rau xanh và trái cây tươi.</li>
+                    <li>Hạn chế đồ ăn nhanh và đồ ngọt.</li>
+                    <li>Tư vấn chuyên gia dinh dưỡng định kỳ.</li>
+                </ul>
+            </div>
+        </div>
     </div>
+</section>
 
-    <script>
-        document.getElementById("notificationBtn").addEventListener("click", function () {
-            const dropdown = document.getElementById("notificationDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        });
-    </script>
+<section id="blog" class="blog">
+    <h2>Blog Chia Sẻ Kinh Nghiệm</h2>
+    <div class="blog-posts">
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog1.jpg}" alt="Hình ảnh mẫu">
+            <h3>Cách Giảm Căng Thẳng Học Tập</h3>
+            <p>- Đăng ngày: 08/07/2025 <br> - Tác giả: Nguyễn Văn A</p>
+            <br>
+            <p>Hãy thả lỏng và chia sẻ những cảm xúc thật sự của mình, bất kể là bạn đang cảm thấy vui vẻ hay buồn rầu, cảm thấy mệt mỏi ra sao... Gia đình, bạn bè và thầy cô sẽ luôn sẵn sàng lắng nghe nỗi lòng của bạn và đưa ra những lời khuyên hữu ích, từ đó giúp bạn giải tỏa căng thẳng.</p>
+        </div>
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog2.jpg}" alt="Hình ảnh mẫu">
+            <h3>Tầm Quan Trọng Của Thể Dục</h3>
+            <p>- Đăng ngày: 07/07/2025 <br> - Tác giả: Trần Thị B</p>
+            <br>
+            <p> Việc tập thể dục vừa phải và đều đặn sẽ hỗ trợ tăng cường miễn dịch cơ thể, giảm nguy cơ các bệnh về tim mạch như tăng huyết áp, đái tháo đường, đột quỵ, viêm khớp. Ngoài ra còn giúp chúng ta có vóc dáng thon gọn, giúp đốt cháy nhiều calo, tác nhân gây béo phì. Còn đối với người cao tuổi ngoài giúp họ có sức khỏe tốt , mà còn hổ trợ thêm về mặt tinh thần như các cụ có cuốc sống tích cực hơn ,vui tươi, yêu đời hơn, đặc biệt là các cụ tập dưỡng sinh, vì các cụ có được những giây phút thư giãn trò chuyện cùng nhau.</p>
+        </div>
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog3.jpg}" alt="Hình ảnh mẫu">
+            <h3>Những vấn đề nguy hiểm khi sốt cao.</h3>
+            <p>- Đăng ngày: 06/07/2025 <br>- Tác giả: Trần Văn Đạt </p>
+            <br>
+            <p>Sốt cao có thể gây ra nhiều vấn đề nguy hiểm, đặc biệt là ở trẻ em và người có bệnh lý nền. Các biến chứng có thể bao gồm co giật, mất nước, rối loạn điện giải, tổn thương thần kinh, suy hô hấp, suy tim, và thậm chí là suy đa cơ quan nếu không được can thiệp kịp thời. </p>
+        </div>
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog4.jpg}" alt="Hình ảnh mẫu">
+            <h3>Nên tắm nước lạnh hay nước nóng?</h3>
+            <p>- Đăng ngày: 07/07/2025 <br>- Tác giả: Trần Thị B</p>
+            <br>
+            <p>Tắm là một phần quan trọng của sinh hoạt hàng ngày, giúp giải tỏa căng thẳng và loại bỏ bụi bẩn trên cơ thể. Mặc dù nhiều người cho rằng tắm nước lạnh dễ gây bệnh, trong khi tắm nước nóng có thể làm khô da, nhưng điều này có phải là sự thật?</p>
+            <br/>
+            <p>Những người mắc viêm khớp nên tắm nước nóng vào buổi sáng vì nó mang lại cảm giác thoải mái. Tuy nhiên, đối với những chấn thương có tình trạng viêm nhiễm, tắm nước lạnh có thể mang lại nhiều lợi ích cho sức khỏe. <br>
+                Những người mắc các vấn đề da như chàm (eczema) và phát ban da nên tránh tắm nước nóng hoàn toàn, vì có thể làm khô da.</p>
+        </div>
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog5.jpg}" alt="Hình ảnh mẫu">
+            <h3>Tại sao phải bổ sung Vitamin?</h3>
+            <p>-Đăng ngày: 08/07/2025 <br>- Tác giả: Nguyễn Văn A</p>
+            <br>
+            <p>Việc bổ sung vitamin là cần thiết vì chúng là những chất dinh dưỡng thiết yếu giúp cơ thể hoạt động bình thường, duy trì sức khỏe tốt và ngăn ngừa bệnh tật. <br>
+                Cơ thể không tự sản xuất đủ vitamin, nên việc bổ sung qua chế độ ăn uống hoặc thực phẩm chức năng là rất quan trọng. </p>
+        </div>
+        <div class="blog-post enhanced-card">
+            <img th:src="@{/assets/images/blog6.jpg}" alt="Hình ảnh mẫu">
+            <h3>Tại sao phải rửa sạch tay?.</h3>
+            <p>- Đăng ngày: 07/07/2025 <br>- Tác giả: Trần Thị B</p>
+            <br>
+            <p>Có thể nói rằng đôi bàn tay là bộ phận linh hoạt nhất trên cơ thể của con người. Bàn tay giúp chúng ta làm mọi việc từ lao động, ăn uống, vệ sinh cá nhân, cầm nắm các vật...<br> Chính vì sự linh hoạt đó mà bàn tay của con người phải tiếp xúc với rất nhiều thứ từ đồ ăn, đất cát, phân, động vật hay đơn giản là tay nắm cửa.</p>
+        </div>
     </div>
+</section>
+
+<section id="doctors" class="doctors">
+    <h2>Đội Ngũ Bác Sĩ</h2>
+    <div class="doctor-cards">
+        <div class="doctor-card enhanced-card">
+            <img th:src="@{/assets/images/nurse01.jpg}" alt="Dr. Nguyễn Văn C">
+            <h3>Dr. Nguyễn Văn C</h3>
+            <p>Chuyên khoa: Nhi khoa</p>
+            <p>Kinh nghiệm: 10 năm</p>
+        </div>
+        <div class="doctor-card enhanced-card">
+            <img th:src="@{/assets/images/nurse02.jpg}" alt="Dr. Trần Thị D">
+            <h3>Dr. Trần Thị D</h3>
+            <p>Chuyên khoa: Tâm lý học</p>
+            <p>Kinh nghiệm: 8 năm</p>
+        </div>
+        <div class="doctor-card enhanced-card">
+            <img th:src="@{/assets/images/nurse03.jpg}" alt="Dr. Nguyễn Văn Chiến">
+            <h3>Dr. Nguyễn Văn Chiến</h3>
+            <p>Chuyên khoa: Nội khoa</p>
+            <p>Kinh nghiệm: 6 năm</p>
+        </div>
+        <div class="doctor-card enhanced-card">
+            <img th:src="@{/assets/images/nurse04.jpg}" alt="Dr. Hoàng Thị Lan">
+            <h3>Dr. Hoàng Thị Lan</h3>
+            <p>Chuyên khoa: Y tá trưởng</p>
+            <p>Kinh nghiệm: 9 năm</p>
+        </div>
+        <div class="doctor-card enhanced-card">
+            <img th:src="@{/assets/images/nurse05.jpg}" alt="Dr. Đặng Nam Anh">
+            <h3>Dr. Đặng Nam Anh</h3>
+            <p>Chuyên khoa: Ngoại khoa</p>
+            <p>Kinh nghiệm: 4 năm</p>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="faq">
+    <h2>Câu Hỏi Thường Gặp</h2>
+    <div class="faq-items">
+        <div class="faq-item">
+            <button class="faq-question">Làm thế nào để đăng ký khám sức khỏe? <i class="fas fa-plus"></i></button>
+            <div class="faq-answer">
+                <p>Vui lòng liên hệ văn phòng trường hoặc đăng ký trực tuyến qua trang web chính thức.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Tài liệu sức khỏe có miễn phí không? <i class="fas fa-plus"></i></button>
+            <div class="faq-answer">
+                <p>Có, tất cả tài liệu đều miễn phí cho học sinh và phụ huynh.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="stats" class="stats">
+    <h2>Thống Kê Nhanh</h2>
+    <div class="stats-cards">
+        <div class="stat-card enhanced-card">
+            <i class="fas fa-user-md"></i>
+            <h3>1,200</h3>
+            <p>Học Sinh Khám</p>
+        </div>
+        <div class="stat-card enhanced-card">
+            <i class="fas fa-download"></i>
+            <h3>500</h3>
+            <p>Tài Liệu Tải</p>
+        </div>
+        <div class="stat-card enhanced-card">
+            <i class="fas fa-pen"></i>
+            <h3>15</h3>
+            <p>Bài Viết Mới</p>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/assets/js/index.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

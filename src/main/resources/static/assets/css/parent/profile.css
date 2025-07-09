@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(255, 77, 136, 0.2);
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 0.5s ease-in-out;
+    margin: 10px auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: #ff4d88;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.info-group {
+    margin-bottom: 15px;
+}
+
+.info-group strong {
+    color: #ff4d88;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.info-group span {
+    color: #333;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ffe6f0;
+    margin: 20px 0;
+}
+
+.role-section {
+    margin-bottom: 20px;
+}
+
+.role-section h3 {
+    color: #ff4d88;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(90deg, #ff7182, #e62020);
+    color: #fff;
+    transition: transform 0.3s, opacity 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button[type="submit"] {
+    background: linear-gradient(90deg, #18c474, #00703c);
+    color: white;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    opacity: 0.95;
+}
+
+button:active {
+    transform: translateY(0);
+}
+button[type="button"] {
+    background: linear-gradient(90deg, #ff7182, #e62020);
+    color: white;
+}
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}

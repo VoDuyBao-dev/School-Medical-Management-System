@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Manager Home</title></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trường Học Khỏe Mạnh</title>
+    <link rel="stylesheet" th:href="@{/assets/css/index.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+</head>
 <body>
-    <h1>Welcome Manager: <span th:text="${username}">Manager</span></h1>
-    <p>This is your management dashboard.</p>
-    <a th:href="@{/manager/profile}"><button type="button">Xem thông tin hồ sơ</button></a>
-    <br>
-    <a th:href="@{/manager/students/list}"><button type="button">Danh sách học sinh</button></a>
-    <br>
-    <a th:href="@{/logout}"><button type="button">Đăng xuất</button></a>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Manager"></div>
 
+
+<script th:src="@{/assets/js/index.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
