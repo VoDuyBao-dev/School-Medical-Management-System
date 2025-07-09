@@ -1,0 +1,135 @@
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    margin: 0;
+    padding: 40px;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    display: contents;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.notification-panel {
+    width: 800px;
+    max-height: 90vh;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(255, 77, 136, 0.2);
+    overflow-y: auto;
+    animation: fadeIn 0.5s ease-in-out;
+
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.notification-header {
+    padding: 24px;
+    border-bottom: 1px solid #ffe6f0;
+    background: linear-gradient(90deg, #18c474, #00703c);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: #f2fef4;
+}
+
+.notification-item.unconfirmed {
+    background-color: #fff5e6;
+    border-left: 5px solid #ff9800;
+}
+
+.notification-icon {
+    color: #18c474;
+    margin-right: 20px;
+    font-size: 28px;
+}
+
+.notification-content {
+    flex-grow: 1;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.notification-content .reminder {
+    font-weight: 600;
+    color: #ff4d88;
+    margin-top: 6px;
+}
+
+.notification-content .time {
+    font-size: 14px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.alert-success {
+    padding: 16px;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 24px 20px;
+    border-radius: 8px;
+}
+
+.alert-success.green {
+    color: #2E7D32;
+    background: #e8f5e9;
+    border: 1px solid #4CAF50;
+}
+
+.alert-success.red {
+    color: #D32F2F;
+    background: #ffebee;
+    border: 1px solid #D32F2F;
+}
+
+.no-notification {
+    padding: 24px;
+    color: #888;
+    text-align: center;
+    font-size: 16px;
+}
+
+@media (max-width: 600px) {
+    .notification-panel {
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .notification-header {
+        padding: 16px;
+        font-size: 20px;
+    }
+
+    .notification-item {
+        padding: 16px;
+    }
+
+    .notification-icon {
+        font-size: 24px;
+    }
+
+    .notification-content p {
+        font-size: 16px;
+    }
+}
