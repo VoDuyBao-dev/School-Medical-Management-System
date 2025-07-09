@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    padding: 30px;
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.report-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(255, 77, 136, 0.2);
+    width: 100%;
+    max-width: 800px;
+    animation: fadeIn 0.5s ease-in-out;
+    margin: 20px auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header-report-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-report-container-brand {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ff4d88, #ff1a66);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-report-container-brand i {
+    color: white;
+    font-size: 40px;
+}
+
+h2 {
+    color: #ff4d88;
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+h3 {
+    color: #ff1a66;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.section-title {
+    color: #ff4d88;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    border-bottom: 2px solid #ffe6f0;
+    padding-bottom: 5px;
+}
+
+.report-content {
+    display: grid;
+    gap: 20px;
+}
+
+.content-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.content-group label {
+    color: #ff4d88;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.content-group span {
+    color: #333;
+    padding: 8px;
+    background: #fff5f5;
+    border-radius: 8px;
+    display: block;
+}
+
+.error {
+    color: #d81b60;
+    font-size: 12px;
+    display: none;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.print-button {
+    background: linear-gradient(90deg, #18c474, #00703c);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    margin-top: 20px;
+    width: 70%;
+}
+
+.print-button:hover {
+    transform: translateY(-3px);
+    opacity: 0.95;
+}
+
+.print-button:active {
+    transform: translateY(0);
+}
+
+.back-button {
+    background: linear-gradient(90deg, #ff7182, #e62020);
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    margin-top: 20px;
+    width: 70%;
+}
+
+.back-button:hover {
+    transform: translateY(-3px);
+    opacity: 0.95;
+}
+
+.back-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .report-container {
+        padding: 20px;
+    }
+
+    .print-button {
+        width: 100%;
+    }
+
+    .back-button {
+        width: 100%;
+    }
+}

@@ -158,7 +158,7 @@
 .submenu {
     display: none;
     position: absolute;
-    top: 180%; /* Position below the parent <a> */
+    top: 150%; /* Position below the parent <a> */
     left: 0; /* Align with the left edge of the parent */
     background-color: white;
     border-radius: 10px;
