@@ -25,7 +25,6 @@
     <p th:text="${notification}"></p>
 </div>
 
-<h3>Thời gian: <span th:text="${#temporals.format(checkDate, 'dd/MM/yyyy')}"></span></h3>
 
 <form th:action="@{/nurse/vaccinationRecord/sendRecordsToParents}" method="post">
     <table>

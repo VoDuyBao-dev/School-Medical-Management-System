@@ -28,6 +28,11 @@ public class HealthCheckScheduleDTO {
     private LocalDate sentDate;
     private String notes;
 
+    private boolean sentToParent;
+
+// ngày và giờ để ghép lại thành LocalDateTime checkDate; phù hợp
+    private String date;
+    private String time;
 
 
 

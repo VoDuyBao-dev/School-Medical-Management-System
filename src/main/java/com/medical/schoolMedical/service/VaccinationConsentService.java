@@ -26,6 +26,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,19 @@ public class VaccinationConsentService {
 
     //    Gửi lịch đến phụ huynh:
     public void sendVaccinationSchedule_toParent(VaccinationScheduleDTO vaccinationScheduleDTO){
+//        Lấy VaccinationSchedule tương ứng để cập nhật trạng thái dãd gửi cho parent
+        VaccinationSchedule vaccinationScheduleUpdate = vaccinationScheduleRepository.findById(vaccinationScheduleDTO.getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.VACCINATION_SCHEDULE_NOT_EXISTS));
+
+        vaccinationScheduleUpdate.setSentToParent(true);
+        vaccinationScheduleUpdate.setSentDate(LocalDate.now());
+
+        try {
+            vaccinationScheduleRepository.save(vaccinationScheduleUpdate);
+        }catch (Exception e){
+            throw new BusinessException(ErrorCode.SAVE_VACCINATION_SCHEDULE_FAILED);
+        }
+
         VaccinationSchedule vaccinationSchedule = vaccinationScheduleMapper.toVaccinationSchedule(vaccinationScheduleDTO);
         List<Student> students = studentService.getAllStudents();
         List<VaccinationConsent> consentList = new ArrayList<>();
@@ -99,31 +113,18 @@ public class VaccinationConsentService {
 
 //    Hàm tự động cập nhật trạng thái phiêú hết hạn nếu quá ngày
 
-//    public void update_SurveyExpired() {
-//        List<HealthCheckConsent> unconfirms = healthCheckConsentRepository.findByStatusWithSchedule(ConsentStatus.UNCONFIRMED);
-//        List<HealthCheckConsent> toUpdate = new ArrayList<>();
-//        for(HealthCheckConsent healthCheckConsent : unconfirms){
-//            if(healthCheckConsent.getSchedule().getCheckDate().isBefore(LocalDateTime.now())){
-//                healthCheckConsent.setStatus(ConsentStatus.OVERDUE);
-//                toUpdate.add(healthCheckConsent);
-//            }
-//        }
-//        healthCheckConsentRepository.saveAll(toUpdate);
-//
-//    }
-//
-//    // Cron job chạy lúc 7h mỗi ngày
-//    @Scheduled(cron = "0 0 7 * * *")
-//    public void scheduleCheck() {
-//        update_SurveyExpired();
-//    }
-//
-//    // Chạy ngay sau khi ứng dụng khởi động
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void runOnStartup() {
-//        update_SurveyExpired();
-//    }
-//
+    public void update_SurveyExpired_VaccinationConsent() {
+        List<VaccinationConsent> unconfirms = vaccinationConsentRepository.findByStatusWithSchedule(ConsentStatus.UNCONFIRMED);
+        List<VaccinationConsent> toUpdate = new ArrayList<>();
+        for(VaccinationConsent vaccinationConsent : unconfirms){
+            if(vaccinationConsent.getSchedule().getInjectionDate().isBefore(LocalDateTime.now())){
+                vaccinationConsent.setStatus(ConsentStatus.OVERDUE);
+                toUpdate.add(vaccinationConsent);
+            }
+        }
+        vaccinationConsentRepository.saveAll(toUpdate);
+    }
+
 //    //    Kiểm tra người dùng có phiêú khám sức khỏe nào không
 //    public boolean hasNewNotification(Long id) {
 //        return healthCheckConsentRepository.existsByParent_IdAndStatus(id, ConsentStatus.UNCONFIRMED);

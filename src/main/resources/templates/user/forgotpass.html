@@ -11,40 +11,58 @@
 <body>
 <div class="container">
     <div class="left-section"></div>
-        <div class="right-section">
-            <h1>Quên mật khẩu</h1>
-            <form th:action="@{/newpass}" method="post">
-                <div class="form-group">
-                    <label for="username">Nhập gmail:</label>
-                    <input type="email" id="username" name="username">
+    <div class="right-section">
+        <h1>Quên mật khẩu</h1>
+        <!-- Form nhập email -->
+        <form th:action="@{/new-password}" method="post">
+            <div class="form-group">
+                <label for="username">Nhập email:</label>
+                <input type="email" id="username" name="email">
+                <div th:if="${error}" class="error">
+                    <p th:text="${error}" style="color: red;"></p>
                 </div>
-                <button type="submit" class="btn-login" onclick="openModal()">Gửi yêu cầu</button>
-                <!-- Modal OTP -->
-                <div id="otpModal" class="modal">
-                    <div class="modal-content">
-                        <span onclick="closeModal()">&times;</span>
-                        <h3>Xác thực OTP</h3>
-                        <div id="errorOtp" class="error-message" style="display: none;"></div>
-                        <div id="createUser" class="error-message" style="display: none;"></div>
+            </div>
+            <button type="submit" class="btn-login">Gửi yêu cầu</button>
+        </form>
 
-                        <form id="otpForm" th:action="@{/newpass}" method="POST">
-                            <input type="hidden" name="action" value="default">
-                            <div class="otp-inputs">
-                                    <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
-                                    <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
-                                    <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
-                                    <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
-                            </div>
-                            <button type="submit" class="btn-login">Xác thực</button>
-                            <button type="button" id="resendOtpButton" class="resend-btn">Gửi lại OTP</button>
-                        </form>
 
-                        <!-- Thông báo khi gửi lại OTP -->
-                        <div id="resendMessage" class="success-message" style="display: none;"></div>
+        <div id="otpModal" class="modal" th:style="${showOtpModal} ? 'display:block;' : 'display:none;'">
+            <div class="modal-content">
+                <span onclick="closeModal()">&times;</span>
+                <h3>Xác thực OTP</h3>
+                <div id="errorOtp" class="error-message"
+                     th:if="${errorOtp != null}"
+                     th:text="${errorOtp}"
+                     style="color: red; margin: 5px 0;">
+                </div>
+                <div id="resendOtp" class="error-message"
+                     th:if="${resendMessage != null}"
+                     th:text="${resendMessage}"
+                     style="color: green; margin: 5px 0;">
+                </div>
+
+                <!-- Form OTP -->
+                <form id="otpForm" th:action="@{/new-password}" method="POST">
+                    <input type="hidden" name="action" value="verify">
+                    <input type="hidden" name="email" th:value="${email}">
+                    <div class="otp-inputs">
+                        <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
+                        <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
+                        <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
+                        <input type="text" name="otp[]" maxlength="1" pattern="[0-9]" inputmode="numeric" required />
                     </div>
-                </div>
-            </form>
+                    <button type="submit" class="btn-login">Xác thực</button>
+                </form>
+
+                <!-- Form gửi lại OTP -->
+                <form th:action="@{/new-password}" method="post">
+                    <input type="hidden" name="action" value="resend">
+                    <input type="hidden" name="email" th:value="${email}">
+                    <button type="submit" class="resend-btn">Gửi lại OTP</button>
+                </form>
+            </div>
         </div>
+    </div>
 </div>
 <script th:src="@{/assets/js/login.js}"></script>
 </body>

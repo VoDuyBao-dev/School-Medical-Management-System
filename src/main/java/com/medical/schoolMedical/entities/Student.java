@@ -4,6 +4,7 @@ import com.medical.schoolMedical.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +23,7 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "parent_id", nullable = false)
+    @ToString.Exclude
     private Parent parent;
 
     @Column(name = "fullname", length = 50,nullable = false)

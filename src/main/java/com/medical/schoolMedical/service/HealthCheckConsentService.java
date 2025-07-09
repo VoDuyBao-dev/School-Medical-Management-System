@@ -152,7 +152,7 @@ public class HealthCheckConsentService {
 
 //    Hàm tự động cập nhật trạng thái phiêú hết hạn nếu quá ngày
 
-    public void update_SurveyExpired() {
+    public void update_SurveyExpired_HealthCheckConsent() {
         List<HealthCheckConsent> unconfirms = healthCheckConsentRepository.findByStatusWithSchedule(ConsentStatus.UNCONFIRMED);
         List<HealthCheckConsent> toUpdate = new ArrayList<>();
         for(HealthCheckConsent healthCheckConsent : unconfirms){
@@ -165,17 +165,6 @@ public class HealthCheckConsentService {
 
     }
 
-    // Cron job chạy lúc 7h mỗi ngày
-    @Scheduled(cron = "0 0 7 * * *")
-    public void scheduleCheck() {
-        update_SurveyExpired();
-    }
-
-    // Chạy ngay sau khi ứng dụng khởi động
-    @EventListener(ApplicationReadyEvent.class)
-    public void runOnStartup() {
-        update_SurveyExpired();
-    }
 
 //    Kiểm tra người dùng có phiêú khám sức khỏe nào không
     public boolean hasNewNotification(Long id) {

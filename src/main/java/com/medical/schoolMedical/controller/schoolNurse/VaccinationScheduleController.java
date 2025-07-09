@@ -36,7 +36,7 @@ public class VaccinationScheduleController {
 
     }
 
-//    Tạo và gửi lịch tiêm đến phụ huynh
+//    Tạo lịch tiêm
     @PostMapping("/create")
     public String createVaccinationSchedule(@ModelAttribute("vaccinationSchedule") @Valid VaccinationScheduleDTO vaccinationScheduleDTO
                                             , BindingResult bindingResult
@@ -51,17 +51,7 @@ public class VaccinationScheduleController {
         try{
             VaccinationScheduleDTO result = vaccinationScheduleService.createVaccinationSchedule(vaccinationScheduleDTO, userId);
             redirectAttributes.addFlashAttribute("success", "Tạo lịch tiêm chủng thành công");
-
-//            gửi đến phụ huynh:
-            try{
-//                    Gửi lịch đến phụ huynh:
-                vaccinationConsentService.sendVaccinationSchedule_toParent(result);
-                redirectAttributes.addFlashAttribute("success", "Gửi health check schedule đến parent thành công");
-                return "redirect:/nurse/nurse-home";
-            }catch (BusinessException e){
-                redirectAttributes.addFlashAttribute("error",e.getMessage());
-                return "redirect:/nurse/nurse-home";
-            }
+            return "redirect:/nurse/nurse-home";
 
         }catch (BusinessException e){
             redirectAttributes.addFlashAttribute("error", "Tạo lịch tiêm chủng thất bại");
@@ -70,10 +60,41 @@ public class VaccinationScheduleController {
 
     }
 
+    //    Danh sách các lịch tiêm chủng đã tạo nhưng chưa gửi
+    @GetMapping("/vaccinationSchedules/drafts")
+    public String vaccinationScheduleDrafts_list(Model model, @RequestParam(defaultValue = "0") int page) {
+        Page<VaccinationScheduleDTO> vaccinationSchedules = vaccinationScheduleService.getAllVaccinationSchedule_drafts(page);
+        model.addAttribute("draftsVaccinationSchedules",vaccinationSchedules.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", vaccinationSchedules.getTotalPages());
+        return  "nurse/vaccination-schedule-list";
+    }
+
+//    Gửi lịch tiêm đến phụ huynh
+    @PostMapping("/sentToParent")
+    public String sentVaccinationSchedule(@ModelAttribute("vaccinationScheduleId") Long vaccinationScheduleId
+            , RedirectAttributes redirectAttributes
+            , Model model) {
+
+        VaccinationScheduleDTO vaccinationSchedule = vaccinationScheduleService.getVaccinationScheduleById(vaccinationScheduleId);
+        log.info("vaccinationSchedule in sentVaccinationSchedule: {}", vaccinationSchedule);
+
+        try{
+//                    Gửi lịch đến phụ huynh:
+            vaccinationConsentService.sendVaccinationSchedule_toParent(vaccinationSchedule);
+            redirectAttributes.addFlashAttribute("success", "Gửi lịch tiêm vaccine đến parent thành công");
+            return "redirect:/nurse/nurse-home";
+        }catch (BusinessException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            return "redirect:/nurse/nurse-home";
+        }
+
+    }
+
     //    Danh sách các lịch tiêm chủng đã gửi
-    @GetMapping("/vaccinationSchedules")
-    public String vaccinationSchedule_list(Model model, @RequestParam(defaultValue = "0") int page) {
-        Page<VaccinationScheduleDTO> vaccinationSchedules = vaccinationScheduleService.getAllVaccinationSchedule(page);
+    @GetMapping("/vaccinationSchedules/sent")
+    public String vaccinationScheduleSent_list(Model model, @RequestParam(defaultValue = "0") int page) {
+        Page<VaccinationScheduleDTO> vaccinationSchedules = vaccinationScheduleService.getAllVaccinationSchedule_sent(page);
         model.addAttribute("sentVaccinationSchedules",vaccinationSchedules.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", vaccinationSchedules.getTotalPages());

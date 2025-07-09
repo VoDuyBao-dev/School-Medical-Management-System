@@ -112,6 +112,7 @@ public class UserService {
                 User adminUser = new User();
                 adminUser.setUsername("admin");
                 adminUser.setPassword(passwordEncoder.encode("admin")); // Mã hoá mật khẩu
+                adminUser.setEmail("admin123@gmail.com");
                 adminUser.setRole(Role.ADMIN);
                 userRepository.save(adminUser);
 
@@ -127,6 +128,7 @@ public class UserService {
                 User nurseUser = new User();
                 nurseUser.setUsername("nurse");
                 nurseUser.setPassword(passwordEncoder.encode("nurse"));
+                nurseUser.setEmail("nurse123@gmail.com");
                 nurseUser.setRole(Role.NURSE);
                 userRepository.save(nurseUser);
 
@@ -258,5 +260,24 @@ public class UserService {
 
 
 
+    public boolean existsUserByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    public UserDTO findUserByEmail(String email) {
+        return userMapper.toUserDTO(userRepository.findByEmail(email));
+    }
 
+
+//    reset password
+    public void resetPassword(long userId, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_EXISTS));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        try{
+            userRepository.save(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new BusinessException(ErrorCode.INTERNAL_ERROR);
+        }
+    }
 }
