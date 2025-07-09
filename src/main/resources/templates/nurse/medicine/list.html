@@ -40,7 +40,7 @@
   </div>
 
   <div class="table-responsive mt-2">
-    <table class="table table-bordered align-middle text-center">
+    <table class="table table-bordered align-middle text-center table-rounded">
       <thead class="table-pink">
       <tr>
         <th>STT</th>
@@ -54,7 +54,7 @@
       </thead>
       <tbody id="medicineTable">
       <tr th:if="${#lists.isEmpty(medicines)}">
-        <td colspan="7">Không có bản ghi nào.</td>
+        <td colspan="7">Hiện không có thuốc nào.</td>
       </tr>
       <tr th:each="medicine, iterStat : ${medicines}">
         <td th:text="${iterStat.count}">1</td>

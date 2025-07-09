@@ -52,7 +52,7 @@
 
   <!-- Bảng -->
   <div class="table-responsive">
-    <table class="table table-bordered align-middle text-center">
+    <table class="table table-bordered align-middle text-center table-rounded">
       <thead class="table-pink">
       <tr>
         <th>STT</th>
@@ -62,6 +62,9 @@
       </tr>
       </thead>
       <tbody id="supplyTable">
+      <tr th:if="${#lists.isEmpty(supplyList)}">
+        <td colspan="4">Hiện không có thuốc nào.</td>
+      </tr>
       <tr th:each="supply, iterStat : ${supplyList}">
         <td th:text="${iterStat.index + 1}">1</td>
         <td th:text="${supply.name}">Gạc y tế</td>

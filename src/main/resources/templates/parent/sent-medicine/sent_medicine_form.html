@@ -1,31 +1,78 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Gửi thuốc cho học sinh</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Gửi thuốc cho học sinh</h2>-->
+
+
+<!--<form th:action="@{/parent/sentMedicine/submit}" method="post" th:object="${sentMedicineDTO}">-->
+<!--  <label for="student">Chọn học sinh:</label>-->
+<!--  <select th:field="*{studentId}" id="student" required>-->
+<!--    <option th:each="s : ${studentList}" th:value="${s.id}" th:text="${s.fullName}">Chọn học sinh</option>-->
+<!--  </select>-->
+<!--  <br><br>-->
+
+<!--  <label for="medicineList">Danh sách thuốc:</label><br>-->
+<!--  <textarea th:field="*{medicineList}" id="medicineList" rows="3" required></textarea>-->
+<!--  <br><br>-->
+
+<!--  <label for="usageInstructions">Hướng dẫn sử dụng:</label><br>-->
+<!--  <textarea th:field="*{usageInstructions}" id="usageInstructions" rows="4" required></textarea>-->
+<!--  <br><br>-->
+
+<!--  <button type="submit">Gửi thuốc</button>-->
+<!--</form>-->
+<!--<a th:href="@{/parent/sentMedicine/list}"><button type="button">Hủy</button></a>-->
+<!--<br>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
   <meta charset="UTF-8">
   <title>Gửi thuốc cho học sinh</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" th:href="@{/assets/css/parent/sent-medicine/sent_medicine_form.css}">
 </head>
 <body>
-<h2>Gửi thuốc cho học sinh</h2>
+<div class="container">
+  <h2 class="form-title">Gửi thuốc cho học sinh</h2>
 
+  <form th:action="@{/parent/sentMedicine/submit}" method="post" th:object="${sentMedicineDTO}" id="medicineForm">
+    <div class="form-group">
+      <label for="student">Chọn học sinh:</label>
+      <select th:field="*{studentId}" id="student" required>
+        <option value="">-- Chọn học sinh --</option>
+        <option th:each="s : ${studentList}" th:value="${s.id}" th:text="${s.fullName}"></option>
+      </select>
+    </div>
 
-<form th:action="@{/parent/sentMedicine/submit}" method="post" th:object="${sentMedicineDTO}">
-  <label for="student">Chọn học sinh:</label>
-  <select th:field="*{studentId}" id="student" required>
-    <option th:each="s : ${studentList}" th:value="${s.id}" th:text="${s.fullName}">Chọn học sinh</option>
-  </select>
-  <br><br>
+    <div class="form-group">
+      <label for="medicineList">Danh sách thuốc:</label>
+      <textarea th:field="*{medicineList}" id="medicineList" rows="3" required></textarea>
+    </div>
 
-  <label for="medicineList">Danh sách thuốc:</label><br>
-  <textarea th:field="*{medicineList}" id="medicineList" rows="3" required></textarea>
-  <br><br>
+    <div class="form-group">
+      <label for="usageInstructions">Hướng dẫn sử dụng:</label>
+      <textarea th:field="*{usageInstructions}" id="usageInstructions" rows="4" required></textarea>
+    </div>
 
-  <label for="usageInstructions">Hướng dẫn sử dụng:</label><br>
-  <textarea th:field="*{usageInstructions}" id="usageInstructions" rows="4" required></textarea>
-  <br><br>
+    <div class="form-actions">
+      <button type="submit">Gửi thuốc</button>
+      <a th:href="@{/parent/sentMedicine/list}">
+        <button type="button" class="cancel-btn">Hủy</button>
+      </a>
+    </div>
+  </form>
+</div>
 
-  <button type="submit">Gửi thuốc</button>
-</form>
-<a th:href="@{/parent/sentMedicine/list}"><button type="button">Hủy</button></a>
-<br>
+<!-- JS -->
+<script th:src="@{/assets/js/parent/sent-medicine/sent_medicine_form.js}"></script>
 </body>
 </html>
+
+

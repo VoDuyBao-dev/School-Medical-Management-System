@@ -22,4 +22,36 @@ body{
 }
 
 .search-box { max-width:320px; }
-.search-box input { padding-left:2.25rem; }
+.search-box input { padding-left:2.25rem;
+}
+/* ===== Bo tròn toàn bảng ===== */
+.table-rounded {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Giữ phần đầu bảng bo tròn phía trên */
+.table-rounded thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.table-rounded thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Giữ phần cuối bảng bo tròn phía dưới */
+.table-rounded tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.table-rounded tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+/* Ô bị giới hạn độ rộng, hiển thị … khi quá dài */
+.ellipsis-cell {
+    max-width: 220px;        /* tuỳ chỉnh chiều rộng phù hợp */
+    white-space: nowrap;     /* không xuống dòng */
+    overflow: hidden;        /* ẩn phần tràn */
+    text-overflow: ellipsis; /* hiện dấu ... */
+}
