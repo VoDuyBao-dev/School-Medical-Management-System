@@ -103,6 +103,12 @@ public class ProfileController {
         Role role = customUserDetails.getUser().getRole();
         User user = userService.findById(userId); // đã đảm bảo tồn tại
 
+        String email = request.getParameter("email");
+
+        if (email != null && !email.isBlank()) {
+            user.setEmail(email);
+        }
+
         switch (role) {
             case ADMIN -> {
                 Admin admin = userService.findAdminByUsername(user.getUsername());
