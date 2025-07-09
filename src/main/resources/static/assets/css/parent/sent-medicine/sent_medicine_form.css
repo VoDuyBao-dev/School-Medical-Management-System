@@ -1,67 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Body + Container căn giữa */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    padding: 30px;
+    background-color: #fff0f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.2);
     max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    width: 100%;
 }
 
+/* Tiêu đề */
 .form-title {
     text-align: center;
     color: #e91e63;
-    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 30px;
 }
 
+/* Nhóm form */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
-label {
-    font-weight: bold;
+.form-group label {
     display: block;
-    margin-bottom: 6px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
 }
 
-select, textarea {
+.form-group select,
+.form-group textarea {
     width: 100%;
-    padding: 10px;
+    padding: 10px 12px;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    resize: vertical;
-    font-size: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    resize: none;
 }
 
+/* Hành động */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Nút chung */
 button {
     padding: 10px 20px;
-    background-color: #e91e63;
+    border-radius: 12px;
     border: none;
-    color: #fff;
-    border-radius: 6px;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #d81b60;
+/* Nút gửi */
+button[type="submit"] {
+    background: linear-gradient(to right, #e91e63, #ff6090);
+    color: white;
 }
 
+button[type="submit"]:hover {
+    background: linear-gradient(to right, #d81b60, #f06292);
+}
+
+/* Nút hủy */
 .cancel-btn {
-    background-color: #999;
-    margin-left: 10px;
+    background-color: #e0e0e0;
+    color: #333;
 }
 
 .cancel-btn:hover {
-    background-color: #777;
+    background-color: #d5d5d5;
 }
 
-.form-actions {
-    text-align: center;
-    margin-top: 20px;
-}

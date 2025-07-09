@@ -61,6 +61,7 @@
       <tr>
         <th>STT</th>
         <th>Tên vật tư</th>
+        <th>Ngày tạo</th>
         <th>Số lượng</th>
         <th>Thao tác</th>
       </tr>
@@ -72,6 +73,7 @@
       <tr th:each="supply, iterStat : ${supplyList}">
         <td th:text="${iterStat.index + 1}">1</td>
         <td th:text="${supply.name}">Gạc y tế</td>
+        <td th:text="${supply.entryDate}"></td>
         <td th:text="${supply.quantityInStock}"
             th:classappend="${supply.quantityInStock < 10} ? 'danger' : ''">5</td>
         <td>

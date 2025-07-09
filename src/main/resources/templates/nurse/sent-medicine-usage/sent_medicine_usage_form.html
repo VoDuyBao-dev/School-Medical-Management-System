@@ -1,32 +1,92 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Ghi nhận liều thuốc đã cho uống</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Ghi nhận việc cho học sinh uống thuốc</h2>-->
+
+<!--<form th:action="@{/nurse/sentMedicineUsage/use}" method="post" th:object="${usage}">-->
+<!--    <input type="hidden" th:field="*{sentMedicine.id}"/>-->
+
+<!--    <label for="medicineName">Tên thuốc:</label><br>-->
+<!--    <select th:field="*{medicineName}" id="medicineName" required>-->
+<!--        <option value="">&#45;&#45; Chọn thuốc &#45;&#45;</option>-->
+<!--        <option th:each="name : ${medicineOptions}"-->
+<!--                th:value="${name}" th:text="${name}"></option>-->
+<!--    </select>-->
+<!--    <br><br>-->
+<!--    <label for="dosage">Liều dùng:</label><br>-->
+<!--    <input type="text" th:field="*{dosage}" id="dosage" required><br><br>-->
+
+<!--    <label for="notes">Ghi chú:</label><br>-->
+<!--    <textarea th:field="*{notes}" id="notes" rows="3"></textarea><br><br>-->
+
+<!--    <button type="submit">Xác nhận đã cho uống</button>-->
+<!--</form>-->
+<!--<a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Hủy</button></a>-->
+<!--<br>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Ghi nhận liều thuốc đã cho uống</title>
+
+    <!-- CSS tuỳ chỉnh -->
+    <link rel="stylesheet"
+          th:href="@{/assets/css/nurse/sent-medicine-usage/sent_medicine_usage_form.css}">
 </head>
 <body>
-<h2>Ghi nhận việc cho học sinh uống thuốc</h2>
 
-<form th:action="@{/nurse/sentMedicineUsage/use}" method="post" th:object="${usage}">
-    <input type="hidden" th:field="*{sentMedicine.id}"/>
+<div class="form-container">
+    <h2 class="form-title">Ghi nhận việc cho học sinh uống thuốc</h2>
 
-    <label for="medicineName">Tên thuốc:</label><br>
-    <select th:field="*{medicineName}" id="medicineName" required>
-        <option value="">-- Chọn thuốc --</option>
-        <option th:each="name : ${medicineOptions}"
-                th:value="${name}" th:text="${name}"></option>
-    </select>
-    <br><br>
-    <label for="dosage">Liều dùng:</label><br>
-    <input type="text" th:field="*{dosage}" id="dosage" required><br><br>
+    <form th:action="@{/nurse/sentMedicineUsage/use}"
+          method="post"
+          th:object="${usage}"
+          id="usageForm">
 
-    <label for="notes">Ghi chú:</label><br>
-    <textarea th:field="*{notes}" id="notes" rows="3"></textarea><br><br>
+        <!-- sentMedicineId -->
+        <input type="hidden" th:field="*{sentMedicine.id}"/>
 
-    <button type="submit">Xác nhận đã cho uống</button>
-</form>
-<a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Hủy</button></a>
-<br>
+        <!-- Thuốc -->
+        <div class="form-group">
+            <label for="medicineName">Tên thuốc <span class="required">*</span></label>
+            <select th:field="*{medicineName}" id="medicineName" required>
+                <option value="">-- Chọn thuốc --</option>
+                <option th:each="name : ${medicineOptions}"
+                        th:value="${name}"
+                        th:text="${name}"></option>
+            </select>
+        </div>
 
+        <!-- Liều -->
+        <div class="form-group">
+            <label for="dosage">Liều dùng <span class="required">*</span></label>
+            <input type="text" th:field="*{dosage}" id="dosage" required>
+        </div>
+
+        <!-- Ghi chú -->
+        <div class="form-group">
+            <label for="notes">Ghi chú</label>
+            <textarea th:field="*{notes}" id="notes" rows="3"></textarea>
+        </div>
+
+        <!-- Nút -->
+        <div class="actions">
+            <button type="submit" class="btn-primary">Xác nhận</button>
+            <a th:href="@{/nurse/sentMedicineUsage/sent}">
+                <button type="button" class="btn-secondary">Hủy</button>
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- JS -->
+<script th:src="@{/assets/js/nurse/sent-medicine-usage/sent_medicine_usage_form.js}"></script>
 </body>
 </html>
