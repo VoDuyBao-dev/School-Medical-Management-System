@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: { display: true, text: 'Số Ca' }
                 },
                 x: {
-                    title: { display: true, text: 'Ngày' }
+                    title: { display: false }
                 }
             },
             plugins: {

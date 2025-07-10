@@ -42,6 +42,7 @@ h2 {
 
 .info-group {
     margin-bottom: 15px;
+    width: 90%;
 }
 
 .info-group strong {
@@ -52,6 +53,10 @@ h2 {
 
 .info-group span {
     color: #333;
+    display: inline-block;  /* Cho phép xuống dòng */
+    word-wrap: break-word;  /* Tự động xuống dòng khi từ dài quá */
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 hr {
