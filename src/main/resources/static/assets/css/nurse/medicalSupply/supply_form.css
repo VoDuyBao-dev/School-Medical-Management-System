@@ -3,12 +3,15 @@ body{
     background:#fff0f5;
     padding:40px;
     margin:0;
+    display: contents;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Khung chính */
 .form-container{
     max-width:600px;
-    margin:auto;
+    margin: 20px auto;
     background:#fff;
     padding:32px;
     border-radius:14px;

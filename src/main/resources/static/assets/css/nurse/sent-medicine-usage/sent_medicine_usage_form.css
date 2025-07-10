@@ -8,7 +8,7 @@
 
 body{
     background:#fff0f5;
-    display:flex;
+    display:contents;
     align-items:center;
     justify-content:center;
     min-height:100vh;
@@ -22,6 +22,7 @@ body{
     padding:30px 40px;
     border-radius:16px;
     box-shadow:0 8px 24px rgba(233,30,99,.2);
+    margin: 20px auto;
 }
 
 .form-title{

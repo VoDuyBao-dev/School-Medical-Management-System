@@ -10,6 +10,18 @@
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
+<div th:if="${user.role.name() == 'ADMIN'}">
+    <div th:replace="fragments/header :: Nav-Admin"></div>
+</div>
+<div th:if="${user.role.name() == 'NURSE'}">
+    <div th:replace="fragments/header :: Nav-Nurse"></div>
+</div>
+<div th:if="${user.role.name() == 'PARENT'}">
+    <div th:replace="fragments/header :: Nav-Parent"></div>
+</div>
+<div th:if="${user.role.name() == 'MANAGER'}">
+    <div th:replace="fragments/header :: Nav-Manager"></div>
+</div>
 <div class="container">
 <h2>Chỉnh sửa hồ sơ <span th:text="${user.username}"></span></h2>
 
