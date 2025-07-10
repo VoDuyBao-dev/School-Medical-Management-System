@@ -1,3 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
 /* Container */
 .container {
     padding-top: 2rem;
@@ -10,12 +26,6 @@
 .mb-4 {
     margin-bottom: 1.5rem;
 }
-
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #fff0f5;
-}
-
 .text-pink { color:#e91e63; }
 
 /* Nút quay lại bo tròn, hover đẹp */
