@@ -21,6 +21,7 @@
             <div class="form-group">
                 <label>Password:</label>
                 <input type="password" name="password" required>
+                <i class="fas fa-eye toggle-password" id="togglePassword"></i>
             </div>
             <div th:if="${param.error}">
                 <p style="color:red">Tài khoản hoặc mật khẩu không đúng!</p>

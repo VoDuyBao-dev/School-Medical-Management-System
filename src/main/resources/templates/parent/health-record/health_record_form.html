@@ -5,14 +5,17 @@
     <title>Khai báo hồ sơ sức khỏe</title>
 
     <!-- Bootstrap + FontAwesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- CSS tuỳ chỉnh -->
     <link rel="stylesheet" th:href="@{/assets/css/parent/health-record/health_record_form.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="container py-5">
     <div class="form-container bg-white shadow-sm p-4 rounded">
 
@@ -84,6 +87,8 @@
 
 <!-- JS -->
 <script th:src="@{/assets/js/parent/health-record/health_record_form.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 

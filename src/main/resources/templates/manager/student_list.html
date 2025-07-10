@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <title>Danh sách học sinh</title>
   <link rel="stylesheet" th:href="@{/assets/css/manager/student_list.css}">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Manager"></div>
 <div class="container">
   <h2 class="page-title">Danh sách học sinh</h2>
 
@@ -50,5 +54,7 @@
 </div>
 
 <script th:src="@{/assets/js/manager/student_list.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

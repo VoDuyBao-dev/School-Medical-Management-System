@@ -45,15 +45,16 @@ public class AdminController {
         model.addAttribute("username", username);
 
 //        Tinhs toán thống kê
-//        List<Integer> years = List.of(2023, 2024, 2025);
+
         List<Integer> vaccinationCounts = statisticsService.getMonthlyVaccinationCounts(2025);
         List<Integer> healthCheckCounts = statisticsService.getMonthlyHealthCheckCounts(2025);
         List<Integer> medicalEventCounts = statisticsService.getMonthlyMedicalEventCounts(2025);
 
+        log.info("vaccinationCounts in showChart {}:" , vaccinationCounts);
+        log.info("healthCheckCounts in showChart {}:" , healthCheckCounts);
         log.info("medicalEventCounts in showChart {}:" , medicalEventCounts);
 
-//        model.addAttribute("years", years);
-//        model.addAttribute("selectedYear", year);
+
 
 //        data biểu đồ healthCheck và Vaccination
         model.addAttribute("vaccinationCounts", vaccinationCounts);

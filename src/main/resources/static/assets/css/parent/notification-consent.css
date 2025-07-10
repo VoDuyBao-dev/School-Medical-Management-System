@@ -24,7 +24,6 @@ body {
     overflow-y:auto;
     font-family:'Segoe UI',sans-serif;
     text-transform: uppercase;
-    margin: 20px auto;
 }
 /* Header */
 .notification-header{
