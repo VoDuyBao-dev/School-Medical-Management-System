@@ -35,8 +35,6 @@ public class StudentService {
         return studentMapper.toStudentDTOs(studentRepository.findAll());
     }
 
-
-
     public List<Student> getByParentId(Long parentId) {
         return studentRepository.findByParent_Id(parentId);
     }
@@ -61,5 +59,13 @@ public class StudentService {
         student.setParent(parent);
 
         studentRepository.save(student);
+    }
+
+    public StudentDTO getStudentById_DTO(Long id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.STUDENT_NOT_FOUND));
+
+        return studentMapper.toStudentDTO(student);
+
     }
 }

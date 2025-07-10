@@ -41,5 +41,8 @@ public class VaccinationConsent {
     @Column(name = "vaccinated",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
     private boolean vaccinated = false;
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "vaccinationConsent", fetch = FetchType.LAZY)
+    private VaccinationRecord vaccinationRecord;
 
 }

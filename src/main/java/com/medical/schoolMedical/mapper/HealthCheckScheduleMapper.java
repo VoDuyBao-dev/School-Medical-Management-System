@@ -20,6 +20,7 @@ public interface HealthCheckScheduleMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "content", target = "content"),
+            @Mapping(source = "className", target = "className"),
             @Mapping(source = "checkDate", target = "checkDate"),
             @Mapping(source = "sentDate", target = "sentDate"),
             @Mapping(source = "notes", target = "notes"),

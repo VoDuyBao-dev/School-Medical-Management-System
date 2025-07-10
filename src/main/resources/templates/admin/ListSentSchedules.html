@@ -27,6 +27,7 @@
   <thead>
   <tr>
     <th>STT</th>
+    <th>Khối khám</th>
     <th>Ngày khám</th>
     <th>Giờ khám</th>
     <th>Ngày gửi</th>
@@ -38,6 +39,7 @@
   <tbody>
   <tr th:each="schedule, iterStat : ${sentSchedules}">
     <td th:text="${iterStat.index + 1}">1</td>
+    <td th:text="${schedule.className}"></td>
     <td th:text="${#temporals.format(schedule.checkDate, 'dd/MM/yyyy')}">05/01/2026</td>
     <td th:text="${#temporals.format(schedule.checkDate, 'hh:mm a')}">09:30 AM</td>
     <td th:text="${#temporals.format(schedule.sentDate, 'dd/MM/yyyy')}">01/01/2026</td>

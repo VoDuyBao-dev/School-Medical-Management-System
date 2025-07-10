@@ -87,6 +87,7 @@ public class HealthCheckRecordService {
 
         try{
             healthCheckRecord = healthCheckRecord_fullInfor(healthCheckRecordDTO, userId);
+            log.info("healthCheckRecord in create_HealthCheckRecord {}:", healthCheckRecord);
             healthCheckRecord.setHealthCheckConsent(healthCheckConsent);
 //            Cập nhật bản health check consent tương ứng để biết học sinh đó đã có bản ghi kết quả
             healthCheckRecord.getHealthCheckConsent().setCheckedHealth(true);
@@ -182,6 +183,14 @@ public class HealthCheckRecordService {
         }catch (Exception e){
             throw new BusinessException(ErrorCode.SAVE_HEALTH_CHECK_RECORD_FAILED);
         }
+
+        return healthCheckRecordMapper.toHealthCheckRecordDTO(healthCheckRecord);
+    }
+
+    //    Lấy health check record tương ứng với scheduleId cho nurse
+    public HealthCheckRecordDTO getCheckRecord(long id){
+        HealthCheckRecord healthCheckRecord = healthCheckRecordRepository.findByHealthCheckConsent_Id(id)
+                .orElseThrow(()->new BusinessException(ErrorCode.HEALTH_CHECK_RECORD_NOT_EXISTS));
 
         return healthCheckRecordMapper.toHealthCheckRecordDTO(healthCheckRecord);
     }

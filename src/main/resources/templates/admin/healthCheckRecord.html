@@ -20,19 +20,6 @@
 
   <form th:action="@{/nurse/healthCheckRecord/save-update-Form}" th:object="${healthCheckRecordDTO}" method="post" class="report-form" id="healthReportForm">
 
-    <div class="section-title">Thông Tin Học Sinh</div>
-    <div class="grid-2">
-      <div class="form-group">
-        <label for="studentName">Họ và Tên <span style="color: #d81b60">*</span></label>
-        <input type="text" id="studentName" placeholder="Nhập họ và tên" required aria-required="true">
-        <div class="error" id="studentNameError">Vui lòng nhập họ và tên!</div>
-      </div>
-      <div class="form-group">
-        <label for="classId">Lớp</label>
-        <input type="text" id="classId" placeholder="Nhập lớp">
-      </div>
-    </div>
-
     <input type="hidden" name="consentId" th:value="${consentId}"/>
     <input type="hidden" name="idSchedule" th:value="${idSchedule}"/>
     <input type="hidden" th:field="*{id}" />
@@ -54,27 +41,27 @@
 
     <div class="grid-2">
       <div class="form-group">
-        <label for="bloodPressure">Huyết Áp (mmHg)</label>
-        <input type="text" id="bloodPressure" placeholder="Nhập huyết áp (VD: 120/80)">
+        <label th:for="*{bloodPressure}">Huyết Áp (mmHg)</label>
+        <input type="text" th:field="*{bloodPressure}" placeholder="Nhập huyết áp (VD: 120/80)">
         <div class="error" id="bloodPressureError">Vui lòng nhập huyết áp hợp lệ (VD: 120/80)!</div>
       </div>
 
       <div class="form-group">
-        <label for="heartRate">Nhịp Tim (lần/phút)</label>
-        <input type="number" id="heartRate" placeholder="Nhập nhịp tim" min="0" step="1">
+        <label th:for="*{heartRate}">Nhịp Tim (lần/phút)</label>
+        <input type="number" th:field="*{heartRate}" placeholder="Nhập nhịp tim" min="0" step="1">
         <div class="error" id="heartRateError">Vui lòng nhập số lớn hơn 60 và nhỏ hơn 120!</div>
       </div>
 
     </div>
 
     <div class="form-group">
-      <label for="height">Chiều Cao (cm)</label>
-      <input type="number" id="height" placeholder="Nhập chiều cao" min="0" step="0.1">
+      <label th:for="*{height}">Chiều Cao (cm)</label>
+      <input type="number" th:field="*{height}" placeholder="Nhập chiều cao" min="0" step="0.1">
     </div>
 
     <div class="form-group">
-      <label for="weight">Cân Nặng (kg)</label>
-      <input type="number" id="weight" placeholder="Nhập cân nặng" min="0" step="0.1">
+      <label th:for="*{weight}">Cân Nặng (kg)</label>
+      <input type="number" th:field="*{weight}" placeholder="Nhập cân nặng" min="0" step="0.1">
     </div>
 
     <div class="section-title">Ghi Chú Bổ Sung</div>
@@ -94,7 +81,7 @@
     </div>
 
   <div>
-    <button type="submit">Lưu kết quả</button>
+    <button type="submit" class="submit-btn">Lưu kết quả</button>
   </div>
 </form>
 </div>

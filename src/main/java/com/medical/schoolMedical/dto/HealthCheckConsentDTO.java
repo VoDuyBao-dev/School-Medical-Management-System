@@ -28,6 +28,8 @@ public class HealthCheckConsentDTO {
     private Long healthCheckRecordId;
     private ConsentStatus status;
     private boolean checkedHealth = false;
+    private Boolean sentToParent;
+    private boolean needsConsultation;
 
 
 
