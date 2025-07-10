@@ -20,7 +20,12 @@
             <p>Xin chào,<span sec:authentication="name"></span>!</p>
             <div class="dropdown-user" id="dropdownUser">
                 <a th:href="@{/profile}">Thông tin cá nhân</a>
-                <a th:href="@{/}">Đăng xuất</a>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin/logout}">Đăng xuất (Admin)</a>
+                </div>
+                <div sec:authorize="!hasRole('ADMIN')">
+                    <a th:href="@{/logout}">Đăng xuất</a>
+                </div>
             </div>
         </div>
     </div>

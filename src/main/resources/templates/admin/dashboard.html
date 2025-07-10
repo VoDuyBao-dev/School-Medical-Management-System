@@ -28,26 +28,27 @@
         <div class="stats-container">
             <div class="stat-card">
                 <i class="fas fa-users"></i>
-                <h3>Người Dùng</h3>
-                <p>1,234</p>
+                <h3>Phụ huynh</h3>
+                <p th:text="${counts.parents}">1,234</p>
             </div>
             <div class="stat-card">
                 <i class="fas fa-user-md"></i>
                 <h3>Nhân Viên Y Tế</h3>
-                <p>45</p>
+                <p th:text="${counts.nurses}">45</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-briefcase-medical"></i>
+                <h3>Học sinh</h3>
+                <p th:text="${counts.students}">2,345</p>
             </div>
             <!--    </div>-->
             <!--    <div class="stats-container">-->
             <div class="stat-card">
                 <i class="fas fa-pills"></i>
                 <h3>Thuốc Trong Kho</h3>
-                <p>1,890</p>
+                <p th:text="${counts.medicines}">1,890</p>
             </div>
-            <div class="stat-card">
-                <i class="fas fa-briefcase-medical"></i>
-                <h3>Vật Tư Y Tế</h3>
-                <p>2,345</p>
-            </div>
+
         </div>
     </div>
 
@@ -61,8 +62,8 @@
     <div class="students-container">
         <h2>Học Sinh Thêm Mới Nhất</h2>
         <div class="tab-nav">
-            <button class="tab-button active" onclick="switchTab('week')">Tuần trước</button>
-            <button class="tab-button" onclick="switchTab('month')">Tháng trước</button>
+            <button class="tab-button active" onclick="switchTab('thisMonth')">Tháng này</button>
+            <button class="tab-button" onclick="switchTab('lastMonth')">Tháng trước</button>
         </div>
         <table id="usersTable">
             <thead>
@@ -71,44 +72,38 @@
                 <th>Họ và tên</th>
                 <th>Lớp</th>
                 <th>Họ tên phụ huynh</th>
-                <th>SĐT</th>
+
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td> Nguyễn Văn A </td>
-                <td>12A1</td>
-                <td>Phụ huynh A</td>
-                <td>0125687954</td>
+            <!-- Tháng này -->
+            <tbody id="thisMonthTable">
+            <tr th:each="student, iterStat : ${studentsThisMonth}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${student.fullName}"></td>
+                <td th:text="${student.className}"></td>
+                <td th:text="${student.parent != null ? student.parent.fullName : '---'}"></td>
+<!--                <td th:text="${student.parent != null ? student.parent.phone : '-&#45;&#45;'}"></td>-->
             </tr>
-            <tr>
-                <td>2</td>
-                <td> Nguyễn Văn B </td>
-                <td>12A1</td>
-                <td>Phụ huynh B</td>
-                <td>0985623421</td>
+            <tr th:if="${#lists.isEmpty(studentsThisMonth)}">
+                <td colspan="5" style="text-align:center;">Không có dữ liệu tháng này.</td>
             </tr>
-            <tr>
-                <td>3</td>
-                <td> Trần Thị A </td>
-                <td>12A1</td>
-                <td>Phụ huynh C</td>
-                <td>0125687954</td>
+            </tbody>
+
+            <!-- Tháng trước -->
+            <tbody id="lastMonthTable" style="display:none;">
+            <tr th:each="student, iterStat : ${studentsLastMonth}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${student.fullName}"></td>
+                <td th:text="${student.className}"></td>
+                <td th:text="${student.parent != null ? student.parent.fullName : '---'}"></td>
+<!--                <td th:text="${student.parent != null ? student.parent.phone : '-&#45;&#45;'}"></td>-->
             </tr>
-            <tr>
-                <td>4</td>
-                <td> Cao Nhân Nghĩa </td>
-                <td>12A1</td>
-                <td>Phụ huynh D</td>
-                <td>0125687954</td>
+            <tr th:if="${#lists.isEmpty(studentsLastMonth)}">
+                <td colspan="5" style="text-align:center;">Không có dữ liệu tháng trước.</td>
             </tr>
             </tbody>
         </table>
-        <div class="table-actions">
-            <button class="delete-btn"><i class="fas fa-trash"></i></button>
-            <button class="save-btn">Lưu</button>
-        </div>
+
 
         <div class="stats-container">
             <div class="stat-card">
@@ -133,8 +128,15 @@
         <div class="updated-at">Last Updated: <span id="updateTime">01:46 AM, 09/07/2025</span></div>
     </div>
 </div>
+
+<script th:inline="javascript">
+    let healthCheckCounts = /*[[${healthCheckCounts}]]*/ [];
+    let vaccinationCounts = /*[[${vaccinationCounts}]]*/ [];
+    let medicalEventCounts = /*[[${medicalEventCounts}]]*/ [];
+</script>
 <script th:src="@{/assets/js/admin/index.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
+
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
