@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
     <title>Ghi Nhận Sự Kiện Y Tế</title>
+
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
@@ -14,7 +15,7 @@
 <div class="container">
     <h2>Ghi Nhận Sự Kiện Y Tế</h2>
 
-<div th:if="${error}" style="color: red; font-weight: bold; margin-top: 10px;">
+<div th:if="${error}" class="alert alert-danger">
     <p th:text="${error}"></p>
 </div>
 

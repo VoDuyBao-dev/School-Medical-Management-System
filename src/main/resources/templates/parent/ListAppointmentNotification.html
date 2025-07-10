@@ -5,119 +5,14 @@
     <title>Thông báo lịch hẹn tư vấn</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-
-        .notification-panel {
-            width: 800px; /* tăng từ 400px lên 800px */
-            max-height: 90vh;
-            margin: 40px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-
-        .notification-header {
-            padding: 24px;
-            border-bottom: 1px solid #ddd;
-            background: #4CAF50;
-            color: #fff;
-            font-size: 24px; /* tăng cỡ chữ */
-            font-weight: bold;
-        }
-
-        .notification-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 20px 24px;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s;
-            cursor: pointer;
-        }
-
-        .notification-item:hover {
-            background: #f2fef4;
-        }
-
-        .notification-icon {
-            color: #4CAF50;
-            margin-right: 20px;
-            font-size: 28px; /* tăng icon size */
-        }
-
-        .notification-content {
-            flex-grow: 1;
-        }
-
-        .notification-content p {
-            margin: 0;
-            font-size: 18px; /* tăng cỡ chữ */
-        }
-
-        .notification-content .time {
-            font-size: 14px;
-            color: #888;
-            margin-top: 6px;
-        }
-
-        .view-all {
-            text-align: center;
-            padding: 16px;
-            background: #f5f5f5;
-            border-top: 1px solid #ddd;
-        }
-
-        .view-all a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .view-all a:hover {
-            text-decoration: underline;
-        }
-        .notification-item.unconfirmed {
-            background-color: #fff8e1; /* Màu nền vàng nhạt */
-            border-left: 5px solid #ffb300; /* Thanh viền trái nổi bật */
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-            gap: 10px;
-        }
-
-        .pagination a {
-            text-decoration: none;
-            color: blue;
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-
-        .pagination a:hover {
-            background-color: #f0f0f0;
-        }
-
-        .pagination a.current {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            border-color: #4CAF50;
-        }
-
-    </style>
+    <link rel="stylesheet" th:href="@{/assets/css/pages/phanTrang.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/pages/notification.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="notification-panel">
     <div class="notification-header">
         Thông báo lịch hẹn tư vấn
@@ -165,5 +60,8 @@
        th:text="${i + 1}"
        th:classappend="${i == currentPage} ? ' current'">1</a>
 </div>
+<script th:src="@{/asset/js/phanTrang}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -1,3 +1,5 @@
+
+/* Nền và bố cục chính */
 * {
     margin: 0;
     padding: 0;
@@ -5,9 +7,11 @@
     font-family: 'Roboto', 'Arial', sans-serif;
 }
 
-/* Nền và bố cục chính */
 body {
     background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    display: contents;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
     padding: 20px;
 }

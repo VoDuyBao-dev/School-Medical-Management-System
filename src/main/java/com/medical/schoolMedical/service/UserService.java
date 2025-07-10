@@ -123,34 +123,6 @@ public class UserService {
                 adminRepository.save(admin);
 
             }
-            // 2. Tài khoản nurse
-            if (userRepository.findByUsername("nurse") == null) {
-                User nurseUser = new User();
-                nurseUser.setUsername("nurse");
-                nurseUser.setPassword(passwordEncoder.encode("nurse"));
-                nurseUser.setEmail("nurse123@gmail.com");
-                nurseUser.setRole(Role.NURSE);
-                userRepository.save(nurseUser);
-
-                SchoolNurse nurse = new SchoolNurse();
-                nurse.setUser(nurseUser);
-                nurse.setFullName("Y tá trưởng");
-                schoolNurseRepository.save(nurse);
-            }
-
-            // 3. Tài khoản parent
-            if (userRepository.findByUsername("parent") == null) {
-                User parentUser = new User();
-                parentUser.setUsername("parent");
-                parentUser.setPassword(passwordEncoder.encode("parent"));
-                parentUser.setRole(Role.PARENT);
-                userRepository.save(parentUser);
-
-                Parent parent = new Parent();
-                parent.setUser(parentUser);
-                parent.setFullName("Phụ huynh A");
-                parentRepositoty.save(parent);
-            }
         }
         catch (Exception e) {
             e.printStackTrace();
