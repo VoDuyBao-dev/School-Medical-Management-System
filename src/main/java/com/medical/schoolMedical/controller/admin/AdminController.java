@@ -4,7 +4,9 @@ import com.medical.schoolMedical.entities.Admin;
 import com.medical.schoolMedical.entities.User;
 import com.medical.schoolMedical.enums.Role;
 import com.medical.schoolMedical.repositories.AdminRepository;
+import com.medical.schoolMedical.service.StatisticsService;
 import com.medical.schoolMedical.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -24,6 +27,9 @@ public class AdminController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private StatisticsService statisticsService;
 
 
     @GetMapping({"/dashboard", "/"})
@@ -74,6 +80,21 @@ public class AdminController {
     public String deleteUser(@PathVariable int id) {
         userService.softDeleteUser(id);
         return "redirect:/admin/manage-users";
+    }
+
+    //        Tính toán và thống kê số liệu
+    @GetMapping("/chart")
+    public String showChart(Model model, @RequestParam(defaultValue = "2025") int year) {
+        List<Integer> years = List.of(2023, 2024, 2025);
+        List<Integer> vaccinationCounts = statisticsService.getMonthlyVaccinationCounts(year);
+        log.info("vaccinationCounts in showChart {}:" , vaccinationCounts);
+        List<Integer> healthCheckCounts = statisticsService.getMonthlyHealthCheckCounts(year);
+
+        model.addAttribute("years", years);
+        model.addAttribute("selectedYear", year);
+        model.addAttribute("vaccinationCounts", vaccinationCounts);
+        model.addAttribute("healthCheckCounts", healthCheckCounts);
+        return "admin/testBieuDoThongKe";
     }
 
 

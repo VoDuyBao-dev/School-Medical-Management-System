@@ -43,9 +43,10 @@ public class HealthCheckScheduleService {
         if(healthCheckScheduleDTO.getCheckDate().isBefore(LocalDateTime.now())){
             throw new BusinessException(ErrorCode.CHECK_DATE_INVALID);
         }
-        log.info("healthCheckScheduleDTO in create: {}", healthCheckScheduleDTO);
+
+//        log.info("healthCheckScheduleDTO in create: {}", healthCheckScheduleDTO);
         HealthCheckSchedule healthCheckSchedule = healthCheckScheduleMapper.toHealthCheckSchedule(healthCheckScheduleDTO);
-        log.info("healthCheckSchedule in create: {}", healthCheckSchedule);
+//        log.info("healthCheckSchedule in create: {}", healthCheckSchedule);
 
 //        Lấy Nurse phù hợp với userId
         SchoolNurse nurse = schoolNurseRepository.findByUser_Id(userId).orElseThrow(()->
@@ -61,13 +62,26 @@ public class HealthCheckScheduleService {
 
     }
 
-    //    Lấy các lịch khám sức khỏe đã gửi
-    public Page<HealthCheckScheduleDTO> getAllHealthCheckSchedule(int page) {
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
 
-        Page<HealthCheckSchedule> healthCheckSchedule = healthCheckScheduleRepository.findAll(pageable);
-        Page<HealthCheckScheduleDTO> healthCheckScheduleDTOPage = healthCheckSchedule.map(healthCheckScheduleMapper::toHealthCheckScheduleDTO);
-        log.info("healthCheckScheduleDTOPage in getAllHealthCheckSchedule: {}", healthCheckScheduleDTOPage.getContent());
+    //    Lấy các lịch khám sức khỏe đã gửi
+    public Page<HealthCheckScheduleDTO> getAllHealthCheckSchedule_sent(int page) {
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+        boolean isSentToParent = true;
+
+        Page<HealthCheckSchedule> vaccinationSchedules = healthCheckScheduleRepository.findBySentToParent(isSentToParent,pageable);
+        Page<HealthCheckScheduleDTO> healthCheckScheduleDTOPage = vaccinationSchedules.map(healthCheckScheduleMapper::toHealthCheckScheduleDTO);
+        log.info("healthCheckScheduleDTOPage in getAllHealthCheckSchedule_sent: {}", healthCheckScheduleDTOPage.getContent());
+        return healthCheckScheduleDTOPage;
+    }
+
+    //    Lấy các lịch tiêm chủng đã tạo nhưng chưa gửi
+    public Page<HealthCheckScheduleDTO> getAllHealthCheckSchedule_drafts(int page) {
+        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+        boolean isSentToParent = false;
+
+        Page<HealthCheckSchedule> vaccinationSchedules = healthCheckScheduleRepository.findBySentToParent(isSentToParent,pageable);
+        Page<HealthCheckScheduleDTO> healthCheckScheduleDTOPage = vaccinationSchedules.map(healthCheckScheduleMapper::toHealthCheckScheduleDTO);
+        log.info("healthCheckScheduleDTOPage in getAllHealthCheckSchedule_drafts: {}", healthCheckScheduleDTOPage.getContent());
         return healthCheckScheduleDTOPage;
     }
 

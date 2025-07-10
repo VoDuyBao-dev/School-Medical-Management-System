@@ -9,7 +9,7 @@
 body {
     background-color: #fff0f5;
     min-height: 100vh;
-    display: flex;
+    display: contents;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -22,6 +22,7 @@ body {
     box-shadow: 0 8px 24px rgba(233, 30, 99, 0.2);
     max-width: 600px;
     width: 100%;
+    margin: 20px auto;
 }
 
 /* Tiêu đề */

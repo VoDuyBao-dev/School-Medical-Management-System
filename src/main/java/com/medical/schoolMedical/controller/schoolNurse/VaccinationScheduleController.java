@@ -83,7 +83,7 @@ public class VaccinationScheduleController {
 //                    Gửi lịch đến phụ huynh:
             vaccinationConsentService.sendVaccinationSchedule_toParent(vaccinationSchedule);
             redirectAttributes.addFlashAttribute("success", "Gửi lịch tiêm vaccine đến parent thành công");
-            return "redirect:/nurse/nurse-home";
+            return "redirect:/nurse/vaccinationSchedule/vaccinationSchedules/drafts";
         }catch (BusinessException e){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
             return "redirect:/nurse/nurse-home";

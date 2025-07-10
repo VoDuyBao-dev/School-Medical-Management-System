@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/nurse/HSCheckLichKham.css}" type="text/css"/>
+    <title>Danh Sách Học Sinh Cần Tư Vấn Sức Khỏe</title>
+</head>
+<body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="container">
+    <div class="header-list">
+        <div class="logo"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h2>Danh Sách Học Sinh Cần Tư Vấn Sức Khỏe Sau Khi Khám</h2>
+
+    </div>
+
+    <div class="search-bar-list">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên hoặc lớp..." aria-label="Tìm kiếm học sinh">
+        <button class="clear-btn" id="clearSearch" aria-label="Xóa tìm kiếm">×</button>
+    </div>
+    <a th:href="@{/nurse/healthCheckConsent/list-student-health-check/checked-health(idSchedule=${idSchedule})}" class="action-link">Quay lại</a>
+    <!--Thành công và thất bại của sửa check health record-->
+    <div th:if="${success}" class="alert-success" style="color: green;">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="error" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${notification}" class="notification" style="color: orange;">
+        <p th:text="${notification}"></p>
+    </div>
+
+        <table id="confirmedTable" class="active" aria-label="Danh sách học sinh xác nhận kiểm tra sức khỏe định kỳ">
+            <thead>
+            <tr>
+                <th>Họ và Tên</th>
+                <th>Lớp</th>
+                <th>Ngày Sinh</th>
+                <th>Giới Tính</th>
+                <th>Thao Tác</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="consent : ${consentPage.content}">
+                <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>
+                <td th:text="${consent.student.className}">10A1</td>
+                <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
+                <td th:switch="${consent.student.gender.name()}">
+                    <span th:case="'MALE'">Nam</span>
+                    <span th:case="'FEMALE'">Nữ</span>
+                    <span th:case="'OTHER'">Khác</span>
+                </td>
+                <td>
+                    <a th:href="@{/nurse/consultationAppointment/healthCheckRecord/createAppointment(idSchedule=${idSchedule},
+                   idStudent=${consent.student.id})}"
+                       class="btn">Tạo lịch hẹn tư vấn</a>
+                </td>
+
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(consentPage.content)}">
+                <td colspan="4" class="no-data">Chưa có học sinh nào được ghi nhận kết quả khám.</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+    <!-- Phân trang -->
+    <div class="pagination" th:if="${totalPages > 1}">
+        <a th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+           th:href="@{/nurse/healthCheckConsent/list-student-health-check(idSchedule=${idSchedule}, page=${i})}"
+           th:text="${i + 1}"
+           th:classappend="${i == currentPage} ? ' current'">1</a>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<script th:src="@{/assets/js/nurse/HSCheckLichKham.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+        const checkboxes = document.querySelectorAll(".studentCheckbox");
+
+        selectAllCheckbox.addEventListener("change", function() {
+            checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+        });
+    });
+</script>
+</body>
+</html>

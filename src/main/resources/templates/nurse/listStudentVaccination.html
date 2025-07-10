@@ -52,7 +52,11 @@
                 <td th:text="${consent.student.fullName}">Nguyễn Văn A</td>
                 <td th:text="${consent.student.className}">10A1</td>
                 <td th:text="${consent.student.birthDate != null ? #temporals.format(consent.student.birthDate, 'dd/MM/yyyy') : 'Không rõ'}"></td>
-                <td th:text="${consent.student.gender}">Nam</td>
+                <td th:switch="${consent.student.gender.name()}">
+                    <span th:case="'MALE'">Nam</span>
+                    <span th:case="'FEMALE'">Nữ</span>
+                    <span th:case="'OTHER'">Khác</span>
+                </td>
                 <td>
                     <a th:href="@{/nurse/vaccinationRecord/form(vaccinatonScheduleId=${idSchedule}, vaccinatonConsentId=${consent.id})}"
                        class="btn btn-outline-pink btn-sm">

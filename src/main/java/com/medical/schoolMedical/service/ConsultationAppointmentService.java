@@ -2,6 +2,7 @@ package com.medical.schoolMedical.service;
 
 import com.medical.schoolMedical.dto.ConsultationAppointmentDTO;
 import com.medical.schoolMedical.entities.ConsultationAppointment;
+import com.medical.schoolMedical.entities.HealthCheckConsent;
 import com.medical.schoolMedical.entities.SchoolNurse;
 import com.medical.schoolMedical.entities.Student;
 import com.medical.schoolMedical.enums.ConsentStatus;
@@ -16,10 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -71,7 +75,7 @@ public class ConsultationAppointmentService {
 //    Danh sách các lịch hẹn tư vấn đã tạo
     public Page<ConsultationAppointmentDTO> getAllConsultationAppointments(int page) {
         int size = 10;
-        Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAll(PageRequest.of(page, size));
+        Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAll(PageRequest.of(page, size,  Sort.by(Sort.Direction.DESC, "id")));
 
         //        CHuyển qua Page<ConsultationAppointmentDTO>
         Page<ConsultationAppointmentDTO> appointmentDTOS = appointments.map(consultationAppointmentMapper::toConsultationAppointmentDTO);
@@ -82,7 +86,7 @@ public class ConsultationAppointmentService {
     //    Danh sách các lịch hẹn tư vấn đã được phụ huynh xác nhận, giao diện phía nurse
     public Page<ConsultationAppointmentDTO> getAllAppointmentAccepted(int page) {
         int size = 10;
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size,  Sort.by(Sort.Direction.DESC, "id"));
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findByStatus(ConsentStatus.ACCEPTED, pageable);
 
         //        CHuyển qua Page<ConsultationAppointmentDTO>
@@ -106,7 +110,7 @@ public class ConsultationAppointmentService {
     //    Danh sách các lịch hẹn tư vấn đã đồng ý của phía giao diện parent
     public Page<ConsultationAppointmentDTO> getAllAppointmentAccepted_Parent(long userId,int page) {
         int size = 1;
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size,  Sort.by(Sort.Direction.DESC, "id"));
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAcceptedAppointmentsByParentUserId(ConsentStatus.ACCEPTED,userId, pageable);
 
         //        CHuyển qua Page<ConsultationAppointmentDTO>
@@ -160,6 +164,21 @@ public class ConsultationAppointmentService {
         }catch (Exception e){
             throw new BusinessException(ErrorCode.SAVE_CONSULTATION_APPOINTMENT_FAILED);
         }
+
+    }
+
+    //    Hàm tự động cập nhật trạng thái lịch hẹn hết hạn nếu quá ngày
+
+    public void update_SurveyExpired_Appointment() {
+        List<ConsultationAppointment> unconfirms = consultationAppointmentRepository.findByStatus(ConsentStatus.UNCONFIRMED);
+        List<ConsultationAppointment> toUpdate = new ArrayList<>();
+        for(ConsultationAppointment consultationAppointment : unconfirms){
+            if(consultationAppointment.getScheduledTime().isBefore(LocalDateTime.now())){
+                consultationAppointment.setStatus(ConsentStatus.OVERDUE);
+                toUpdate.add(consultationAppointment);
+            }
+        }
+        consultationAppointmentRepository.saveAll(toUpdate);
 
     }
 

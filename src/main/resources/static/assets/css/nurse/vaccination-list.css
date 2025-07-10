@@ -220,3 +220,8 @@ h2 {
     order: 2;
 }
 
+a.disabled {
+    pointer-events: none;
+    opacity: 0.6; /* cho mờ đi */
+    cursor: not-allowed;
+}

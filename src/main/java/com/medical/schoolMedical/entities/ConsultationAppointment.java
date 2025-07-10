@@ -51,7 +51,7 @@ public class ConsultationAppointment {
     @Column(name = "is_sent_to_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
     private boolean sentToParent = false;
 
-    @Column(name = "is_viewed_by_parent ",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
+    @Column(name = "is_viewed_by_parent",columnDefinition = "TINYINT DEFAULT 0",nullable = false)
     private boolean viewedByParent  = false;
 
 }

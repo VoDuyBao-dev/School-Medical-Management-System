@@ -3,8 +3,18 @@ body {
     background: #fff0f5;
     padding: 40px;
     margin: 0;
+    display: contents;
+    justify-content: center;
+    align-items: center;
 }
-
+.wrapper{
+    max-width:600px;
+    margin: 20px auto;
+    background:#fff;
+    padding:32px;
+    border-radius:14px;
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
 /* ===== Tiêu đề ===== */
 h2 {
     text-align: center;

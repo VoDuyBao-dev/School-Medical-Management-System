@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/pages/phanTrang.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/parent/resultHealth.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <title>Báo Cáo Kiểm Tra Sức Khỏe</title>
+</head>
+<body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="report-container">
+    <div class="header-report-container">
+        <div class="header-report-container-brand"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h2>Kết Quả Khám Sức Khỏe</h2>
+        <span th:text="${#temporals.format(healthCheckRecord.healthCheckConsentDTO.schedule.checkDate, 'HH:mm dd/MM/yyyy')}">1</span>
+    </div>
+
+    <div class="report-content">
+        <div class="section-title">Thông Tin Học Sinh</div>
+        <div class="grid-2">
+            <div class="content-group">
+                <label>Học sinh: </label>
+                <span th:text="${healthCheckRecord.healthCheckConsentDTO.getStudent().getFullName()}"></span>
+            </div>
+
+            <div class="section-title">Kết Quả Kiểm Tra Sức Khỏe</div>
+            <div class="grid-2">
+                <div class="content-group">
+                    <label>Thị Lực</label>
+                    <span th:text="${healthCheckRecord.getVisionResult()}">9.5/10</span>
+                </div>
+                <div class="content-group">
+                    <label>Thính Lực</label>
+                    <span th:text="${healthCheckRecord.getHearingResult()}">Bình thường</span>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="content-group">
+                    <label>Huyết Áp (mmHg)</label>
+                    <span>120/80</span>
+                </div>
+                <div class="content-group">
+                    <label>Nhịp Tim (lần/phút)</label>
+                    <span>72</span>
+                </div>
+            </div>
+            <div class="content-group">
+                <label>Chiều Cao (cm)</label>
+                <span>165.5</span>
+            </div>
+            <div class="content-group">
+                <label>Cân Nặng (kg)</label>
+                <span>55.2</span>
+            </div>
+
+            <div class="section-title">Ghi Chú Bổ Sung</div>
+            <div class="content-group">
+                <label>Kết Quả Khác</label>
+                <span>Không có</span>
+            </div>
+            <div class="content-group">
+                <label>Đánh Giá Tổng Quan</label>
+                <span th:text="${healthCheckRecord.getAssessment()}">Sức khỏe tốt</span>
+            </div>
+
+            <div class="content-group">
+                <label>Cần Tư Vấn Y Tế</label>
+                <span th:text="${healthCheckRecord.isNeedsConsultation()? 'Có' : 'Không'}">Không</span>
+            </div>
+
+            <div class="buttons">
+                <button class="print-button" onclick="window.print()">In Kết Quả</button>
+                <a class="back-button"
+                   th:href="@{/nurse/healthCheckConsent/list-student-health-check/checked-health(idSchedule=${idSchedule})}">
+                    Quay Lại
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
