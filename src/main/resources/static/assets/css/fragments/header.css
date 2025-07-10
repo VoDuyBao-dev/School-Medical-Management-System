@@ -128,7 +128,7 @@
     font-family: 'Arial', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    padding: 10px 20px;
+    padding: 8px 10px;
     position: relative;
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -269,7 +269,7 @@
     color: #fa1748;
 }
 
-.user p {
+.user p, span {
     margin-left: 10px;
     font-size: 14px;
     color: #fa1748;
