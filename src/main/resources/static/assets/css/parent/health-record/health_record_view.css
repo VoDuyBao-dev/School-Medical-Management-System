@@ -25,26 +25,43 @@ h2{
     border-color:     #d81b60;
     color: #fff;
 }
-/* ===== Khung lớn bao quanh toàn bộ chi tiết ===== */
-.record-container{
-    border: 2px solid #e91e63;     /* viền hồng đậm */
-    border-radius: 12px;           /* bo góc khung */
-    background:#fff;               /* nền trắng nổi bật */
+.record-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 24px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
 }
 
-/* ===== Tạo “đường kẻ” ngăn cách từng mục ===== */
-.record-container .mb-3{
-    padding: 8px 0;
-    border-bottom: 1px dashed #f3c6d6;   /* đường kẻ mỏng hồng nhạt */
+.health-info-box {
+    max-width: 600px;
+    margin: 0 auto; /* canh giữa */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    background-color: #fafafa;
+    word-wrap: break-word;      /* Gãy dòng khi quá dài */
+    overflow-wrap: break-word;
 }
-.record-container .mb-3:last-child{
-    border-bottom:none;             /* bỏ kẻ cuối */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 2px solid #ccc;
+    font-size: 16px;
 }
 
-/* ===== Căn lại label/value cho gọn ===== */
-.record-container strong{
-    width: 180px;                   /* cột nhãn cố định */
-    display:inline-block;
-    font-weight:600;
+.info-row strong {
+    width: 40%;
+    font-weight: 600;
 }
 
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-content {
+    white-space: pre-wrap;
+    word-break: break-word;
+}

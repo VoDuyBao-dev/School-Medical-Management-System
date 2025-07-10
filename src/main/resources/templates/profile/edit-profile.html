@@ -21,18 +21,36 @@
 <!--    <h3><strong> Vai trò: <span th:text="${user.role}"></span></strong></h3>-->
 
     <!-- Trường của ADMIN -->
-    <div class="form-group" style="display: none;" th:if="${user.role.name() == 'ADMIN'}">
+    <div class="form-group" th:if="${user.role.name() == 'ADMIN'}">
+
         <label>Họ tên Admin:</label>
         <input type="text" th:field="*{fullName}" required/>
+
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required /><br/>
+
     </div>
 
     <!-- Trường của PARENT -->
     <div class="form-group" th:if="${user.role.name() == 'PARENT'}">
         <label>Họ tên Phụ huynh:</label>
         <input type="text" th:field="*{fullName}" required/>
+
+        <label>SĐT:</label>
+        <input type="text" th:field="*{phoneNumber}" required/><br/>
+
+        <!--<label>Email:</label>
+        <input type="text" name="email" value="tranthib@example.com" required><br/>-->
+
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required /><br/>
+
+        <label>Địa chỉ:</label>
+        <textarea th:field="*{address}" required></textarea><br/>
+
     </div>
 
-    <div class="form-group">
+    <!--<div class="form-group">
         <label>SĐT:</label>
         <input type="text" th:field="*{phoneNumber}" required/><br/>
     </div>
@@ -40,23 +58,32 @@
     <div class="form-group">
         <label>Email:</label>
         <input type="text" name="email" value="tranthib@example.com" required><br/>
-    </div>
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required /><br/>
 
-    <div class="form-group">
+    </div>-->
+
+   <!-- <div class="form-group">
         <label>Địa chỉ:</label>
         <textarea th:field="*{address}" required></textarea><br/>
-    </div>
+    </div>-->
 
     <!-- Trường của MANAGER -->
-    <div class="form-group" style="display: none;" th:if="${user.role.name() == 'MANAGER'}">
+    <div class="form-group"  th:if="${user.role.name() == 'MANAGER'}">
         <label>Họ tên Quản lý:</label>
         <input type="text" th:field="*{fullName}" required/><br/>
+
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required /><br/>
     </div>
 
     <!-- Trường của SCHOOL_NURSE -->
-    <div class="form-group" style="display: none;" th:if="${user.role.name() == 'NURSE'}">
+    <div class="form-group" th:if="${user.role.name() == 'NURSE'}">
         <label>Họ tên Nhân viên y tế:</label>
         <input type="text" th:field="*{fullName}" required/><br/>
+
+        <label>Email:</label>
+        <input type="email" name="email" th:value="${user.email}" required /><br/>
 
         <label>Năm kinh nghiệm:</label>
         <input type="number" th:field="*{experience}" min="0" step="1" required/><br/>

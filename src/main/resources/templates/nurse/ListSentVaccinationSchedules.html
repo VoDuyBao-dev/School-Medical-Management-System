@@ -10,8 +10,8 @@
     <link rel="stylesheet" th:href="@{/assets/css/pages/phanTrang.css}"/>
 </head>
 <body style="background-color: #fff0f5;">
-<div th:replace="fragments/header :: Header"></div>
-<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav-Nurse}"></div>
 <div class="container mt-5">
     <h2 class="text-center fw-bold mb-4 text-uppercase text-pink">Danh sách các lịch tiêm chủng đã gửi</h2>
 
@@ -21,7 +21,7 @@
 
     <!-- Bảng dữ liệu -->
     <div class="table-responsive">
-        <table id="vaccinationTable" class="table table-bordered table-hover align-middle text-center">
+        <table id="vaccinationTable" class="table table-bordered table-hover align-middle text-center table-rounded">
             <thead class="table-pink-header">
             <tr>
                 <th>STT</th>
@@ -68,6 +68,6 @@
 <script th:src="@{/assets/js/nurse/list-sent-vaccination.js}"></script>
 <script th:src="@{/asset/js/phanTrang}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

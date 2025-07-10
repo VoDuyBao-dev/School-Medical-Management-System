@@ -1,44 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
+  <meta charset="UTF-8">
   <title>Thêm học sinh</title>
+  <link rel="stylesheet" th:href="@{/assets/css/manager/student_form.css}">
 </head>
 <body>
-<h2>Thêm học sinh mới</h2>
 
-<form th:action="@{/manager/students/create}" method="post">
-  <label>Họ tên học sinh:</label>
-  <input type="text" name="fullName" required><br><br>
+<div class="form-container">
+  <h2 class="form-title">Thêm học sinh mới</h2>
 
-  <label>Giới tính:</label>
-  <select name="gender" required>
-    <option value="MALE">Nam</option>
-    <option value="FEMALE">Nữ</option>
-    <option value="OTHER">Khác</option>
-  </select><br><br>
+  <form th:action="@{/manager/students/create}" method="post" id="studentForm">
+    <label>Họ tên học sinh:</label>
+    <input type="text" name="fullName" required>
 
-  <label>Ngày sinh:</label>
-  <input type="date" name="birthDate" required
-         th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" /><br><br>
+    <label>Giới tính:</label>
+    <select name="gender" required>
+      <option value="MALE">Nam</option>
+      <option value="FEMALE">Nữ</option>
+    </select>
 
+    <label>Ngày sinh:</label>
+    <input type="date" name="birthDate" required
+           th:attr="max=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"/>
 
-  <label>Địa chỉ:</label>
-  <input type="text" name="address" required><br><br>
+    <label>Địa chỉ:</label>
+    <input type="text" name="address" required>
 
-  <label>Lớp:</label>
-  <input type="text" name="className" required><br><br>
+    <label>Lớp:</label>
+    <input type="text" name="className" required>
 
-  <label>Chọn phụ huynh:</label>
-  <select name="parentId" required>
-    <option value="">-- Chọn phụ huynh --</option>
-    <option th:each="parent : ${parentList}"
-            th:value="${parent.id}"
-            th:text="${parent.fullName + ' (' + parent.user.username + ')'}">
-    </option>
-  </select><br><br>
+    <label>Chọn phụ huynh:</label>
+    <select name="parentId" required>
+      <option value="">-- Chọn phụ huynh --</option>
+      <option th:each="parent : ${parentList}"
+              th:value="${parent.id}"
+              th:text="${parent.fullName + ' (' + parent.user.username + ')'}">
+      </option>
+    </select>
 
-  <button type="submit">Tạo học sinh</button>
-  <a th:href="@{/manager/students/list}"><button type="button">Hủy</button></a>
-</form>
+    <div class="form-buttons">
+      <button type="submit" class="btn-primary">Tạo học sinh</button>
+      <a th:href="@{/manager/students/list}">
+        <button type="button" class="btn-secondary">Hủy</button>
+      </a>
+    </div>
+  </form>
+</div>
+
+<script th:src="@{/assets/js/manager/student_form.js}"></script>
 </body>
 </html>

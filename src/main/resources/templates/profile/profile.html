@@ -14,7 +14,7 @@
     <h2>Hồ Sơ Tài Khoản</h2>
 <p><strong>Tên đăng nhập:</strong> <span th:text="${user.username}"></span></p>
 <!--<p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>-->
-<p><strong>Ngày tạo tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
+<p><strong>Ngày cập nhật tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
 
 <hr>
 
@@ -22,6 +22,7 @@
 <div class="role-section" th:if="${user.role.name() == 'ADMIN'}">
     <h2>Thông tin Quản trị viên</h2>
     <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></div>
 </div>
 
 <!-- Nếu là PARENT -->
@@ -29,6 +30,7 @@
     <h2>Thông tin Phụ huynh</h2>
     <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
     <div class="info-group"><strong>Số điện thoại:</strong> <span th:text="${info.phoneNumber} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></div>
     <div class="info-group"><strong>Địa chỉ:</strong> <span th:text="${info.address} ?: 'Chưa cập nhật'"></span></div>
 
 </div>
@@ -37,6 +39,7 @@
 <div class="role-section" th:if="${user.role.name() == 'MANAGER'}">
     <h2>Thông tin Quản lý</h2>
     <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></div>
 
 </div>
 
@@ -45,7 +48,8 @@
     <h2>Thông tin Nhân viên y tế</h2>
 
     <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
-    <p><strong>Kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></p>
+    <p><strong>Năm kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></p>
 
 </div>
 

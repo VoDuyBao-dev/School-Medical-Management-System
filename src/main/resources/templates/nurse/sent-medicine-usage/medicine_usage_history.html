@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Lịch sử sử dụng thuốc</title>
+    <link rel="stylesheet" th:href="@{/assets/css/nurse/sent-medicine-usage/medicine_usage_history.css}">
 </head>
 <body>
 <h2>Lịch sử các liều thuốc đã cho học sinh uống</h2>
+
+<div class="back-button">
+    <a th:href="@{/nurse/sentMedicineUsage/sent}">
+        <button type="button">← Quay lại</button>
+    </a>
+</div>
 
 <table border="1">
     <thead>
@@ -31,7 +38,8 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Quay lại</button></a>
+<!--<a th:href="@{/nurse/sentMedicineUsage/sent} "><button type="button">Quay lại</button></a>-->
 <br>
+<script th:src="@{/assets/js/nurse/sent-medicine-usage/medicine_usage_history.js}"></script>
 </body>
 </html>

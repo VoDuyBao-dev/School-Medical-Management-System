@@ -19,10 +19,14 @@
     </h2>
 
     <!-- Link sang danh sách học sinh đã tiêm -->
-    <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule})}"
-       class="btn btn-success mb-3">
-        → Xem danh sách học sinh đã tiêm
-    </a>
+    <div class="table-responsive mb-3">
+        <div class="table" style="width: 95%; text-align: left;">
+            <a th:href="@{/nurse/vaccinationConsent/list-student-vaccination/vaccinated(vaccinatonScheduleId=${idSchedule})}"
+               class="btn btn-success">
+                → Xem danh sách học sinh đã tiêm
+            </a>
+        </div>
+    </div>
 
     <!-- Thông báo -->
     <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
@@ -33,7 +37,7 @@
 
     <!-- BẢNG -->
     <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center shadow-sm">
+        <table class="table table-rounded table-bordered table-hover align-middle text-center shadow-sm">
             <thead class="table-pink-header">
             <tr>
                 <th>Họ và tên</th>
