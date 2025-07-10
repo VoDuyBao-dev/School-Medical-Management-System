@@ -2,11 +2,14 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     padding: 40px;
+    display: contents;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
     max-width: 1100px;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .title {

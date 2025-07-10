@@ -2,6 +2,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #fff0f5;
     padding: 40px;
+    display: contents;
+    justify-content: center;
+    align-items: center;
 }
 
 h2{
@@ -12,8 +15,8 @@ h2{
 
 .container {
     max-width: 1100px;
-    margin: auto;
-    color: #e91e63;
+    margin: 20px auto;
+    color: #ffa2c2;
 }
 
 .title {

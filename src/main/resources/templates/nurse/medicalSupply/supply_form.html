@@ -5,13 +5,16 @@
   <title th:text="${supply.id == null} ? 'Thêm vật tư y tế mới' : 'Cập nhật vật tư y tế'">Form Vật tư</title>
 
   <!-- FontAwesome cho icon -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
 
   <!-- CSS tuỳ chỉnh -->
   <link rel="stylesheet" th:href="@{/assets/css/nurse/medicalSupply/supply_form.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
 <div class="form-container">
 
   <!-- Tiêu đề -->
@@ -50,5 +53,7 @@
 
 <!-- (Tùy chọn) JS kiểm tra -->
 <script th:src="@{/assets/js/nurse/medicalSupply/supply_form.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

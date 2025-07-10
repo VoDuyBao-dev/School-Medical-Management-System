@@ -10,11 +10,23 @@
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
+<div th:if="${user.role.name() == 'ADMIN'}">
+    <div th:replace="fragments/header :: Nav-Admin"></div>
+</div>
+<div th:if="${user.role.name() == 'NURSE'}">
+    <div th:replace="fragments/header :: Nav-Nurse"></div>
+</div>
+<div th:if="${user.role.name() == 'PARENT'}">
+    <div th:replace="fragments/header :: Nav-Parent"></div>
+</div>
+<div th:if="${user.role.name() == 'MANAGER'}">
+    <div th:replace="fragments/header :: Nav-Manager"></div>
+</div>
 <div class="container">
     <h2>Hồ Sơ Tài Khoản</h2>
-<p><strong>Tên đăng nhập:</strong> <span th:text="${user.username}"></span></p>
+<div class="info-group"><strong >Tên đăng nhập:</strong> <span th:text="${user.username}"></span></div>
 <!--<p><strong>Vai trò:</strong> <span th:text="${user.role}"></span></p>-->
-<p><strong>Ngày cập nhật tài khoản:</strong> <span th:text="${user.creationDate}"></span></p>
+<div class="info-group"><strong style="color: #ff4d88">Ngày cập nhật tài khoản:</strong> <span th:text="${user.creationDate}"></span></div>
 
 <hr>
 
@@ -47,9 +59,9 @@
 <div class="role-section" th:if="${user.role.name() == 'NURSE'}">
     <h2>Thông tin Nhân viên y tế</h2>
 
-    <p><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></p>
-    <p><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></p>
-    <p><strong>Năm kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></p>
+    <div class="info-group"><strong>Họ tên:</strong> <span th:text="${info.fullName} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Email:</strong> <span th:text="${user.email} ?: 'Chưa cập nhật'"></span></div>
+    <div class="info-group"><strong>Năm kinh nghiệm:</strong> <span th:text="${info.experience} ?: 'Chưa cập nhật'"></span></div>
 
 </div>
 
