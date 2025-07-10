@@ -60,7 +60,13 @@
             </ul>
         </li>
 
-        <li class="nav-item"><a th:href="@{/parent/consultationAppointment/listReview}">Tư vấn</a></li>
+        <li class="nav-item"><a th:href="@{/parent/consultationAppointment/listReview}">Tư vấn</a>
+            <ul class="submenu">
+                <li><a th:href="@{/parent/notification/ConsultationAppointmentss}">Xác nhận tư vấn</a></li>
+                <li><a th:href="@{/parent/consultationAppointment/listReview}">Danh sách lịch</a></li>
+            </ul>
+        </li>
+
         <li class="nav-item"><a th:href="@{/parent/profile}">Hồ sơ cá nhân</a></li>
     </ul>
 </nav>
