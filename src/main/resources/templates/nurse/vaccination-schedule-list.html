@@ -13,25 +13,21 @@
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-<div th:replace="fragments/header :: Header"></div>
-<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div th:replace="~{fragments/header :: Header}"></div>
+<div th:replace="~{fragments/header :: Nav-Nurse}"></div>
 
 <div class="bg-pink min-vh-100 d-flex justify-content-center align-items-start py-5">
 
     <!-- ❷ Khung trắng  -->
-    <div class="schedule-card p-4 w-100" style="max-width:900px;">
+    <div class="schedule-card p-4 w-100" style="width: 85%;">
 
-        <h2 class="text-center text-uppercase fw-bold mb-4 text-pink">
+        <h2 class="fw-bold mb-4 text-pink">
             Danh sách lịch tiêm chủng
         </h2>
 
-        <!-- Nút tạo lịch đặt bên phải -->
-        <div class="d-flex justify-content-end mb-3">
+        <div class="table-actions">
+            <a th:href="@{/nurse/nurse-home}" class="btn-gray">← Quay lại</a>
             <a th:href="@{/nurse/vaccinationSchedule}" class="btn btn-pink">Tạo lịch tiêm chủng</a>
-        </div>
-
-        <div class="d-flex justify-content-end mb-3">
-            <a th:href="@{/nurse/nurse-home}" class="btn btn-pink">Quay lại</a>
         </div>
 
         <div th:if="${success}" class="send_parent">
@@ -81,6 +77,6 @@
 <!-- Optional JS (nếu cần)  -->
 <script th:src="@{/assets/js/nurse/vaccination-schedule-list.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
