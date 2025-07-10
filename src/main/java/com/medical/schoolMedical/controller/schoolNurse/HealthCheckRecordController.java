@@ -204,4 +204,29 @@ public String controllerAction(@ModelAttribute("healthCheckRecordDTO") @Valid He
 
     }
 
+//    Nurse xem kq khám sức khỏe của học sinh đã khám
+@GetMapping("/viewHealthCheckRecord")
+public String viewHealthCheckRecord(Model model
+        , RedirectAttributes redirectAttributes
+        ,@RequestParam(value = "idConsent", required = false ) Long idConsent
+        ,@RequestParam(value = "idSchedule", required = false ) Long idSchedule){
+    if(idSchedule == null || idConsent == null){
+        redirectAttributes.addFlashAttribute("error","Vui lòng chọn bản ghi khám sức khỏe phù hợp để xem chi tiết.");
+        return "redirect:/nurse/healthCheckConsent/list-student-health-check/checked-health?idSchedule=" + idSchedule;
+    }
+
+    try{
+        HealthCheckRecordDTO healthCheckRecordDTO = healthCheckRecordService.getCheckRecord(idConsent);
+        model.addAttribute("healthCheckRecord", healthCheckRecordDTO);
+        model.addAttribute("idSchedule", idSchedule);
+        log.info("healthCheckRecord in viewHealthCheckRecord: {}", healthCheckRecordDTO);
+        return "nurse/XemKQDaKhamSucKhoe";
+    }catch (BusinessException e){
+        redirectAttributes.addFlashAttribute("error",e.getMessage());
+        return "redirect:/nurse/healthCheckConsent/list-student-health-check/checked-health?idSchedule=" + idSchedule;
+    }
+
+
+}
+
 }

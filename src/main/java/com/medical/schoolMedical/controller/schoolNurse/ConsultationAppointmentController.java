@@ -87,5 +87,38 @@ public class ConsultationAppointmentController {
         return "nurse/listCreatedReview";
     }
 
+//    Hiện form tạo lịch hẹn cho học sinh được chọn từ: có kq khám nhưng cần tư vấn
+    @GetMapping("/healthCheckRecord/createAppointment")
+    public String createAppointment_healthCheckRecord(Model model
+            , @RequestParam(value = "idStudent", required = false) Long studentId
+            , @RequestParam(value = "idSchedule", required = false) Long idSchedule
+            , RedirectAttributes redirectAttributes) {
+        if (studentId == null || idSchedule == null) {
+            redirectAttributes.addFlashAttribute("error", "Vui lòng chọn học sinh và lịch khám sức khỏe phù hợp để tạo lịch hẹn tư vấn.");
+            return "redirect:/nurse/healthCheckConsent/list-student-health-check/checked-health/needsConsultation?idSchedule=" + idSchedule;
+
+        }
+
+        StudentDTO studentDTOS = null;
+
+        try{
+             studentDTOS = studentService.getStudentById_DTO(studentId);
+        }catch (BusinessException e){
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/nurse/healthCheckConsent/list-student-health-check/checked-health/needsConsultation?idSchedule=" + idSchedule;
+        }
+
+//        log.info("studentDTOS = {}", studentDTOS);
+
+        ConsultationAppointmentDTO dto = new ConsultationAppointmentDTO();
+//        Gán sẵn id để bên form nó chọn học sinh đc chọn làm mặc định luôn
+        dto.setStudentId(studentId);
+
+        model.addAttribute("students", studentDTOS);
+        model.addAttribute("idSchedule", idSchedule);
+        model.addAttribute("consultationAppointment", dto);
+        return "nurse/createReview";
+    }
+
 
 }

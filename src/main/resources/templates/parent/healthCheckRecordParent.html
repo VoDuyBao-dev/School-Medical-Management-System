@@ -16,7 +16,7 @@
   <div class="header-report-container">
     <div class="header-report-container-brand"><i class="fa-solid fa-heart-pulse"></i></div>
     <h2>Kết Quả Khám Sức Khỏe</h2>
-    <span th:text="${healthCheckRecord.healthCheckConsentDTO.getSchedule().getCheckDate()}">1</span>
+    <span th:text="${#temporals.format(healthCheckRecord.healthCheckConsentDTO.schedule.checkDate, 'HH:mm dd/MM/yyyy')}">1</span>
   </div>
 
   <div class="report-content">

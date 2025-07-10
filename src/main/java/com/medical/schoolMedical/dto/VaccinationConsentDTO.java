@@ -21,5 +21,6 @@ public class VaccinationConsentDTO {
     private VaccinationSchedule schedule;
     private ConsentStatus status;
     private boolean vaccinated = false;
+    private Boolean sentToParent;
 
 }

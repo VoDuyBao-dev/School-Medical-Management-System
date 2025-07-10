@@ -16,6 +16,8 @@ public interface HealthCheckConsentMapper {
             @Mapping(source = "student", target = "student"),
             @Mapping(source = "parent", target = "parent"),
             @Mapping(source = "status", target = "status"),
+            @Mapping(source = "healthCheckRecord.sentToParent", target = "sentToParent"),
+            @Mapping(source = "healthCheckRecord.needsConsultation", target = "needsConsultation")
 
     })
     HealthCheckConsentDTO toDTO(HealthCheckConsent healthCheckConsent);

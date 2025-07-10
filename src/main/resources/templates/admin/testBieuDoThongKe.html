@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biểu đồ Khám sức khỏe và Chích thuốc</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <h2>Biểu đồ theo dõi sức khỏe</h2>
+
+    <div class="year-selector">
+        <label for="year">Chọn năm:</label>
+        <select id="year" onchange="changeYear()">
+            <option th:each="y : ${years}" th:value="${y}" th:text="${y}"
+                    th:selected="${y == selectedYear}">2025</option>
+        </select>
+    </div>
+
+    <canvas id="myChart"></canvas>
+</div>
+
+<script th:inline="javascript">
+    let healthCheckData = /*[[${healthCheckCounts}]]*/ [];
+    let vaccinationData = /*[[${vaccinationCounts}]]*/ [];
+</script>
+
+<script>
+
+    function changeYear() {
+        let year = document.getElementById('year').value;
+        window.location.href = '?year=' + year;
+    }
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const data = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+            {
+                label: 'Khám sức khỏe',
+                data: healthCheckData,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                fill: true,
+                tension: 0.4
+            },
+            {
+                label: 'Tiêm chủng',
+                data: vaccinationData,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                fill: true,
+                tension: 0.4
+            }
+        ]
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Số lần Khám sức khỏe & Tiêm chủng theo tháng' }
+            },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>
+
+</body>
+</html>

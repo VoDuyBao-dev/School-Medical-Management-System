@@ -82,13 +82,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<!-- kết nối với database-->
-		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-<!--		<dependency>-->
-<!--			<groupId>org.postgresql</groupId>-->
-<!--			<artifactId>postgresql</artifactId>-->
-<!--			<version>42.7.2</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

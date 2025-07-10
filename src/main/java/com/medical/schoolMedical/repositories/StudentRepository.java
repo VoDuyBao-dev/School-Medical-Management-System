@@ -17,6 +17,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
 
     List<Student> findByParent_Id(Long parentId);
 
+    List<Student> findByClassNameStartingWith(String classNamePrefix);
 
 
 

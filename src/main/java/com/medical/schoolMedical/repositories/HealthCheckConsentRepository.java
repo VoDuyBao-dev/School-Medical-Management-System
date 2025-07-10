@@ -42,4 +42,19 @@ public interface HealthCheckConsentRepository extends JpaRepository<HealthCheckC
     @Query("SELECT c FROM HealthCheckConsent c JOIN FETCH c.schedule WHERE c.status = :status")
     List<HealthCheckConsent> findByStatusWithSchedule(@Param("status") ConsentStatus status);
 
+//    lấy các consent tương ứng với bản record là đã có kq khám và cần tạo lịch gửi đến phụ huynh
+    @Query("""
+        SELECT c FROM HealthCheckConsent c
+        LEFT JOIN c.healthCheckRecord r
+        WHERE c.schedule = :schedule
+          AND c.status = :status
+          AND c.checkedHealth = :isCheckedHealth
+          AND r.needsConsultation = true
+    """)
+    Page<HealthCheckConsent> findByScheduleStatusCheckStateWithConsultation(
+            @Param("schedule") HealthCheckSchedule schedule,
+            @Param("status") ConsentStatus status,
+            @Param("isCheckedHealth") boolean isCheckedHealth,
+            Pageable pageable
+    );
 }
