@@ -10,57 +10,120 @@
 .mb-4 {
     margin-bottom: 1.5rem;
 }
-body{
+
+body {
     font-family: 'Segoe UI', sans-serif;
     background: #fff0f5;
 }
+
 .text-pink { color:#e91e63; }
 
-.btn-pink{
-    background:#e91e63;
-    color:#fff;
-    border:none;
-    padding:8px 16px;
-    font-weight:600;
-    border-radius:50px;
-    transition:.3s;
+/* Nút quay lại bo tròn, hover đẹp */
+.btn-back {
+    background: white;
+    color: #6c757d;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
 }
 
-.table-pink th {
+.btn-back:hover {
+    background: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+/* Căn chỉnh toolbar theo bảng */
+.action-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Nút "Thêm vật tư mới" */
+.btn-add {
     background: #e91e63;
-    color: #fff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: 0.3s;
+    white-space: nowrap;
 }
 
-.btn-outline-pink {
-    color: #e91e63;
-    border: 1px solid #e91e63;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
+.btn-add:hover {
+    background: #d81b60;
 }
 
-.btn-outline-pink:hover {
-    background-color: #e91e63;
-    color: #fff;
-}
-
+/* Thanh tìm kiếm đẹp hơn */
 .search-box {
-    max-width: 320px;
+    flex: 1;
+    max-width: 240px;
     position: relative;
-    margin: 0 auto;
 }
 
 .search-box input {
     padding-left: 2.25rem;
+    padding-right: 1rem;
+    height: 38px;
     border-radius: 25px;
+    border: 1px solid #ccc;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #e91e63;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
 }
 
 .search-box .fa-search {
     position: absolute;
     top: 50%;
-    left: 1rem;
+    left: 0.75rem;
     transform: translateY(-50%);
-    color: #6c757d;
+    color: #aaa;
+    pointer-events: none;
 }
+.btn-action {
+    background-color: white;
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    border-radius: 25px;
+    padding: 6px 12px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-action:hover {
+    background-color: #e91e63;
+    color: white;
+}
+
+.btn-action i {
+    font-size: 14px;
+}
+/* ==== HẾT PHẦN CẬP NHẬT ==== */
 
 .table-rounded {
     border-collapse: separate;
@@ -90,6 +153,7 @@ body{
 .table-bordered th {
     border: 1px solid #ddd !important;
 }
+
 .table-responsive {
     width: 100%;
     display: flex;
@@ -99,15 +163,22 @@ body{
 .table {
     width: 85%;
 }
+
 .ellipsis-cell {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.table th, .table td {
+.table td {
     vertical-align: middle;
     padding: 10px;
+}
+.table th{
+    vertical-align: middle;
+    padding: 10px;
+    background-color: #e91e63;
+    color: #ffffff;
 }
 /* Tiêu đề */
 h3 {
@@ -117,6 +188,7 @@ h3 {
     text-align: center;
 }
 
+/* Cũ: không còn dùng nữa nếu chuyển qua .action-toolbar */
 .row.action-row {
     display: flex;
     align-items: center;
@@ -133,3 +205,4 @@ h3 {
 .row.action-row .search-box {
     order: 2;
 }
+
