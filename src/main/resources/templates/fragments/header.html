@@ -19,7 +19,7 @@
             <i class="fas fa-user" id="userIcon"></i>
             <p>Xin chào,<span sec:authentication="name"></span>!</p>
             <div class="dropdown-user" id="dropdownUser">
-                <a th:href="@{/profile}">Thông tin cá nhân</a>
+
                 <div sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/admin/logout}">Đăng xuất (Admin)</a>
                 </div>
