@@ -4,26 +4,29 @@
     <meta charset="UTF-8" />
     <title>Ghi nhận kết quả sau tiêm chủng</title>
 
-    <!-- Bootstrap 5 -->
+    <!-- FontAwesome + Google Fonts -->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
     <!-- CSS tuỳ chỉnh -->
     <link rel="stylesheet" th:href="@{/assets/css/nurse/vaccination-record-form.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
-<body style="background-color: #fff0f5;">
-<div class="container mt-5">
-
+<body>
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="vs-card">
     <!-- Tiêu đề -->
-    <h2 class="text-center text-uppercase fw-bold text-pink mb-4">
-        Nhập kết quả sau tiêm chủng
-    </h2>
+    <h2>Nhập kết quả sau tiêm chủng</h2>
 
     <!-- Thông báo -->
     <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
     <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
+    <!-- Form ghi nhận -->
     <form th:action="@{/nurse/vaccinationRecord/save-update-vaccinationRecord}"
-          th:object="${vaccinationRecordDTO}" method="post"
-          class="shadow-sm p-4 rounded bg-white">
+          th:object="${vaccinationRecordDTO}" method="post">
 
         <!-- Hidden fields -->
         <input type="hidden" name="vaccinatonConsentId" th:value="${vaccinatonConsentId}" />
@@ -31,7 +34,7 @@
         <input type="hidden" th:field="*{id}" />
 
         <!-- Tình trạng sau tiêm -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="postVaccinationCondition" class="form-label">Tình trạng sau tiêm</label>
             <input type="text"
                    class="form-control"
@@ -42,25 +45,25 @@
         </div>
 
         <!-- Ghi chú -->
-        <div class="mb-3">
+        <div class="form-group">
             <label for="notes" class="form-label">Ghi chú</label>
             <textarea class="form-control"
                       id="notes"
                       th:field="*{notes}"
-                      rows="4"
-                      placeholder="Ghi chú thêm (nếu có)..."></textarea>
+                      placeholder="Ghi chú thêm (nếu có)..."
+                      rows="4"></textarea>
         </div>
 
         <!-- Nút lưu -->
-        <div class="text-end">
-            <button type="submit" class="btn btn-pink px-4">
-                Lưu thông tin
-            </button>
-        </div>
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-save me-1"></i> Lưu thông tin
+        </button>
     </form>
 </div>
 
 <!-- JS tuỳ chỉnh -->
 <script th:src="@{/assets/js/nurse/vaccination-record-form.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

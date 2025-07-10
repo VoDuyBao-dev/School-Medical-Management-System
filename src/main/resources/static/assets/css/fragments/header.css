@@ -16,6 +16,9 @@
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+.logo img{
+    width: 80px;
+}
 
 .search-bar {
     display: flex;
