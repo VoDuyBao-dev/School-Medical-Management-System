@@ -14,7 +14,7 @@
 <div th:replace="fragments/header :: Nav-Parent"></div>
 <div class="notification-panel">
     <div class="notification-header">
-        Thông Báo & Nhắc Nhở Khám Sức Khỏe
+        Thông Báo Kết Quả Khám Sức Khỏe
     </div>
 
     <div th:if="${error}" class="alert-success red" style="color: green; padding: 16px; font-size: 16px;">
@@ -32,12 +32,9 @@
             <p>
                 Kính gửi Quý Phụ Huynh, học sinh
                 <strong th:text="${record.healthCheckConsentDTO.student.fullName}">Nguyễn Văn A</strong>
-                có lịch khám sức khỏe.
+                có kết quả khám sức khỏe.
             </p>
-            <p class="reminder">
-                Vui lòng xác nhận trước ngày
-                <strong th:text="${#temporals.format(record.healthCheckConsentDTO.schedule.checkDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
-            </p>
+
             <p class="time" th:text="${#temporals.format(record.healthCheckConsentDTO.schedule.sentDate, 'dd/MM/yyyy')}">
                 23/06/2025
             </p>

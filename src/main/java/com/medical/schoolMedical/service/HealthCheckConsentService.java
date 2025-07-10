@@ -133,7 +133,7 @@ public class HealthCheckConsentService {
 
 //    lấy danh sách các consent của phụ huynh tương ứng
     public Page<HealthCheckConsentDTO> getHealthCheckConsentByParentId(Long userId, int page) {
-        Pageable pageable = pagination(page, 20); // Lấy trang đầu tiên với 20 bản ghi
+        Pageable pageable = pagination(page, 10); // Lấy trang đầu tiên với 20 bản ghi
 
         Page<HealthCheckConsent> healthCheckConsents = healthCheckConsentRepository.findByParent_User_IdOrderByIdDesc(userId,pageable);
 
@@ -198,7 +198,7 @@ public class HealthCheckConsentService {
 //    Lấy toàn bộ học sinh đã được accepted theo ngày kiểm tra sức khỏe đã khám và chưa khám
     public Page<HealthCheckConsentDTO> getStudentsHealthCheck(Long scheduleId, int page, boolean is_checked_health) {
 
-        Pageable pageable = pagination(page, 20);
+        Pageable pageable = pagination(page, 10);
 
 //        Lấy lịch phù hợp với scheduleId
         HealthCheckSchedule schedule =  null;
@@ -241,7 +241,7 @@ public class HealthCheckConsentService {
     //    Lấy toàn bộ học sinh đã được accepted theo ngày kiểm tra sức khỏe đã khám và cần đặt lịch tư vấn sức khỏe
     public Page<HealthCheckConsentDTO> getStudentsHealthCheck_needsConsultation(Long scheduleId, int page, boolean is_checked_health) {
 
-        Pageable pageable = PageRequest.of(page, 20, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "id"));
 
 //        Lấy lịch phù hợp với scheduleId
         HealthCheckSchedule schedule =  null;

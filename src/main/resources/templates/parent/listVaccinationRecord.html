@@ -32,9 +32,9 @@
         </div>
         <div class="notification-content">
             <p>
-                Bạn có kết quả khám sức khỏe cho học sinh
+                Bạn có kết quả khám tiêm chủng cho học sinh
                 <strong th:text="${record.vaccinationConsent.student.fullName}">Nguyễn Văn A</strong>
-                vào ngày khám
+                vào ngày tiêm
                 <strong th:text="${#temporals.format(record.vaccinationConsent.schedule.injectionDate, 'dd/MM/yyyy HH:mm a')}">01/07/2025</strong>.
             </p>
             <p class="time" th:text="${#temporals.format(record.vaccinationConsent.schedule.sentDate, 'dd/MM/yyyy')}">

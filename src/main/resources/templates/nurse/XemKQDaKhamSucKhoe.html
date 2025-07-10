@@ -40,26 +40,26 @@
             <div class="grid-2">
                 <div class="content-group">
                     <label>Huyết Áp (mmHg)</label>
-                    <span>120/80</span>
+                    <span th:text="${healthCheckRecord.getBloodPressure()}">120/80</span>
                 </div>
                 <div class="content-group">
                     <label>Nhịp Tim (lần/phút)</label>
-                    <span>72</span>
+                    <span th:text="${healthCheckRecord.getHeartRate()}">72</span>
                 </div>
             </div>
             <div class="content-group">
                 <label>Chiều Cao (cm)</label>
-                <span>165.5</span>
+                <span th:text="${healthCheckRecord.getHeight()}">165.5</span>
             </div>
             <div class="content-group">
                 <label>Cân Nặng (kg)</label>
-                <span>55.2</span>
+                <span th:text="${healthCheckRecord.getWeight()}">55.2</span>
             </div>
 
             <div class="section-title">Ghi Chú Bổ Sung</div>
             <div class="content-group">
                 <label>Kết Quả Khác</label>
-                <span>Không có</span>
+                <span th:text="${healthCheckRecord.getOtherResult()}">Không có</span>
             </div>
             <div class="content-group">
                 <label>Đánh Giá Tổng Quan</label>

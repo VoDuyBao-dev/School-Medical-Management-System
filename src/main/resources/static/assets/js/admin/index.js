@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         datasets: [
             {
                 label: 'Khám sức khỏe',
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: healthCheckCounts,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.1)',
                 fill: true,
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 label: 'Tiêm thuốc',
-                data: [28, 48, 40, 19, 86, 27, 90],
+                data: vaccinationCounts,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.1)',
                 fill: true,
@@ -85,10 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
     new Chart(eventCtx, {
         type: 'bar',
         data: {
-            labels: eventData[0],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June',
+                'July'],
             datasets: [{
                 label: 'Ca Sự Kiện Y Tế',
-                data: eventData[1],
+                data: medicalEventCounts,
                 backgroundColor: '#2ecc71',
                 borderRadius: 5
             }]
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: { display: true, text: 'Số Ca' }
                 },
                 x: {
-                    title: { display: true, text: 'Ngày' }
+                    title: { display: false }
                 }
             },
             plugins: {
@@ -119,8 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
 function switchTab(tab) {
     const buttons = document.querySelectorAll('.tab-button');
     buttons.forEach(btn => btn.classList.remove('active'));
-    const activeButton = tab === 'week' ? buttons[0] : buttons[1];
-    activeButton.classList.add('active');
+
+    if (tab === 'thisMonth') {
+        document.getElementById('thisMonthTable').style.display = '';
+        document.getElementById('lastMonthTable').style.display = 'none';
+        buttons[0].classList.add('active');
+    } else if (tab === 'lastMonth') {
+        document.getElementById('thisMonthTable').style.display = 'none';
+        document.getElementById('lastMonthTable').style.display = '';
+        buttons[1].classList.add('active');
+    }
 
     // Có thể thêm logic để tải dữ liệu khác cho từng tab nếu cần
 }
+
+

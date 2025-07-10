@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Trường Học Khỏe Mạnh</title>
-    <link rel="stylesheet" th:href="@{/assets/css/index.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/admin/index.css}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/chart.js}"></script>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
@@ -13,9 +14,129 @@
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Manager"></div>
 
+<div class="dashboard-container">
+    <div class="dashboard-grid">
 
-<script th:src="@{/assets/js/index.js}"></script>
+        <!-- Charts Section -->
+        <div class="charts-container-top">
+            <div class="chart-card">
+                <h2>Thống Kê Khám Bệnh & Tiêm Thuốc</h2>
+                <canvas id="myChart" width="800" height="400"></canvas>
+            </div>
+        </div>
+        <!--    Quick section-->
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>Phụ huynh</h3>
+                <p th:text="${counts.parents}">1,234</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-user-md"></i>
+                <h3>Nhân Viên Y Tế</h3>
+                <p th:text="${counts.nurses}">45</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-briefcase-medical"></i>
+                <h3>Học sinh</h3>
+                <p th:text="${counts.students}">2,345</p>
+            </div>
+            <!--    </div>-->
+            <!--    <div class="stats-container">-->
+            <div class="stat-card">
+                <i class="fas fa-pills"></i>
+                <h3>Thuốc Trong Kho</h3>
+                <p th:text="${counts.medicines}">1,890</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-card">
+            <h2>Thống Kê Ca Sự Kiện Y Tế</h2>
+            <canvas id="eventStatsChart" width="800" height="400"></canvas>
+        </div>
+    </div>
+    <!-- Recent Students List -->
+    <div class="students-container">
+        <h2>Học Sinh Thêm Mới Nhất</h2>
+        <div class="tab-nav">
+            <button class="tab-button active" onclick="switchTab('thisMonth')">Tháng này</button>
+            <button class="tab-button" onclick="switchTab('lastMonth')">Tháng trước</button>
+        </div>
+        <table id="usersTable">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Lớp</th>
+                <th>Họ tên phụ huynh</th>
+
+            </tr>
+            </thead>
+            <!-- Tháng này -->
+            <tbody id="thisMonthTable">
+            <tr th:each="student, iterStat : ${studentsThisMonth}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${student.fullName}"></td>
+                <td th:text="${student.className}"></td>
+                <td th:text="${student.parent != null ? student.parent.fullName : '---'}"></td>
+                <!--                <td th:text="${student.parent != null ? student.parent.phone : '-&#45;&#45;'}"></td>-->
+            </tr>
+            <tr th:if="${#lists.isEmpty(studentsThisMonth)}">
+                <td colspan="5" style="text-align:center;">Không có dữ liệu tháng này.</td>
+            </tr>
+            </tbody>
+
+            <!-- Tháng trước -->
+            <tbody id="lastMonthTable" style="display:none;">
+            <tr th:each="student, iterStat : ${studentsLastMonth}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${student.fullName}"></td>
+                <td th:text="${student.className}"></td>
+                <td th:text="${student.parent != null ? student.parent.fullName : '---'}"></td>
+                <!--                <td th:text="${student.parent != null ? student.parent.phone : '-&#45;&#45;'}"></td>-->
+            </tr>
+            <tr th:if="${#lists.isEmpty(studentsLastMonth)}">
+                <td colspan="5" style="text-align:center;">Không có dữ liệu tháng trước.</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-eye"></i>
+                <h3>45.8k</h3>
+                <p>Lượt xem <span class="stat-change success"><br>+17.5%</span></p>
+                <div class="chart-placeholder line-chart"></div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h3>17.2k</h3>
+                <p>Hồ sơ <span class="stat-change warning"><br>+175% <</span></p>
+                <div class="chart-placeholder area-chart"></div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>5.82k</h3>
+                <p>Tài liệu <span class="stat-change danger"><br>▼ 54.1%</span></p>
+                <div class="chart-placeholder bar-chart"></div>
+            </div>
+        </div>
+        <div class="updated-at">Last Updated: <span id="updateTime">01:46 AM, 09/07/2025</span></div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let healthCheckCounts = /*[[${healthCheckCounts}]]*/ [];
+    let vaccinationCounts = /*[[${vaccinationCounts}]]*/ [];
+    let medicalEventCounts = /*[[${medicalEventCounts}]]*/ [];
+</script>
+<script th:src="@{/assets/js/admin/index.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>
+
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

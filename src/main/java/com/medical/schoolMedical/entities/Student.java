@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,5 +43,10 @@ public class Student {
 
     @Column(name = "class_name",length = 10, nullable = false)
     private String className;
+
+    @Column(name = "createAt", nullable = false)
+    @CreationTimestamp
+    private LocalDate createAt;
+
 }
 

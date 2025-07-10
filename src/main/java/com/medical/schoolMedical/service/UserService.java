@@ -123,6 +123,7 @@ public class UserService {
                 adminRepository.save(admin);
 
             }
+
         }
         catch (Exception e) {
             e.printStackTrace();

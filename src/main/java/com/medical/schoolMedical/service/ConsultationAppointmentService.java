@@ -109,7 +109,7 @@ public class ConsultationAppointmentService {
 
     //    Danh sách các lịch hẹn tư vấn đã đồng ý của phía giao diện parent
     public Page<ConsultationAppointmentDTO> getAllAppointmentAccepted_Parent(long userId,int page) {
-        int size = 1;
+        int size = 10;
         Pageable pageable = PageRequest.of(page, size,  Sort.by(Sort.Direction.DESC, "id"));
         Page<ConsultationAppointment> appointments = consultationAppointmentRepository.findAcceptedAppointmentsByParentUserId(ConsentStatus.ACCEPTED,userId, pageable);
 
