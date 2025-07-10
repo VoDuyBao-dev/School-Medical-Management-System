@@ -7,9 +7,13 @@
     <!-- CSS tuỳ chỉnh -->
     <link rel="stylesheet"
           th:href="@{/assets/css/nurse/sent-medicine-usage/sent_medicine_usage_form.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
 <div class="form-container">
     <h2 class="form-title">Ghi nhận việc cho học sinh uống thuốc</h2>
 
@@ -56,5 +60,7 @@
 
 <!-- JS -->
 <script th:src="@{/assets/js/nurse/sent-medicine-usage/sent_medicine_usage_form.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

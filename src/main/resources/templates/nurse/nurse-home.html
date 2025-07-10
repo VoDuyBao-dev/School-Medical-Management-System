@@ -8,10 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
+    <style>
+
+    </style>
 </head>
 <body>
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Nurse"></div>
+<div th:if="${create_checkSchedule}" class="create_checkSchedule">
+    <p th:text="${create_checkSchedule}"></p>
+</div>
+<div th:if="${send_parent}" class="send_parent">
+    <p th:text="${send_parent}"></p>
+</div>
+<div th:if="${error}" class="send_parent error">
+    <p th:text="${error}"></p>
+</div>
+<div th:if="${success}" class="send_parent success">
+    <p th:text="${success}"></p>
+</div>
+<div th:if="${message}" class="send_parent message">
+    <p th:text="${message}"></p>
+</div>
 <section id="home" class="hero">
     <div class="hero-content">
         <h1>Chăm Sóc Sức Khỏe Học Đường</h1>

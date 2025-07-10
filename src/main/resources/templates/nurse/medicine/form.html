@@ -5,13 +5,17 @@
   <title th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'">Form thuốc</title>
 
   <!-- FontAwesome cho icon -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}">
 
   <!-- CSS tuỳ chỉnh -->
   <link rel="stylesheet" th:href="@{/assets/css/nurse/medicine/form.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
+  <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 </head>
 <body>
-
+<div th:replace="fragments/header :: Header"></div>
+<div th:replace="fragments/header :: Nav-Nurse"></div>
+<div class="wrapper">
 <p th:if="${error}" th:text="${error}" class="error-msg"></p>
 <h2 th:text="${medicine.id == null} ? 'Thêm thuốc mới' : 'Chỉnh sửa thuốc'"></h2>
 
@@ -41,7 +45,10 @@
     </a>
   </div>
 </form>
+</div>
 <!-- JS kiểm tra -->
 <script th:src="@{/assets/js/nurse/medicine/form.js}"></script>
+<script th:src="@{/assets/js/fragments/header.js}"></script>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
