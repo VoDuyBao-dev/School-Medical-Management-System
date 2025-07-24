@@ -49,7 +49,7 @@
         <td>
             <form th:action="@{'/nurse/medical-events/delete/' + ${event.id}}" method="post"
                   onsubmit="return confirm('Bạn có chắc muốn xóa sự kiện này không?');">
-                <button type="submit">Xóa</button>
+                <button type="submit" class="erase-btn" >Xóa</button>
             </form>
         </td>
     </tr>

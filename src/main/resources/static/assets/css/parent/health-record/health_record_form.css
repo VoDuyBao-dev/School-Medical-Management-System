@@ -13,29 +13,105 @@ body {
     min-height: 100vh;
     padding: 20px;
 }
-.form-container {
-  max-width: 800px;
-    margin: 40px auto
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(255, 77, 136, 0.2);
+    width: 100%;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-in-out;
+    margin: 20px auto;
 }
 
-.text-pink {
-    color: #e91e63;
-}
-
-.shadow-sm {
-    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-}
 h3 {
-    color: #e91e63;
-}
-.btn-pink {
-    background-color: #e91e63;
-    border-color:   #e91e63;
-    color: #fff;
+    color: #ff4d88;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.btn-pink:hover,
-.btn-pink:focus {
-    background-color: #d81b60;
-    color: #fff;
+.alert-success {
+    padding: 16px;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 24px 20px;
+    border-radius: 8px;
+}
+
+.alert-success.green {
+    color: #2E7D32;
+    background: #e8f5e9;
+    border: 1px solid #4CAF50;
+}
+
+.alert-success.red {
+    color: #D32F2F;
+    background: #ffebee;
+    border: 1px solid #D32F2F;
+}
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #fb1155;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.btn-back {
+    background-color: #f1305c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+    background-color: rgba(241, 48, 92, 0.85);
+}
+.btn-back a{
+    color: white;
+    text-decoration: none;
+}
+.btn-back a:hover {
+    color: white;
+    text-decoration: none;
+}
+.btn-save {
+    background-color: #0d8f4b;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: rgb(31, 211, 116);
 }
