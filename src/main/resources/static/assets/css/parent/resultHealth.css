@@ -182,4 +182,38 @@ h3 {
     .back-button {
         width: 100%;
     }
+
+    .form-group{
+        width: 100%;
+    }
+}
+a{
+    text-decoration: none;
+    color: #ffff;
+}
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #dd0f49;
+    width: 100%;
+    font-size: 20px;
+    margin: 8px 0;
+}
+.form-group input{
+    background-color: #f8d7da;
+    color: #34495e;
+    box-shadow: 0 0 5px rgb(246, 151, 178);
+    border: 1px solid #f8d7da;
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    padding: 10px;
+    display: inline-block;  /* Cho phép xuống dòng */
+    word-wrap: break-word;  /* Tự động xuống dòng khi từ dài quá */
+    overflow-wrap: break-word;
+    white-space: normal;
 }

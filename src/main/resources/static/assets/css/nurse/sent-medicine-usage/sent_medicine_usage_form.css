@@ -66,11 +66,11 @@ button{
 }
 
 .btn-primary{
-    background:linear-gradient(to right,#e91e63,#fff0f5);
+    background:linear-gradient(to right,#d81b60,#f06292);
     color:#fff;
 }
 
-.btn-primary:hover{background:linear-gradient(to right,#d81b60,#f06292)}
+.btn-primary:hover{background:linear-gradient(to right, #b6144e, #df3069)}
 
 .btn-secondary{
     background:#999;

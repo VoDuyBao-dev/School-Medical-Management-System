@@ -100,7 +100,7 @@ td {
     gap: 15px;
 }
 
-button {
+.btn-details {
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
@@ -113,22 +113,22 @@ button {
     width: 250px;
 }
 
-button:first-child {
+.edit-btn {
     background: linear-gradient(90deg, #18c474, #00703c);
     color: #fff;
 }
 
-button:last-child {
+.back-btn {
     background: linear-gradient(90deg, #ff7182, #e62020);
     color: #fff;
 }
 
-button:hover {
+.btn-details:hover {
     transform: translateY(-3px);
     opacity: 0.95;
 }
 
-button:active {
+.btn-details:active {
     transform: translateY(0);
 }
 
@@ -142,7 +142,7 @@ button:active {
         gap: 10px;
     }
 
-    button {
+    .btn-details {
         width: 100%;
     }
 

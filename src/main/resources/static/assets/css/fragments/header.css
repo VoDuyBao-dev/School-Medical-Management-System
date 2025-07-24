@@ -257,7 +257,7 @@
 /* Dropdown User Menu (Fixed) */
 .user {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     cursor: pointer;
     padding: 5px;

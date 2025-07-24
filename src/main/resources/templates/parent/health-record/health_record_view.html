@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Xem hồ sơ sức khỏe</title>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/parent/health-record/health_record_view.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/parent/resultHealth.css}">
     <link rel="stylesheet" th:href="@{/assets/css/fragments/header.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/assets/css/fragments/footer.css}" type="text/css"/>
 
@@ -17,53 +17,52 @@
 <body>
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Parent"></div>
-<div class="container py-5">
-    <div class="record-container bg-white rounded shadow-sm p-4">
+<div class="report-container">
+    <div class="header-report-container">
+    <div class="header-report-container-brand"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h2>Hồ sơ sức khỏe của học sinh</h2>
+            <div class="form-group">
+                <label>Dị ứng:</label>
+                <input th:field="*{record.allergies}" required/>
+            </div>
+            <div class="form-group">
+                <label>Bệnh mãn tính:</label>
+                <input th:field="*{record.chronicDisease}"  required/>
+            </div>
+        <div class="form-group">
+            <label>Tiền sử điều trị:</label>
+            <input th:field="*{record.treatmentHistory}" required/>
+        </div>
+        <div  class="grid-2">
+            <div class="form-group">
+                <label>Thị lực:</label>
+                <input th:field="*{record.vision}" required/>
+            </div>
 
-        <h2 class="text-center text-uppercase fw-bold mb-4">Hồ sơ sức khỏe của học sinh</h2>
-
-        <div class="health-info-box">
-            <div class="info-row">
-                <strong>Dị ứng:</strong>
-                <div th:text="${record.allergies}" class="info-content">>Không có</div>
-            </div>
-            <div class="info-row">
-                <strong>Bệnh mãn tính:</strong>
-                <div th:text="${record.chronicDisease}" class="info-content">Không có</div>
-            </div>
-            <div class="info-row">
-                <strong>Tiền sử điều trị:</strong>
-                <div th:text="${record.treatmentHistory}" class="info-content">Không có</div>
-            </div>
-            <div class="info-row">
-                <strong>Thị lực:</strong>
-                <span th:text="${record.vision}">--</span>
-            </div>
-            <div class="info-row">
-                <strong>Thính lực:</strong>
-                <span th:text="${record.hearing}">--</span>
-            </div>
-            <div class="info-row">
-                <strong>Tiêm chủng:</strong>
-                <div th:text="${record.vaccination}" class="info-content">--</div>
-            </div>
-            <div class="info-row">
-                <strong>Thông tin khác:</strong>
-                <div th:text="${record.other_health_info}" class="info-content">--</div>
+            <div class="form-group">
+                <label>Thính lực:</label>
+                <input th:field="*{record.hearing}" required/>
             </div>
         </div>
+        <div class="form-group">
+            <label>Tiêm chủng:</label>
+            <input th:field="*{record.vaccination}" required/>
+        </div>
+        <div class="form-group">
+            <label>Thông tin khác:</label>
+            <input th:field="*{record.other_health_info}" required/>
+        </div>
 
-        <div class="d-flex justify-content-between mt-4">
-            <a th:href="@{'/parent/health-record/form/' + ${record.student.id}}" class="btn btn-pink rounded-pill">
-                <i class="fas fa-pen me-1"></i> Cập nhật hồ sơ
-            </a>
-            <a th:href="@{/parent/health-record/select-student}" class="btn btn-outline-secondary rounded-pill">
-                <i class="fas fa-arrow-left me-1"></i> Quay lại
-            </a>
+        <div class="buttons">
+            <button class="print-button"><a th:href="@{'/parent/health-record/form/' + ${record.student.id}}">
+                <i class="fas fa-pen me-1"></i> Cập nhật hồ sơ</a>
+            </button>
+            <button class="back-button"><a th:href="@{/parent/health-record/select-student}">
+                <i class="fas fa-arrow-left me-1"></i> Quay lại</a>
+            </button>
         </div>
     </div>
 </div>
-
 <!-- Custom JS -->
 <script th:src="@{/assets/js/parent/health-record/health_record_view.js}"></script>
 <script th:src="@{/assets/js/fragments/header.js}"></script>

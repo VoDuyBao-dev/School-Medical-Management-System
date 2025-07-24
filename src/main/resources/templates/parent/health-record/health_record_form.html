@@ -16,46 +16,44 @@
 <body>
 <div th:replace="fragments/header :: Header"></div>
 <div th:replace="fragments/header :: Nav-Parent"></div>
-<div class="container py-5">
-    <div class="form-container bg-white shadow-sm p-4 rounded">
+<div class="container">
 
         <!-- Tiêu đề -->
-        <h3 class="text-center text-uppercase fw-bold mb-4"
-            th:text="${record.id == null} ? 'Khai báo hồ sơ sức khỏe' : 'Cập nhật hồ sơ sức khỏe'">
+        <h3 th:text="${record.id == null} ? 'Khai báo hồ sơ sức khỏe' : 'Cập nhật hồ sơ sức khỏe'">
             Khai báo hồ sơ sức khỏe
         </h3>
 
         <!-- Thông báo lỗi -->
-        <div th:if="${error}" class="alert alert-danger text-center" th:text="${error}"></div>
+        <div th:if="${error}" class="alert-success red" th:text="${error}"></div>
 
         <!-- Form -->
         <form th:action="@{/parent/health-record/save}" th:object="${record}" method="post">
             <input type="hidden" th:field="*{id}" />
             <input type="hidden" th:field="*{student.id}" />
 
-            <div class="mb-3">
-                <label for="allergies" class="form-label fw-semibold">Dị ứng</label>
-                <input type="text" id="allergies" th:field="*{allergies}" class="form-control" required />
+            <div class="form-group">
+                <label for="allergies" >Dị ứng</label>
+                <input type="text" id="allergies" th:field="*{allergies}"  required />
             </div>
 
-            <div class="mb-3">
-                <label for="chronicDisease" class="form-label fw-semibold">Bệnh mãn tính</label>
-                <textarea id="chronicDisease" th:field="*{chronicDisease}" class="form-control" rows="2" required></textarea>
+            <div class="form-group">
+                <label for="chronicDisease" >Bệnh mãn tính</label>
+                <textarea id="chronicDisease" th:field="*{chronicDisease}" rows="2" required></textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="treatmentHistory" class="form-label fw-semibold">Tiền sử điều trị</label>
-                <textarea id="treatmentHistory" th:field="*{treatmentHistory}" class="form-control" rows="3" required></textarea>
+            <div class="form-group">
+                <label for="treatmentHistory">Tiền sử điều trị</label>
+                <textarea id="treatmentHistory" th:field="*{treatmentHistory}" rows="3" required></textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="vision" class="form-label fw-semibold">Thị lực</label>
-                <input type="number" id="vision" th:field="*{vision}" class="form-control" min="0" max="10" required />
+            <div class="form-group">
+                <label for="vision" >Thị lực</label>
+                <input type="number" id="vision" th:field="*{vision}"  min="0" max="10" required />
             </div>
 
-            <div class="mb-3">
-                <label for="hearing" class="form-label fw-semibold">Thính lực</label>
-                <select id="hearing" th:field="*{hearing}" class="form-select" required>
+            <div class="form-group">
+                <label for="hearing" >Thính lực</label>
+                <select id="hearing" th:field="*{hearing}" required>
                     <option value="">-- Chọn --</option>
                     <option value="Tốt">Tốt</option>
                     <option value="Bình thường">Bình thường</option>
@@ -63,21 +61,21 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="vaccination" class="form-label fw-semibold">Tiêm chủng</label>
-                <textarea id="vaccination" th:field="*{vaccination}" class="form-control" rows="2" required></textarea>
+            <div class="form-group">
+                <label for="vaccination" >Tiêm chủng</label>
+                <textarea id="vaccination" th:field="*{vaccination}"  rows="2" required></textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="other_health_info" class="form-label fw-semibold">Thông tin khác</label>
-                <textarea id="other_health_info" th:field="*{other_health_info}" class="form-control" rows="3"></textarea>
+            <div class="form-group">
+                <label for="other_health_info" >Thông tin khác</label>
+                <textarea id="other_health_info" th:field="*{other_health_info}" rows="3"></textarea>
             </div>
 
-            <div class="d-flex justify-content-between mt-4">
-                <a th:href="@{/parent/health-record/select-student}" class="btn btn-outline-secondary rounded-pill">
+            <div class="buttons">
+                <button class="btn-back"><a th:href="@{/parent/health-record/select-student}">
                     <i class="fas fa-arrow-left me-1"></i> Quay lại
-                </a>
-                <button type="submit" class="btn btn-pink rounded-pill">
+                </a></button>
+                <button type="submit" class="btn-save">
                     <i class="fas fa-save me-1"></i> Lưu hồ sơ
                 </button>
             </div>

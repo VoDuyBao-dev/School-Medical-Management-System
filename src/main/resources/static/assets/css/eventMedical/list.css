@@ -20,7 +20,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(255, 77, 136, 0.2);
     width: 100%;
-    max-width: 900px;
+    min-width: 900px;
     animation: fadeIn 0.5s ease-in-out;
     margin: 10px auto;
 }
@@ -59,7 +59,24 @@ h2 {
     transform: translateY(-3px);
     opacity: 0.95;
 }
-
+.erase-btn{
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #ff4d88, #e62020);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+    text-decoration: none;
+}
+.add-button:hover, .erase-btn:hover {
+    transform: translateY(-3px);
+    opacity: 0.95;
+}
 table {
     width: 100%;
     border-collapse: collapse;
